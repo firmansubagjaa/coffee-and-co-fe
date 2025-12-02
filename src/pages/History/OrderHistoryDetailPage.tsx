@@ -118,7 +118,7 @@ export const OrderHistoryDetailPage: React.FC = () => {
             <Button 
                 onClick={handleDownloadInvoice}
                 variant="outline" 
-                className="flex items-center gap-2 rounded-xl border-coffee-200 dark:border-white/10 hover:bg-coffee-50 dark:hover:bg-white/5"
+                className="flex items-center gap-2 rounded-xl border-coffee-200 dark:border-white/10 hover:bg-coffee-50 dark:hover:bg-white/5 text-coffee-900 dark:text-white hover:text-coffee-900 dark:hover:text-white"
             >
                 <Download className="w-4 h-4" />
                 Download Invoice

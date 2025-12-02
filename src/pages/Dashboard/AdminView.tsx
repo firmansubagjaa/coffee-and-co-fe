@@ -104,7 +104,7 @@ export const AdminView: React.FC = () => {
             </Select>
             <Button 
                 variant="primary" 
-                className="gap-2 shadow-lg bg-coffee-900 h-11 px-6 w-full md:w-auto"
+                className="gap-2 shadow-lg bg-yellow-400 hover:bg-yellow-500 text-coffee-900 h-11 px-6 w-full md:w-auto font-bold"
                 onClick={() => navigate('/dashboard/analytics')}
             >
                 <BrainCircuit className="w-4 h-4" /> {t('dashboard.admin.deepDive')}
