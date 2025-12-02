@@ -60,11 +60,12 @@ export const SearchDialog: React.FC = () => {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
+
       <DialogTrigger asChild>
-        <button className="flex items-center gap-2 p-2 rounded-full text-coffee-600 hover:bg-white/50 dark:hover:bg-coffee-800 hover:text-coffee-900 dark:hover:text-white transition-colors group">
-          <Search className="h-6 w-6" />
-          <span className="sr-only md:not-sr-only md:inline-block md:text-sm md:text-coffee-400 group-hover:text-coffee-600 dark:group-hover:text-coffee-300 pr-2">
-            {t('common.search')} <kbd className="hidden lg:inline-flex h-5 select-none items-center gap-1 rounded border border-coffee-200 dark:border-coffee-700 bg-white dark:bg-coffee-800 px-1.5 font-mono text-[10px] font-medium text-coffee-400 opacity-100"><span className="text-xs">⌘</span>K</kbd>
+        <button className="flex items-center gap-2 p-2 rounded-full text-coffee-700 dark:text-coffee-200 hover:bg-coffee-100 dark:hover:bg-white/10 transition-colors group">
+          <Search className="h-5 w-5" strokeWidth={2} />
+          <span className="sr-only md:not-sr-only md:inline-block md:text-sm md:text-coffee-600 dark:text-coffee-300 group-hover:text-coffee-900 dark:group-hover:text-white pr-2 font-medium">
+            {t('common.search')} <kbd className="hidden lg:inline-flex h-5 select-none items-center gap-1 rounded border border-coffee-200 dark:border-white/10 bg-white/50 dark:bg-white/5 px-1.5 font-mono text-[10px] font-medium text-coffee-500 dark:text-coffee-400 opacity-100"><span className="text-xs">⌘</span>K</kbd>
           </span>
         </button>
       </DialogTrigger>

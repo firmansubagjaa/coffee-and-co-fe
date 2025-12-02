@@ -95,30 +95,30 @@ export const Header: React.FC = () => {
 
   return (
     <>
-      <header className="sticky top-4 z-[50] w-full px-4 md:px-6 mt-4 mb-4">
+      <header className="sticky top-4 z-[50] w-full px-4 md:px-6 mt-2 mb-4">
         <motion.div 
           layout
           className={`
             mx-auto max-w-7xl
-            bg-cream-50/90 dark:bg-coffee-900/90 backdrop-blur-xl
-            border border-white/50 dark:border-coffee-800 shadow-lg shadow-coffee-900/5 dark:shadow-black/20
+            bg-white/80 dark:bg-black/90 backdrop-blur-md
+            border border-coffee-200/50 dark:border-white/10 shadow-sm dark:shadow-black/40
             md:overflow-visible overflow-hidden
             ${isMobileMenuOpen ? 'rounded-[2rem]' : 'rounded-full'}
           `}
           transition={TRANSITIONS.softSpring}
         >
-          <div className="px-5 md:px-8 h-20 flex items-center justify-between relative">
+          <div className="px-4 md:px-6 h-[72px] flex items-center justify-between relative">
             
             {/* Logo */}
-            <NavLink to="/" className="flex items-center gap-3 group mr-4 relative z-20">
+            <NavLink to="/" className="flex items-center gap-3 group mr-8 relative z-20">
                 <motion.div 
                   whileHover={{ rotate: 10, scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
-                  className="bg-coffee-900 p-2.5 rounded-full text-white shadow-md"
+                  className="text-coffee-600 dark:text-coffee-400"
                 >
-                    <Coffee className="h-5 w-5" />
+                    <Coffee className="h-6 w-6" strokeWidth={2.5} />
                 </motion.div>
-                <span className="text-xl md:text-2xl font-serif font-bold text-coffee-900 dark:text-coffee-100 tracking-tight hidden sm:block">
+                <span className="text-xl md:text-2xl font-serif font-bold text-coffee-900 dark:text-white tracking-tight hidden sm:block">
                     {APP_NAME}
                 </span>
             </NavLink>
@@ -186,7 +186,7 @@ export const Header: React.FC = () => {
             </div>
 
             {/* Actions */}
-            <div className="flex items-center gap-1 md:gap-3 relative z-20">
+            <div className="flex items-center gap-2 md:gap-4 relative z-20">
               
               <SearchDialog />
 
@@ -195,14 +195,14 @@ export const Header: React.FC = () => {
                   <NavLink
                     to="/favorites"
                     onClick={handleFavoritesClick}
-                    className={({ isActive }) => `relative p-3.5 rounded-full transition-all group hidden sm:block dark:bg-transparent bg-transparent ${isActive ? 'text-red-500 bg-red-50 dark:bg-red-900/20' : 'text-coffee-900 dark:text-white hover:bg-white/50 dark:hover:bg-coffee-800 hover:border-coffee-200 dark:hover:border-coffee-700'}`}
+                    className={({ isActive }) => `relative p-2 rounded-full transition-all group hidden sm:block ${isActive ? 'text-red-500 bg-red-50 dark:bg-red-500/10 dark:text-red-400' : 'text-coffee-700 dark:text-coffee-200 hover:bg-coffee-100 dark:hover:bg-white/10'}`}
                     aria-label="Favorites"
                   >
-                    <Heart className={`h-6 w-6 transition-transform group-hover:scale-110`} />
+                    <Heart className={`h-5 w-5 transition-transform group-hover:scale-110`} strokeWidth={2} />
                     {isAuthenticated && favoriteCount > 0 && (
                       <motion.span 
                         initial={{ scale: 0 }} animate={{ scale: 1 }}
-                        className="absolute top-2 right-2 h-2.5 w-2.5 bg-red-500 rounded-full border border-cream-50"
+                        className="absolute top-1.5 right-1.5 h-2 w-2 bg-red-500 rounded-full border border-white dark:border-coffee-900"
                       />
                     )}
                   </NavLink>
@@ -216,17 +216,17 @@ export const Header: React.FC = () => {
                 <TooltipTrigger asChild>
                   <button 
                     onClick={handleCartClick}
-                    className="relative p-3.5 text-coffee-800 dark:text-coffee-200 hover:bg-white/50 dark:hover:bg-coffee-800 rounded-full transition-all group"
+                    className="relative p-2 text-coffee-700 dark:text-coffee-200 hover:bg-coffee-100 dark:hover:bg-white/10 rounded-full transition-all group"
                     aria-label="Open cart"
                   >
-                    <ShoppingBag className="h-6 w-6 transition-transform group-hover:rotate-12" />
+                    <ShoppingBag className="h-5 w-5 transition-transform group-hover:rotate-12" strokeWidth={2} />
                     <AnimatePresence>
                       {isAuthenticated && itemCount > 0 && (
                         <motion.span 
                           initial={{ scale: 0 }} 
                           animate={{ scale: 1 }} 
                           exit={{ scale: 0 }}
-                          className="absolute top-1.5 right-1.5 h-5 w-5 bg-red-500 text-white text-[10px] flex items-center justify-center rounded-full font-bold shadow-sm border-2 border-cream-50"
+                          className="absolute top-0.5 right-0.5 h-4 w-4 bg-yellow-500 text-coffee-900 text-[10px] flex items-center justify-center rounded-full font-bold shadow-sm"
                         >
                           {itemCount}
                         </motion.span>
@@ -240,20 +240,20 @@ export const Header: React.FC = () => {
               </Tooltip>
 
               {/* Auth Button (Desktop) */}
-              <div className="hidden md:block">
+              <div className="hidden md:block ml-2">
                 {isAuthenticated && user ? (
                   <NavigationMenu>
                       <NavigationMenuList>
                         <NavigationMenuItem value="profile">
-                          <NavigationMenuTrigger className="!px-1 !bg-transparent hover:!bg-white/50 dark:hover:!bg-coffee-800">
+                          <NavigationMenuTrigger className="!px-1 !bg-transparent hover:!bg-coffee-100 dark:hover:!bg-white/10 text-coffee-900 dark:text-white">
                             <div className="flex items-center gap-2 pl-1 pr-3 py-1">
                                 <div 
-                                  className="h-8 w-8 rounded-full flex items-center justify-center text-white text-sm font-bold shadow-sm"
+                                  className="h-8 w-8 rounded-full flex items-center justify-center text-white text-sm font-bold shadow-sm ring-2 ring-white/20 dark:ring-white/10"
                                   style={{ backgroundColor: `#${user.avatarColor || '795548'}` }}
                                 >
                                   {user.name.charAt(0).toUpperCase()}
                                 </div>
-                                <span className="text-sm font-medium text-coffee-900 dark:text-coffee-100">{user.name}</span>
+                                <span className="text-sm font-medium">{user.name}</span>
                             </div>
                           </NavigationMenuTrigger>
                           <NavigationMenuContentWrapper value="profile">
@@ -336,24 +336,24 @@ export const Header: React.FC = () => {
                       </NavigationMenuList>
                   </NavigationMenu>
                 ) : (
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-3">
                     {/* Language Trigger for Non-Auth */}
                     <Button 
                       variant="ghost" 
                       size="icon" 
                       onClick={() => setIsLanguageDialogOpen(true)}
-                      className="rounded-full w-10 h-10 text-coffee-900 dark:text-white hover:bg-black/5 dark:hover:bg-white/10"
+                      className="rounded-full w-9 h-9 text-coffee-700 dark:text-coffee-200 hover:bg-coffee-100 dark:hover:bg-white/10"
                     >
-                      <Globe className="h-5 w-5" />
+                      <Globe className="h-5 w-5" strokeWidth={2} />
                     </Button>
 
                     <Button 
                       variant="primary" 
                       size="sm" 
                       onClick={() => navigate('/login')}
-                      className="rounded-full !px-6"
+                      className="rounded-full !px-6 !h-10 font-bold tracking-wide"
                     >
-                      {t('nav.signIn')}
+                      {t('nav.signIn').toUpperCase()}
                     </Button>
                   </div>
                 )}
