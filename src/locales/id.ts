@@ -1147,6 +1147,7 @@ export const id = {
     fullName: "Nama Lengkap",
     address: "Alamat Pengiriman",
     deliveryNote: "Catatan Pengiriman (Opsional)",
+    placeOrder: "Buat Pesanan",
     validation: {
       nameShort: "Nama terlalu pendek",
       mobileInvalid: "Nomor HP tidak valid",
@@ -1181,6 +1182,12 @@ export const id = {
       verifying: "Memverifikasi Pembayaran...",
       return: "Kembali ke Toko",
     },
+    steps: {
+      cart: "Keranjang",
+      details: "Detail",
+      payment: "Pembayaran",
+      review: "Tinjauan"
+    },
     footer: {
       brandDesc: "Menciptakan momen kebahagiaan, satu cangkir setiap waktu. Bergabunglah dengan kami dalam perjalanan rasa dan komunitas.",
       explore: "Jelajahi",
@@ -1197,7 +1204,6 @@ export const id = {
       rights: "Hak cipta dilindungi.",
     }
   },
-
   favorites: {
     title: 'Favorit',
     yourFavorites: 'Favorit Anda',
@@ -1259,36 +1265,4 @@ export const id = {
       exit: 'Keluar'
     }
   },
-  checkout: {
-    title: "Checkout",
-    address: "Alamat Pengiriman",
-    payment: {
-      title: "Metode Pembayaran",
-      methods: {
-        transfer: "Transfer Bank",
-        gopay: "GoPay",
-        qris: "QRIS",
-        creditCard: "Kartu Kredit"
-      },
-      instruction: {
-        simulation: "Ini adalah toko demo. Tidak ada pembayaran aktual yang akan diproses."
-      }
-    },
-    validation: {
-      nameShort: "Nama harus minimal 2 karakter",
-      mobileInvalid: "Nomor HP harus minimal 10 digit",
-      emailInvalid: "Mohon masukkan alamat email yang valid",
-      addressShort: "Alamat harus minimal 5 karakter"
-    },
-    contactInfo: "Informasi Kontak",
-    fullName: "Nama Lengkap",
-    deliveryNote: "Catatan Pengiriman (Opsional)",
-    placeOrder: "Buat Pesanan",
-    steps: {
-      cart: "Keranjang",
-      details: "Detail",
-      payment: "Pembayaran",
-      review: "Tinjauan"
-    }
-  }
 };
