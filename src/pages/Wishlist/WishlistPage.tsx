@@ -52,18 +52,21 @@ export const WishlistPage: React.FC = () => {
         <div className="flex flex-col gap-10">
             <main className="flex-1">
                  {products.length === 0 ? (
-                    <div className="flex flex-col items-center justify-center py-24 bg-coffee-50 dark:bg-coffee-900 rounded-[3rem] text-center px-6 border border-coffee-100 dark:border-coffee-800 shadow-inner">
-                        <div className="w-24 h-24 bg-white dark:bg-coffee-800 rounded-full flex items-center justify-center mb-6 shadow-lg shadow-coffee-100 dark:shadow-none">
-                            <Bookmark className="h-10 w-10 text-coffee-400 fill-coffee-100 dark:fill-coffee-900/20" />
+                    <div className="flex flex-col items-center justify-center py-32 bg-gradient-to-br from-coffee-50 to-white dark:from-coffee-900 dark:to-coffee-950 rounded-[3rem] text-center px-6 border border-coffee-100 dark:border-coffee-800 shadow-inner relative overflow-hidden">
+                        <div className="absolute inset-0 opacity-5 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
+                        <div className="relative z-10 flex flex-col items-center">
+                            <div className="w-28 h-28 bg-white dark:bg-coffee-800 rounded-full flex items-center justify-center mb-8 shadow-2xl shadow-coffee-100 dark:shadow-none animate-bounce-slow">
+                                <Bookmark className="h-12 w-12 text-coffee-400 fill-coffee-100 dark:fill-coffee-900/20" />
+                            </div>
+                            <h3 className="text-4xl font-serif font-bold text-coffee-900 dark:text-white mb-4">Your wishlist is empty</h3>
+                            <p className="text-coffee-600 dark:text-coffee-300 mb-10 max-w-md text-xl leading-relaxed">Save items you want to buy later by clicking the bookmark icon on any product.</p>
+                            <Button size="lg" onClick={() => navigate('/menu')} className="rounded-full px-10 py-6 text-lg shadow-xl hover:shadow-2xl transition-all hover:-translate-y-1">
+                                Browse Menu
+                            </Button>
                         </div>
-                        <h3 className="text-3xl font-serif font-bold text-coffee-900 dark:text-white mb-3">Your wishlist is empty</h3>
-                        <p className="text-coffee-600 dark:text-coffee-300 mb-8 max-w-md text-lg leading-relaxed">Save items you want to buy later by clicking the bookmark icon on any product.</p>
-                        <Button size="lg" onClick={() => navigate('/menu')} className="rounded-full px-8 shadow-xl hover:shadow-2xl transition-all hover:-translate-y-1">
-                            Browse Menu
-                        </Button>
                     </div>
                 ) : (
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-10">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
                         {products.map((product) => (
                             <ProductCard key={product.id} product={product} />
                         ))}

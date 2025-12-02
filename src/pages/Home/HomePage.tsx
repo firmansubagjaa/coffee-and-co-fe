@@ -103,14 +103,14 @@ export const HomePage: React.FC = () => {
                     <div className="flex items-center gap-3">
                         <button 
                             onClick={() => scroll('left')}
-                            className="p-4 rounded-full border border-coffee-200 dark:border-coffee-700 text-coffee-700 dark:text-coffee-300 hover:bg-coffee-900 hover:text-white dark:hover:bg-white dark:hover:text-coffee-900 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-coffee-400 active:scale-95 shadow-sm hover:shadow-lg"
+                            className="p-4 rounded-full border border-coffee-200 dark:border-coffee-700 bg-white/50 dark:bg-coffee-900/50 backdrop-blur-sm text-coffee-700 dark:text-coffee-300 hover:bg-coffee-900 hover:text-white dark:hover:bg-white dark:hover:text-coffee-900 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-coffee-400 active:scale-95 shadow-sm hover:shadow-lg"
                             aria-label="Scroll left"
                         >
                             <ChevronLeft className="h-6 w-6" />
                         </button>
                         <button 
                             onClick={() => scroll('right')}
-                            className="p-4 rounded-full border border-coffee-200 dark:border-coffee-700 text-coffee-700 dark:text-coffee-300 hover:bg-coffee-900 hover:text-white dark:hover:bg-white dark:hover:text-coffee-900 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-coffee-400 active:scale-95 shadow-sm hover:shadow-lg"
+                            className="p-4 rounded-full border border-coffee-200 dark:border-coffee-700 bg-white/50 dark:bg-coffee-900/50 backdrop-blur-sm text-coffee-700 dark:text-coffee-300 hover:bg-coffee-900 hover:text-white dark:hover:bg-white dark:hover:text-coffee-900 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-coffee-400 active:scale-95 shadow-sm hover:shadow-lg"
                             aria-label="Scroll right"
                         >
                             <ChevronRight className="h-6 w-6" />
@@ -184,12 +184,12 @@ export const HomePage: React.FC = () => {
                                     </svg>
                                 </div>
                                 <div>
-                                    <p className="text-sm text-coffee-500 dark:text-coffee-400 font-medium">Daily Freshness</p>
-                                    <p className="text-lg font-bold text-coffee-900 dark:text-white">Guaranteed</p>
+                                    <p className="text-sm text-coffee-500 dark:text-coffee-400 font-medium">{t('home.freshness.title')}</p>
+                                    <p className="text-lg font-bold text-coffee-900 dark:text-white">{t('home.freshness.subtitle')}</p>
                                 </div>
                             </div>
                             <p className="text-coffee-600 dark:text-coffee-300 text-sm leading-relaxed">
-                                We roast our beans in small batches every morning to ensure peak flavor.
+                                {t('home.freshness.description')}
                             </p>
                         </div>
                     </div>

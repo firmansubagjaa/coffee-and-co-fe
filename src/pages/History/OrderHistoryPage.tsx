@@ -126,7 +126,7 @@ const OrderCard: React.FC<{ order: Order }> = ({ order }) => {
         <motion.div 
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="bg-white dark:bg-coffee-900 rounded-[2.5rem] p-6 md:p-8 shadow-sm border border-coffee-100 dark:border-coffee-800 hover:shadow-xl hover:border-coffee-200 dark:hover:border-coffee-700 transition-all duration-300 relative group"
+            className="bg-white dark:bg-coffee-900 rounded-[2.5rem] p-6 md:p-8 shadow-lg border border-coffee-100 dark:border-coffee-800 hover:shadow-2xl hover:border-coffee-300 dark:hover:border-coffee-600 hover:-translate-y-1 transition-all duration-500 relative group"
         >
             {/* Close/Action Top Right */}
             <div className="absolute top-6 right-6 z-20">

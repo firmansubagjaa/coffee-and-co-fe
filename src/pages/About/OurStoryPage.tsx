@@ -91,36 +91,36 @@ export const OurStoryPage: React.FC = () => {
         {/* Values Grid */}
         <div className="grid md:grid-cols-3 gap-8 mb-24">
           <SectionFade delay={0.1}>
-            <div className="bg-coffee-900 dark:bg-coffee-800 text-cream-50 dark:text-coffee-100 p-10 rounded-[2rem] h-full flex flex-col items-center text-center">
-              <div className="w-16 h-16 bg-white/10 rounded-full flex items-center justify-center mb-6">
-                <Leaf className="w-8 h-8 text-green-400" />
+            <div className="bg-white dark:bg-coffee-800 p-10 rounded-[2rem] border border-coffee-100 dark:border-coffee-700 shadow-lg hover:shadow-xl transition-shadow h-full flex flex-col items-center text-center group">
+              <div className="w-20 h-20 bg-green-50 dark:bg-green-900/20 rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500">
+                <Leaf className="w-10 h-10 text-green-600 dark:text-green-400" />
               </div>
-              <h3 className="text-2xl font-serif font-bold mb-4">{t('about.story.values.ethicallySourced.title')}</h3>
-              <p className="text-coffee-200 dark:text-coffee-300">
+              <h3 className="text-2xl font-serif font-bold text-coffee-900 dark:text-white mb-4">{t('about.story.values.ethicallySourced.title')}</h3>
+              <p className="text-coffee-600 dark:text-coffee-300 leading-relaxed">
                 {t('about.story.values.ethicallySourced.desc')}
               </p>
             </div>
           </SectionFade>
           
           <SectionFade delay={0.2}>
-            <div className="bg-white dark:bg-coffee-900 p-10 rounded-[2rem] border border-coffee-100 dark:border-coffee-800 shadow-lg h-full flex flex-col items-center text-center">
-              <div className="w-16 h-16 bg-coffee-50 dark:bg-coffee-800 rounded-full flex items-center justify-center mb-6">
-                <Users className="w-8 h-8 text-coffee-600 dark:text-coffee-300" />
+            <div className="bg-white dark:bg-coffee-800 p-10 rounded-[2rem] border border-coffee-100 dark:border-coffee-700 shadow-lg hover:shadow-xl transition-shadow h-full flex flex-col items-center text-center group">
+              <div className="w-20 h-20 bg-coffee-50 dark:bg-coffee-700/50 rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500">
+                <Users className="w-10 h-10 text-coffee-600 dark:text-coffee-300" />
               </div>
               <h3 className="text-2xl font-serif font-bold text-coffee-900 dark:text-white mb-4">{t('about.story.values.communityFirst.title')}</h3>
-              <p className="text-coffee-600 dark:text-coffee-300">
+              <p className="text-coffee-600 dark:text-coffee-300 leading-relaxed">
                 {t('about.story.values.communityFirst.desc')}
               </p>
             </div>
           </SectionFade>
 
           <SectionFade delay={0.3}>
-            <div className="bg-yellow-400 dark:bg-yellow-600 p-10 rounded-[2rem] h-full flex flex-col items-center text-center shadow-lg">
-              <div className="w-16 h-16 bg-coffee-900/10 dark:bg-coffee-900/30 rounded-full flex items-center justify-center mb-6">
-                <Award className="w-8 h-8 text-coffee-900 dark:text-coffee-950" />
+            <div className="bg-white dark:bg-coffee-800 p-10 rounded-[2rem] border border-coffee-100 dark:border-coffee-700 shadow-lg hover:shadow-xl transition-shadow h-full flex flex-col items-center text-center group">
+              <div className="w-20 h-20 bg-yellow-50 dark:bg-yellow-900/20 rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500">
+                <Award className="w-10 h-10 text-yellow-600 dark:text-yellow-400" />
               </div>
-              <h3 className="text-2xl font-serif font-bold text-coffee-900 dark:text-coffee-950 mb-4">{t('about.story.values.masterRoasted.title')}</h3>
-              <p className="text-coffee-800 dark:text-coffee-900 font-medium">
+              <h3 className="text-2xl font-serif font-bold text-coffee-900 dark:text-white mb-4">{t('about.story.values.masterRoasted.title')}</h3>
+              <p className="text-coffee-600 dark:text-coffee-300 leading-relaxed">
                 {t('about.story.values.masterRoasted.desc')}
               </p>
             </div>

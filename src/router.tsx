@@ -31,8 +31,7 @@ import { RewardsPage } from '@/pages/Rewards/RewardsPage';
 import { WishlistPage } from '@/pages/Wishlist/WishlistPage';
 import { FavoritesPage } from '@/pages/Favorites/FavoritesPage';
 import { SettingsPage } from '@/pages/Settings/SettingsPage';
-const CartPage = lazy(() => import('@/pages/Cart/CartPage').then(module => ({ default: module.CartPage })));
-const PaymentPage = lazy(() => import('@/pages/Checkout/PaymentPage').then(module => ({ default: module.PaymentPage })));
+const CheckoutPage = lazy(() => import('@/pages/Checkout/CheckoutPage').then(module => ({ default: module.CheckoutPage })));
 const ThankYouPage = lazy(() => import('@/pages/Checkout/ThankYouPage').then(module => ({ default: module.ThankYouPage })));
 const OrderHistoryPage = lazy(() => import('@/pages/History/OrderHistoryPage').then(module => ({ default: module.OrderHistoryPage })));
 
@@ -97,11 +96,15 @@ export const router = createBrowserRouter([
       },
       {
         path: 'cart',
-        element: <ProtectedRoute><PageTransition><CartPage /></PageTransition></ProtectedRoute>,
+        element: <Navigate to="/checkout" replace />,
+      },
+      {
+        path: 'checkout',
+        element: <ProtectedRoute><PageTransition><CheckoutPage /></PageTransition></ProtectedRoute>,
       },
       {
         path: 'payment',
-        element: <ProtectedRoute><PageTransition><PaymentPage /></PageTransition></ProtectedRoute>,
+        element: <Navigate to="/checkout" replace />,
       },
       {
         path: 'thank-you',

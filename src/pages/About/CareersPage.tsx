@@ -48,7 +48,7 @@ const JobAccordion: React.FC<{ job: JobPosition }> = ({ job }) => {
   const { t } = useLanguage();
 
   return (
-    <div className="border border-coffee-200 dark:border-coffee-700 rounded-[2rem] bg-white dark:bg-coffee-900 overflow-hidden hover:border-coffee-400 dark:hover:border-coffee-500 hover:shadow-lg transition-all duration-300 group">
+    <div className="border border-coffee-100 dark:border-coffee-800 rounded-[2rem] bg-white dark:bg-coffee-900 overflow-hidden hover:border-coffee-300 dark:hover:border-coffee-600 hover:shadow-xl transition-all duration-500 group">
       <button 
         onClick={() => setIsOpen(!isOpen)}
         className="w-full flex items-center justify-between p-8 text-left focus:outline-none"

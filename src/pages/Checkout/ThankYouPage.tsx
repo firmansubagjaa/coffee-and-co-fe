@@ -168,7 +168,7 @@ export const ThankYouPage: React.FC = () => {
           <Button 
             size="lg" 
             onClick={() => navigate('/history')}
-            className="w-full md:w-auto shadow-xl hover:shadow-2xl bg-white text-coffee-900 hover:bg-cream-50"
+            className="w-full md:w-auto shadow-xl hover:shadow-2xl"
           >
             {t('thankYou.viewHistory')}
             <ArrowRight className="ml-2 w-4 h-4" />

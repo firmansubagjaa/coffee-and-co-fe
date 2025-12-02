@@ -68,7 +68,7 @@ export const Hero: React.FC = () => {
                             size="lg" 
                             variant="primary"
                             onClick={() => navigate('/menu')}
-                            className="h-14 px-8 text-lg shadow-xl hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 bg-white text-coffee-900 hover:bg-cream-100 border-none"
+                            className="h-14 px-8 text-lg shadow-xl hover:shadow-2xl hover:-translate-y-1 active:scale-95 transition-all duration-300 border-none"
                         >
                             {t('home.hero.cta')}
                         </Button>
@@ -76,7 +76,7 @@ export const Hero: React.FC = () => {
                             size="lg" 
                             variant="outline"
                             onClick={() => navigate('/about')}
-                            className="h-14 px-8 text-lg !border-white/30 !text-white hover:!bg-white/10 hover:!border-white shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 backdrop-blur-sm"
+                            className="h-14 px-8 text-lg !border-white !text-white bg-white/10 hover:!bg-white/20 hover:!border-white shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 backdrop-blur-sm"
                         >
                             {t('home.hero.storyCta')}
                         </Button>

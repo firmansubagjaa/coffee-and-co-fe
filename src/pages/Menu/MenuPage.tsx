@@ -331,56 +331,61 @@ export const MenuPage: React.FC = () => {
           </div>
         </header>
 
-        <div className="flex flex-col md:flex-row gap-10 lg:gap-16">
+        <div className="flex flex-col md:flex-row gap-8 lg:gap-12">
             
             {/* Desktop Sidebar Filters */}
-            <aside className="hidden md:block w-64 shrink-0 space-y-2 sticky top-[160px] self-start max-h-[calc(100vh-160px)] overflow-y-auto pr-2 scrollbar-thin">
-                <div className="pb-4 border-b border-coffee-200 dark:border-coffee-800 mb-2">
-                    <h3 className="font-bold text-lg text-coffee-900 dark:text-white">{t('common.filters')}</h3>
+            <aside className="hidden md:block w-64 shrink-0 space-y-6 sticky top-[160px] self-start max-h-[calc(100vh-160px)] overflow-y-auto pr-2 scrollbar-thin">
+                <div className="pb-4 border-b border-coffee-200 dark:border-coffee-800">
+                    <h3 className="font-serif font-bold text-xl text-coffee-900 dark:text-white flex items-center gap-2">
+                        <SlidersHorizontal className="h-5 w-5" />
+                        {t('common.filters')}
+                    </h3>
                 </div>
 
-                <FilterSection title={t('menu.filters.category')} isOpen>
-                    {['coffee', 'pastry', 'merch'].map(cat => (
+                <div className="space-y-6">
+                    <FilterSection title={t('menu.filters.category')} isOpen>
+                        {['coffee', 'pastry', 'merch'].map(cat => (
+                            <CheckboxFilter 
+                                key={cat}
+                                label={t(`menu.categories.${cat}` as any)}
+                                checked={selectedCategories.includes(cat)}
+                                onChange={() => toggleCategory(cat)}
+                            />
+                        ))}
+                    </FilterSection>
+
+                    <FilterSection title={t('menu.filters.price')}>
                         <CheckboxFilter 
-                            key={cat}
-                            label={t(`menu.categories.${cat}` as any)}
-                            checked={selectedCategories.includes(cat)}
-                            onChange={() => toggleCategory(cat)}
+                            label={t('menu.filters.under5')} 
+                            checked={priceRange.includes('under-5')} 
+                            onChange={() => togglePrice('under-5')} 
                         />
-                    ))}
-                </FilterSection>
+                        <CheckboxFilter 
+                            label={t('menu.filters.5to10')} 
+                            checked={priceRange.includes('5-10')} 
+                            onChange={() => togglePrice('5-10')} 
+                        />
+                    </FilterSection>
 
-                <FilterSection title={t('menu.filters.price')}>
-                    <CheckboxFilter 
-                        label={t('menu.filters.under5')} 
-                        checked={priceRange.includes('under-5')} 
-                        onChange={() => togglePrice('under-5')} 
-                    />
-                    <CheckboxFilter 
-                        label={t('menu.filters.5to10')} 
-                        checked={priceRange.includes('5-10')} 
-                        onChange={() => togglePrice('5-10')} 
-                    />
-                </FilterSection>
+                    <FilterSection title={t('menu.filters.roast')} isOpen={false}>
+                        {/* Mock Filters for visuals */}
+                        <CheckboxFilter label={t('menu.filters.light')} checked={false} onChange={() => {}} />
+                        <CheckboxFilter label={t('menu.filters.medium')} checked={false} onChange={() => {}} />
+                        <CheckboxFilter label={t('menu.filters.dark')} checked={false} onChange={() => {}} />
+                    </FilterSection>
 
-                <FilterSection title={t('menu.filters.roast')} isOpen={false}>
-                    {/* Mock Filters for visuals */}
-                    <CheckboxFilter label={t('menu.filters.light')} checked={false} onChange={() => {}} />
-                    <CheckboxFilter label={t('menu.filters.medium')} checked={false} onChange={() => {}} />
-                    <CheckboxFilter label={t('menu.filters.dark')} checked={false} onChange={() => {}} />
-                </FilterSection>
-
-                <FilterSection title={t('menu.filters.dietary')} isOpen={false}>
-                    <CheckboxFilter label={t('menu.filters.vegan')} checked={false} onChange={() => {}} />
-                    <CheckboxFilter label={t('menu.filters.glutenFree')} checked={false} onChange={() => {}} />
-                    <CheckboxFilter label={t('menu.filters.dairyFree')} checked={false} onChange={() => {}} />
-                </FilterSection>
+                    <FilterSection title={t('menu.filters.dietary')} isOpen={false}>
+                        <CheckboxFilter label={t('menu.filters.vegan')} checked={false} onChange={() => {}} />
+                        <CheckboxFilter label={t('menu.filters.glutenFree')} checked={false} onChange={() => {}} />
+                        <CheckboxFilter label={t('menu.filters.dairyFree')} checked={false} onChange={() => {}} />
+                    </FilterSection>
+                </div>
             </aside>
 
             {/* Product Grid */}
             <main className="flex-1 flex flex-col relative z-0">
                 {isLoading ? (
-                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-10 mb-12">
+                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6 mb-12">
                      {Array.from({ length: 9 }).map((_, i) => (
                        <ProductCardSkeleton key={i} />
                      ))}
@@ -404,7 +409,7 @@ export const MenuPage: React.FC = () => {
                     </div>
                 ) : (
                     <>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-4 gap-y-6 md:gap-x-6 md:gap-y-10 mb-12">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6 mb-12">
                             {currentPaginatedProducts.map((product) => (
                                 <ProductCard key={product.id} product={product} />
                             ))}

@@ -18,8 +18,8 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
   const baseStyles = "inline-flex items-center justify-center rounded-full font-medium tracking-wide transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-coffee-400 dark:focus:ring-coffee-500 focus:ring-offset-2 dark:focus:ring-offset-coffee-900 disabled:opacity-50 disabled:pointer-events-none active:scale-95 gap-2";
   
   const variants = {
-    primary: "bg-coffee-800 dark:bg-coffee-600 text-cream-50 hover:bg-coffee-900 dark:hover:bg-coffee-500 shadow-md hover:shadow-xl dark:shadow-coffee-900/20 hover:-translate-y-0.5 border border-transparent",
-    secondary: "bg-yellow-400 dark:bg-yellow-500 text-coffee-900 hover:bg-yellow-500 dark:hover:bg-yellow-400 shadow-md hover:shadow-xl hover:-translate-y-0.5 border border-transparent",
+    primary: "bg-yellow-400 dark:bg-yellow-500 text-coffee-900 hover:bg-yellow-500 dark:hover:bg-yellow-400 shadow-md hover:shadow-xl hover:-translate-y-0.5 border border-transparent",
+    secondary: "bg-coffee-800 dark:bg-coffee-600 text-cream-50 hover:bg-coffee-900 dark:hover:bg-coffee-500 shadow-md hover:shadow-xl dark:shadow-coffee-900/20 hover:-translate-y-0.5 border border-transparent",
     outline: "bg-transparent border-2 border-coffee-800 dark:border-coffee-400 text-coffee-900 dark:text-coffee-100 hover:bg-coffee-800 dark:hover:bg-coffee-400 hover:text-white dark:hover:text-coffee-900",
     ghost: "bg-transparent text-coffee-800 dark:text-coffee-300 hover:bg-coffee-100/50 dark:hover:bg-coffee-800 hover:text-coffee-900 dark:hover:text-white",
   };

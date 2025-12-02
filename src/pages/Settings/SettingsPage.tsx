@@ -128,9 +128,9 @@ export const SettingsPage: React.FC = () => {
           
           {/* Profile Card */}
           <div className="w-full lg:w-1/3">
-            <div className="bg-cream-50 dark:bg-coffee-900 rounded-[2.5rem] p-8 border border-coffee-100 dark:border-coffee-800 flex flex-col items-center text-center shadow-lg sticky top-32 overflow-hidden relative">
+            <div className="bg-cream-50 dark:bg-coffee-900 rounded-[2.5rem] p-8 border border-coffee-100 dark:border-coffee-800 flex flex-col items-center text-center shadow-2xl sticky top-32 overflow-hidden relative group">
               {/* Background Pattern */}
-              <div className="absolute inset-0 opacity-5 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] pointer-events-none"></div>
+              <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] pointer-events-none group-hover:opacity-20 transition-opacity duration-700"></div>
               
               <div className="relative z-10 w-full flex flex-col items-center">
                   <Avatar className="h-32 w-32 mb-6 border-4 border-white dark:border-coffee-800 shadow-xl ring-4 ring-coffee-50 dark:ring-coffee-800/50">

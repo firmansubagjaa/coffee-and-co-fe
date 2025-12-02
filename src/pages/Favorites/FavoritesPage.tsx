@@ -263,33 +263,36 @@ export const FavoritesPage: React.FC = () => {
             {/* Product Grid */}
             <main className="flex-1">
                  {filteredProducts.length === 0 ? (
-                    <div className="flex flex-col items-center justify-center py-24 bg-coffee-50 dark:bg-coffee-900 rounded-[3rem] text-center px-6 border border-coffee-100 dark:border-coffee-800 shadow-inner">
-                        <div className="w-24 h-24 bg-white dark:bg-coffee-800 rounded-full flex items-center justify-center mb-6 shadow-lg shadow-coffee-100 dark:shadow-none">
-                            <Heart className="h-10 w-10 text-red-400 fill-red-100 dark:fill-red-900/20" />
+                    <div className="flex flex-col items-center justify-center py-32 bg-gradient-to-br from-coffee-50 to-white dark:from-coffee-900 dark:to-coffee-950 rounded-[3rem] text-center px-6 border border-coffee-100 dark:border-coffee-800 shadow-inner relative overflow-hidden">
+                        <div className="absolute inset-0 opacity-5 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
+                        <div className="relative z-10 flex flex-col items-center">
+                            <div className="w-28 h-28 bg-white dark:bg-coffee-800 rounded-full flex items-center justify-center mb-8 shadow-2xl shadow-coffee-100 dark:shadow-none animate-bounce-slow">
+                                <Heart className="h-12 w-12 text-red-400 fill-red-100 dark:fill-red-900/20" />
+                            </div>
+                            {products.length === 0 ? (
+                                 <>
+                                    <h3 className="text-4xl font-serif font-bold text-coffee-900 dark:text-white mb-4">{t('favorites.emptyTitle')}</h3>
+                                    <p className="text-coffee-600 dark:text-coffee-300 mb-10 max-w-md text-xl leading-relaxed">{t('favorites.emptyDesc')}</p>
+                                    <Button size="lg" onClick={() => navigate('/menu')} className="rounded-full px-10 py-6 text-lg shadow-xl hover:shadow-2xl transition-all hover:-translate-y-1">
+                                        {t('favorites.startBrowsing')}
+                                    </Button>
+                                 </>
+                            ) : (
+                                 <>
+                                    <h3 className="text-3xl font-bold text-coffee-900 dark:text-white mb-4">{t('favorites.noMatchTitle')}</h3>
+                                    <p className="text-coffee-600 dark:text-coffee-300 mb-8 text-lg">{t('favorites.noMatchDesc')}</p>
+                                    <button 
+                                        onClick={() => { setSelectedCategories([]); setPriceRange([]); }}
+                                        className="text-coffee-900 dark:text-white font-bold underline decoration-2 underline-offset-4 hover:text-coffee-600 dark:hover:text-coffee-300 transition-colors text-lg"
+                                    >
+                                        {t('menu.clearFilters')}
+                                    </button>
+                                 </>
+                            )}
                         </div>
-                        {products.length === 0 ? (
-                             <>
-                                <h3 className="text-3xl font-serif font-bold text-coffee-900 dark:text-white mb-3">{t('favorites.emptyTitle')}</h3>
-                                <p className="text-coffee-600 dark:text-coffee-300 mb-8 max-w-md text-lg leading-relaxed">{t('favorites.emptyDesc')}</p>
-                                <Button size="lg" onClick={() => navigate('/menu')} className="rounded-full px-8 shadow-xl hover:shadow-2xl transition-all hover:-translate-y-1">
-                                    {t('favorites.startBrowsing')}
-                                </Button>
-                             </>
-                        ) : (
-                             <>
-                                <h3 className="text-2xl font-bold text-coffee-900 dark:text-white mb-3">{t('favorites.noMatchTitle')}</h3>
-                                <p className="text-coffee-600 dark:text-coffee-300 mb-8">{t('favorites.noMatchDesc')}</p>
-                                <button 
-                                    onClick={() => { setSelectedCategories([]); setPriceRange([]); }}
-                                    className="text-coffee-900 dark:text-white font-bold underline decoration-2 underline-offset-4 hover:text-coffee-600 dark:hover:text-coffee-300 transition-colors"
-                                >
-                                    {t('menu.clearFilters')}
-                                </button>
-                             </>
-                        )}
                     </div>
                 ) : (
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-8">
                         {filteredProducts.map((product) => (
                             <ProductCard key={product.id} product={product} />
                         ))}

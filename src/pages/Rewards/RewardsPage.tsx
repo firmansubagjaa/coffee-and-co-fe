@@ -89,7 +89,7 @@ export const RewardsPage: React.FC = () => {
                                     <span className="text-white/90">{t('rewards.tiers.nextTier', { tier: t(`rewards.tiers.${nextTier.id}`) })}</span>
                                     <span className="text-yellow-300">{t('rewards.tiers.pointsToGo', { points: pointsToNextTier })}</span>
                                 </div>
-                                <div className="w-full bg-black/30 h-5 rounded-full overflow-hidden p-1 border border-white/5">
+                                <div className="w-full bg-black/30 h-6 rounded-full overflow-hidden p-1 border border-white/5 relative">
                                     <motion.div 
                                         initial={{ width: 0 }}
                                         animate={{ width: `${progressPercent}%` }}
@@ -99,6 +99,9 @@ export const RewardsPage: React.FC = () => {
                                         <div className="absolute inset-0 bg-white/30 w-full h-full animate-[shimmer_2s_infinite] skew-x-12"></div>
                                     </motion.div>
                                 </div>
+                                <p className="text-xs text-white/60 mt-2 text-right">
+                                    {Math.round(progressPercent)}% {t('common.complete')}
+                                </p>
                             </div>
                         )}
                     </div>

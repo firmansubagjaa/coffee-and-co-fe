@@ -140,6 +140,11 @@ export const en = {
       stat1: "Organic Beans",
       stat2: "Local Farms",
       cta: "Read Our Story"
+    },
+    freshness: {
+      title: "Daily Freshness",
+      subtitle: "Guaranteed",
+      description: "We roast our beans in small batches every morning to ensure peak flavor."
     }
   },
   menu: {
@@ -770,6 +775,33 @@ export const en = {
       }
     },
     orders: {
+      title: "Order Details",
+      subtitle: "View and manage order information",
+      status: "Status",
+      items: "Items",
+      customer: "Customer",
+      timeline: "Order Timeline",
+      total: "Total Amount",
+      payment: "Payment Method",
+      date: "Order Date",
+      notes: "Notes",
+      actions: {
+        accept: "Accept Order",
+        ready: "Mark as Ready",
+        complete: "Complete Order",
+        cancel: "Cancel Order",
+        print: "Print Receipt"
+      },
+      statusLabels: {
+        pending: "Pending",
+        preparing: "Preparing",
+        ready: "Ready",
+        completed: "Completed",
+        cancelled: "Cancelled"
+      },
+      toast: {
+        statusUpdated: "Order status updated successfully"
+      },
       detail: {
         title: "Order {id}",
         subtitle: "{date} • {count} Items",
@@ -1150,11 +1182,17 @@ export const en = {
     address: "Delivery Address",
     phone: "Phone Number",
     deliveryNote: "Delivery Note (Optional)",
+    steps: {
+      cart: "Cart",
+      details: "Details",
+      payment: "Payment",
+      review: "Review"
+    },
     validation: {
-      nameShort: "Name is too short",
-      mobileInvalid: "Mobile number invalid",
-      emailInvalid: "Invalid email address",
-      addressShort: "Address is too short"
+      nameShort: "Name must be at least 2 characters",
+      mobileInvalid: "Mobile number must be at least 10 digits",
+      emailInvalid: "Please enter a valid email address",
+      addressShort: "Address must be at least 5 characters"
     },
     payment: {
       title: "Secure Payment",
@@ -1217,35 +1255,7 @@ export const en = {
     noMatchTitle: 'No favorites match filters',
     noMatchDesc: 'Try adjusting your filters to see your saved items.'
   },
-  orders: {
-    title: 'Order Details',
-    subtitle: 'View and manage order information',
-    status: 'Status',
-    items: 'Items',
-    customer: 'Customer',
-    timeline: 'Order Timeline',
-    total: 'Total Amount',
-    payment: 'Payment Method',
-    date: 'Order Date',
-    notes: 'Notes',
-    actions: {
-      accept: 'Accept Order',
-      ready: 'Mark as Ready',
-      complete: 'Complete Order',
-      cancel: 'Cancel Order',
-      print: 'Print Receipt'
-    },
-    statusLabels: {
-      pending: 'Pending',
-      preparing: 'Preparing',
-      ready: 'Ready',
-      completed: 'Completed',
-      cancelled: 'Cancelled'
-    },
-    toast: {
-      statusUpdated: 'Order status updated successfully'
-    }
-  },
+
   history: {
     title: 'Order History',
     subtitle: 'Manage your orders and preferences.',

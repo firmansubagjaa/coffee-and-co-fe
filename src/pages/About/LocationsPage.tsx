@@ -92,10 +92,10 @@ export const LocationsPage: React.FC = () => {
                  initial={{ opacity: 0, x: -20 }}
                  whileInView={{ opacity: 1, x: 0 }}
                  viewport={{ once: true }}
-                 className={`text-left p-4 rounded-[2rem] border transition-all duration-300 group relative overflow-hidden ${
+                 className={`text-left p-4 rounded-[2rem] border transition-all duration-500 group relative overflow-hidden ${
                     selectedLocation.id === loc.id 
-                    ? 'bg-coffee-900 text-white border-coffee-900 shadow-xl dark:bg-coffee-100 dark:text-coffee-900 dark:border-coffee-100 scale-[1.02]' 
-                    : 'bg-white border-coffee-100 hover:border-coffee-300 hover:shadow-lg dark:bg-coffee-900 dark:border-coffee-800 dark:hover:border-coffee-700 hover:scale-[1.01]'
+                    ? 'bg-coffee-900 text-white border-coffee-900 shadow-2xl dark:bg-coffee-100 dark:text-coffee-900 dark:border-coffee-100 scale-[1.02] z-10' 
+                    : 'bg-white border-coffee-50 hover:border-coffee-200 hover:shadow-xl dark:bg-coffee-800 dark:border-coffee-700 dark:hover:border-coffee-600 hover:-translate-y-1'
                  }`}
                >
                   <div className="flex gap-4">
