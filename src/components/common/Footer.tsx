@@ -6,28 +6,28 @@ export const Footer: React.FC = () => {
   const { t } = useLanguage();
   
   return (
-    <footer className="bg-coffee-900 text-white mt-20 pt-16 pb-8">
-      <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+    <footer className="bg-coffee-900 dark:bg-[#3C2A21] text-white mt-20 pt-20 pb-10 transition-colors duration-300">
+      <div className="container mx-auto px-4 md:px-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
           {/* Brand Column */}
           <div className="space-y-6">
-            <div className="flex items-center gap-2">
-              <div className="p-2 bg-white/10 rounded-lg">
-                <Coffee className="h-6 w-6 text-cream-100" />
+            <div className="flex items-center gap-3">
+              <div className="p-2.5 bg-white/10 rounded-xl backdrop-blur-sm">
+                <Coffee className="h-6 w-6 text-white" />
               </div>
-              <span className="text-xl font-serif font-bold tracking-wide">Coffee & Co</span>
+              <span className="text-2xl font-serif font-bold tracking-wide text-white">Coffee & Co</span>
             </div>
-            <p className="text-coffee-200 text-sm leading-relaxed">
+            <p className="text-white/60 text-sm leading-relaxed max-w-xs">
               {t('footer.brandDesc')}
             </p>
-            <div className="flex gap-4">
-              <a href="#" className="p-2 bg-white/5 rounded-full hover:bg-white/20 transition-colors text-cream-100">
+            <div className="flex gap-4 pt-2">
+              <a href="#" className="p-2.5 bg-white/5 rounded-full hover:bg-white/20 transition-colors text-white/80 hover:text-white">
                 <Instagram className="h-5 w-5" />
               </a>
-              <a href="#" className="p-2 bg-white/5 rounded-full hover:bg-white/20 transition-colors text-cream-100">
+              <a href="#" className="p-2.5 bg-white/5 rounded-full hover:bg-white/20 transition-colors text-white/80 hover:text-white">
                 <Twitter className="h-5 w-5" />
               </a>
-              <a href="#" className="p-2 bg-white/5 rounded-full hover:bg-white/20 transition-colors text-cream-100">
+              <a href="#" className="p-2.5 bg-white/5 rounded-full hover:bg-white/20 transition-colors text-white/80 hover:text-white">
                 <Facebook className="h-5 w-5" />
               </a>
             </div>
@@ -35,56 +35,56 @@ export const Footer: React.FC = () => {
 
           {/* Quick Links */}
           <div>
-            <h3 className="text-lg font-bold mb-6 text-cream-100">{t('footer.explore')}</h3>
-            <ul className="space-y-4 text-sm text-coffee-200">
-              <li><a href="#" className="hover:text-white transition-colors flex items-center gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-cream-500/50"></span>{t('footer.menu')}
+            <h3 className="text-lg font-bold mb-6 text-white">{t('footer.explore')}</h3>
+            <ul className="space-y-4 text-sm text-white/60">
+              <li><a href="#" className="hover:text-white transition-colors">
+                {t('footer.menu')}
               </a></li>
-              <li><a href="#" className="hover:text-white transition-colors flex items-center gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-cream-500/50"></span>{t('footer.offers')}
+              <li><a href="#" className="hover:text-white transition-colors">
+                {t('footer.offers')}
               </a></li>
-              <li><a href="#" className="hover:text-white transition-colors flex items-center gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-cream-500/50"></span>{t('footer.rewards')}
+              <li><a href="#" className="hover:text-white transition-colors">
+                {t('footer.rewards')}
               </a></li>
-              <li><a href="#" className="hover:text-white transition-colors flex items-center gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-cream-500/50"></span>{t('footer.locations')}
+              <li><a href="#" className="hover:text-white transition-colors">
+                {t('footer.locations')}
               </a></li>
             </ul>
           </div>
 
           {/* Company */}
           <div>
-            <h3 className="text-lg font-bold mb-6 text-cream-100">{t('footer.company')}</h3>
-            <ul className="space-y-4 text-sm text-coffee-200">
-              <li><a href="#" className="hover:text-white transition-colors flex items-center gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-cream-500/50"></span>{t('footer.about')}
+            <h3 className="text-lg font-bold mb-6 text-white">{t('footer.company')}</h3>
+            <ul className="space-y-4 text-sm text-white/60">
+              <li><a href="#" className="hover:text-white transition-colors">
+                {t('footer.about')}
               </a></li>
-              <li><a href="#" className="hover:text-white transition-colors flex items-center gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-cream-500/50"></span>{t('footer.careers')}
+              <li><a href="#" className="hover:text-white transition-colors">
+                {t('footer.careers')}
               </a></li>
-              <li><a href="#" className="hover:text-white transition-colors flex items-center gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-cream-500/50"></span>{t('footer.privacy')}
+              <li><a href="#" className="hover:text-white transition-colors">
+                {t('footer.privacy')}
               </a></li>
-              <li><a href="#" className="hover:text-white transition-colors flex items-center gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-cream-500/50"></span>{t('footer.contact')}
+              <li><a href="#" className="hover:text-white transition-colors">
+                {t('footer.contact')}
               </a></li>
             </ul>
           </div>
 
           {/* Contact Info */}
           <div>
-            <h3 className="text-lg font-bold mb-6 text-cream-100">{t('footer.stayConnected')}</h3>
-            <ul className="space-y-4 text-sm text-coffee-200">
-              <li className="flex items-start gap-3">
-                <MapPin className="h-5 w-5 text-cream-500 shrink-0" />
-                <span>Jl. Senopati No. 10, Jakarta Selatan, 12190</span>
+            <h3 className="text-lg font-bold mb-6 text-white">{t('footer.stayConnected')}</h3>
+            <ul className="space-y-5 text-sm text-white/60">
+              <li className="flex items-start gap-4">
+                <MapPin className="h-5 w-5 text-white/40 shrink-0 mt-0.5" />
+                <span className="leading-relaxed">Jl. Senopati No. 10, Jakarta Selatan, 12190</span>
               </li>
-              <li className="flex items-center gap-3">
-                <Phone className="h-5 w-5 text-cream-500 shrink-0" />
+              <li className="flex items-center gap-4">
+                <Phone className="h-5 w-5 text-white/40 shrink-0" />
                 <span>+62 21 555 0199</span>
               </li>
-              <li className="flex items-center gap-3">
-                <Mail className="h-5 w-5 text-cream-500 shrink-0" />
+              <li className="flex items-center gap-4">
+                <Mail className="h-5 w-5 text-white/40 shrink-0" />
                 <span>hello@coffeeandco.id</span>
               </li>
             </ul>
@@ -92,10 +92,10 @@ export const Footer: React.FC = () => {
         </div>
 
         <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-coffee-300 text-sm">
+          <p className="text-white/40 text-sm">
             &copy; {new Date().getFullYear()} Coffee & Co. {t('footer.rights')}
           </p>
-          <p className="text-coffee-400 text-xs">
+          <p className="text-white/40 text-xs">
             Designed with <span className="text-red-400">❤</span> in Indonesia
           </p>
         </div>
