@@ -121,119 +121,75 @@ const TimelineDot = ({ status }: { status: OrderStatusType }) => {
 
 const OrderCard: React.FC<{ order: Order }> = ({ order }) => {
     const isDelivered = order.status === 'Delivered';
+    const navigate = useNavigate();
 
     return (
         <motion.div 
-            initial={{ opacity: 0, y: 10 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="bg-white dark:bg-coffee-900 rounded-[2.5rem] p-6 md:p-8 shadow-lg border border-coffee-100 dark:border-coffee-800 hover:shadow-2xl hover:border-coffee-300 dark:hover:border-coffee-600 hover:-translate-y-1 transition-all duration-500 relative group"
+            className="relative pl-0 md:pl-8 pb-12 last:pb-0"
         >
-            {/* Close/Action Top Right */}
-            <div className="absolute top-6 right-6 z-20">
-                 <button className="text-coffee-300 dark:text-coffee-500 hover:text-coffee-900 dark:hover:text-white transition-colors p-2 rounded-full hover:bg-coffee-50 dark:hover:bg-coffee-800">
-                    <ChevronRight className="w-5 h-5" />
-                 </button>
+            {/* Desktop Timeline Stem */}
+            <div className="hidden md:block absolute left-0 top-0 bottom-0 w-px bg-coffee-200 dark:bg-coffee-800">
+                <div className={`absolute top-8 -left-1.5 w-3 h-3 rounded-full border-2 border-coffee-100 dark:border-coffee-900 ${isDelivered ? 'bg-coffee-900 dark:bg-white' : 'bg-yellow-500'}`} />
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
-                
-                {/* 1. Timeline Section (Left) - Col Span 3 */}
-                <div className="hidden lg:flex flex-col md:col-span-3 pt-2 relative">
-                    {/* Vertical Line Container */}
-                    <div className="absolute left-[5px] top-3 bottom-[calc(100%-80px)] w-0.5 bg-coffee-100 dark:bg-coffee-800 -z-0" />
-
-                    <div className="flex flex-col justify-between h-full gap-6">
-                        {order.timeline?.map((step, idx) => (
-                            <div key={idx} className="relative flex gap-4 items-start group/step">
-                                <div className="mt-1.5 flex flex-col items-center relative z-10">
-                                    <TimelineDot status={step.status} />
-                                </div>
-                                
-                                <div className={cn("transition-opacity duration-300", step.status === 'pending' ? "opacity-50" : "opacity-100")}>
-                                    <p className={cn(
-                                        "font-serif text-sm tracking-wide mb-0.5",
-                                        step.status === 'pending' ? "text-coffee-400 dark:text-coffee-500 font-normal" : "text-coffee-900 dark:text-white font-bold"
-                                    )}>{step.label}</p>
-                                    <p className="text-[10px] text-coffee-400 font-sans tracking-widest uppercase font-medium">{step.date}</p>
-                                </div>
-                            </div>
-                        ))}
+            <div 
+                onClick={() => navigate(`/orders/${order.id}`)}
+                className="bg-[#3C2A21] dark:bg-[#1E1B1A] rounded-[2.5rem] p-6 md:p-8 text-white relative overflow-hidden group cursor-pointer transition-transform hover:-translate-y-1 duration-300"
+            >
+                {/* Mobile: Top Row */}
+                <div className="flex justify-between items-start mb-6 md:mb-0 md:absolute md:right-8 md:top-8 md:text-right z-10">
+                    <div className="md:hidden">
+                        <h3 className="font-serif font-bold text-2xl tracking-tight mb-1">#{order.id}</h3>
+                        <p className="text-xs text-white/60 font-medium">{new Date(order.date).toLocaleDateString()}</p>
                     </div>
+                    <Badge variant="secondary" className={`rounded-full px-4 py-1.5 font-bold text-xs ${isDelivered ? 'bg-coffee-100 text-coffee-900' : 'bg-yellow-100 text-yellow-900'}`}>
+                        {order.status}
+                    </Badge>
                 </div>
 
-                {/* 2. Product Images (Center) - Col Span 5 */}
-                <div className="md:col-span-8 lg:col-span-5 flex flex-col justify-center">
-                     <div className="flex items-center justify-between mb-6 md:hidden">
-                         {/* Mobile Header */}
-                        <div>
-                            <h3 className="font-serif font-bold text-lg text-coffee-900 dark:text-white">{order.id}</h3>
-                            <span className="text-xs text-coffee-500 dark:text-coffee-400 font-medium">{new Date(order.date).toLocaleDateString()}</span>
-                        </div>
-                        <Badge variant={isDelivered ? "neutral" : "warning"} className="shadow-sm">
-                            {order.status}
-                        </Badge>
-                     </div>
-
-                     {/* Image Grid */}
-                     <div className="flex gap-4 items-center overflow-x-auto pb-4 md:pb-0 scrollbar-hide">
-                        {order.items.slice(0, 3).map((item, idx) => (
-                            <div key={idx} className="relative group/image shrink-0">
-                                <div className="w-20 h-24 sm:w-24 sm:h-32 md:w-28 md:h-36 rounded-2xl overflow-hidden bg-coffee-50 dark:bg-coffee-800 shadow-inner border border-coffee-100/50 dark:border-coffee-700">
-                                    <img src={item.image} alt={item.name} className="w-full h-full object-cover mix-blend-multiply dark:mix-blend-normal transform group-hover/image:scale-110 transition-transform duration-500" />
-                                </div>
-                                {/* Notification Badge for Quantity */}
-                                {item.quantity > 1 && (
-                                    <div className="absolute -top-2 -right-2 bg-coffee-900 text-white text-[10px] font-bold w-6 h-6 flex items-center justify-center rounded-full border-2 border-white dark:border-coffee-900 shadow-md">
-                                        {item.quantity}
-                                    </div>
-                                )}
-                            </div>
-                        ))}
-                        
-                        {/* Overflow Counter */}
-                        {order.items.length > 3 && (
-                            <div className="w-20 h-24 sm:w-24 sm:h-32 md:w-28 md:h-36 rounded-2xl bg-cream-50 dark:bg-coffee-800 flex flex-col items-center justify-center text-coffee-500 dark:text-coffee-300 border border-coffee-100/50 dark:border-coffee-700 hover:bg-coffee-100 dark:hover:bg-coffee-700 transition-colors cursor-pointer shrink-0 group/more">
-                                <span className="text-xl font-serif font-bold group-hover/more:scale-110 transition-transform">+{order.items.length - 3}</span>
-                                <span className="text-[10px] uppercase tracking-widest mt-1 opacity-60">Items</span>
+                <div className="flex flex-col md:flex-row md:items-center gap-6 md:gap-12">
+                    
+                    {/* Image Section */}
+                    <div className="relative w-32 h-40 md:w-48 md:h-48 shrink-0 rounded-2xl overflow-hidden bg-black/20 shadow-inner mx-auto md:mx-0">
+                        <img 
+                            src={order.items[0].image} 
+                            alt={order.items[0].name} 
+                            className="w-full h-full object-cover mix-blend-overlay opacity-90 group-hover:scale-110 transition-transform duration-700" 
+                        />
+                        {order.items.length > 1 && (
+                            <div className="absolute bottom-2 right-2 bg-black/60 backdrop-blur-sm text-white text-[10px] font-bold px-2 py-1 rounded-full">
+                                +{order.items.length - 1} more
                             </div>
                         )}
-                     </div>
-                </div>
-
-                {/* 3. Order Info & Actions (Right) - Col Span 4 */}
-                <div className="md:col-span-4 flex flex-col justify-between h-full py-2 pl-4 border-l border-coffee-50 dark:border-coffee-800/50">
-                    <div className="hidden md:block text-right">
-                        <div className="flex items-center justify-end gap-3 mb-2">
-                             <h3 className="font-serif font-bold text-2xl text-coffee-900 dark:text-white tracking-tight">{order.id}</h3>
-                             <Badge variant={isDelivered ? "neutral" : "warning"} className="px-3 py-1 rounded-full font-bold shadow-sm">
-                                {order.status}
-                             </Badge>
-                        </div>
-                        <p className="text-xs text-coffee-400 font-bold tracking-widest uppercase">{new Date(order.date).toLocaleDateString()}</p>
                     </div>
 
-                    <div className="space-y-8 md:text-right mt-6 md:mt-0">
+                    {/* Desktop: Info Section */}
+                    <div className="flex-1 text-center md:text-left space-y-4 md:space-y-2">
                         <div className="hidden md:block">
-                            <div className="flex items-center justify-end gap-2 mb-2 text-coffee-400">
-                                <MapPin className="w-3 h-3" />
-                                <p className="text-[10px] font-bold uppercase tracking-widest">Order Location</p>
-                            </div>
-                            <p className="text-sm text-coffee-700 dark:text-coffee-200 font-medium leading-relaxed max-w-[200px] md:ml-auto">
-                                {order.location}
-                            </p>
+                            <h3 className="font-serif font-bold text-3xl tracking-tight mb-1">#{order.id}</h3>
+                            <p className="text-sm text-white/60 font-medium mb-4">{new Date(order.date).toLocaleDateString()}</p>
                         </div>
 
-                         <div className="flex items-end justify-between md:justify-end md:gap-6 border-t border-coffee-50 dark:border-coffee-800 pt-6 md:border-0 md:pt-0">
-                             <div className="md:hidden">
-                                <p className="text-[10px] text-coffee-400 font-bold uppercase tracking-widest mb-1">Total</p>
-                                <p className="font-serif font-bold text-xl text-coffee-900 dark:text-white">{CURRENCY}{order.total.toFixed(2)}</p>
-                             </div>
-                             
-                             <div className="hidden md:block text-right">
-                                <p className="text-[10px] text-coffee-400 font-bold uppercase tracking-widest mb-1">Total Amount</p>
-                                <p className="font-serif font-bold text-2xl text-coffee-900 dark:text-white">{CURRENCY}{order.total.toFixed(2)}</p>
-                             </div>
+                        <div className="space-y-1">
+                            <div className="flex items-center justify-center md:justify-start gap-2 text-white/60 text-xs uppercase tracking-widest font-bold">
+                                <MapPin className="w-3 h-3" />
+                                <span>Location</span>
+                            </div>
+                            <p className="text-sm font-medium text-white/90">{order.location}</p>
                         </div>
+                    </div>
+
+                    {/* Total Section */}
+                    <div className="mt-4 md:mt-0 pt-4 md:pt-0 border-t border-white/10 md:border-0 text-center md:text-right">
+                        <p className="text-[10px] text-white/40 font-bold uppercase tracking-widest mb-1">Total Amount</p>
+                        <p className="font-serif font-bold text-3xl text-white">{CURRENCY}{order.total.toFixed(2)}</p>
+                    </div>
+
+                    {/* Arrow Icon (Desktop) */}
+                    <div className="hidden md:flex items-center justify-center w-12 h-12 rounded-full border border-white/10 text-white/40 group-hover:bg-white group-hover:text-coffee-900 transition-all duration-300">
+                        <ChevronRight className="w-5 h-5" />
                     </div>
                 </div>
             </div>

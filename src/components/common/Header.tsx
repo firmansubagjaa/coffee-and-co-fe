@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import { NavLink, useLocation, useNavigate, Link } from 'react-router-dom';
-import { ShoppingBag, Menu, X, Coffee, BookOpen, MapPin, Users, LogOut, Heart, LayoutDashboard, History, Bookmark, Settings, Globe } from 'lucide-react';
+import { ShoppingBag, Menu, X, Coffee, BookOpen, MapPin, Users, LogOut, Heart, LayoutDashboard, History, Bookmark, Settings, Globe, ChevronDown } from 'lucide-react';
 import { useCartStore } from '../../features/cart/store';
 import { useAuthStore } from '../../features/auth/store';
 import { useFavoritesStore } from '../../features/favorites/store';
@@ -40,6 +40,7 @@ import {
 
 export const Header: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
+  const [activeMobileSection, setActiveMobileSection] = useState<string | null>(null);
   const [isLanguageDialogOpen, setIsLanguageDialogOpen] = useState(false);
   const { items, toggleCart } = useCartStore();
   const { user, isAuthenticated, logout } = useAuthStore();
@@ -409,12 +410,29 @@ export const Header: React.FC = () => {
                   
                   {/* Mobile About Accordion */}
                   <div className="py-2 px-6">
-                      <span className="text-lg font-medium text-coffee-900 dark:text-coffee-100 block mb-2">{t('nav.about')}</span>
-                      <div className="pl-4 border-l-2 border-coffee-100 space-y-2">
-                          <NavLink to="/about" onClick={() => setIsMobileMenuOpen(false)} className="block py-1 text-coffee-600 dark:text-coffee-400">{t('nav.ourStory')}</NavLink>
-                          <NavLink to="/about/careers" onClick={() => setIsMobileMenuOpen(false)} className="block py-1 text-coffee-600 dark:text-coffee-400">{t('nav.careers')}</NavLink>
-                          <NavLink to="/about/locations" onClick={() => setIsMobileMenuOpen(false)} className="block py-1 text-coffee-600 dark:text-coffee-400">{t('nav.locations')}</NavLink>
-                      </div>
+                      <button 
+                        onClick={() => setActiveMobileSection(activeMobileSection === 'about' ? null : 'about')}
+                        className="flex items-center justify-between w-full text-lg font-medium text-coffee-900 dark:text-coffee-100 mb-2"
+                      >
+                        {t('nav.about')}
+                        <ChevronDown className={`h-5 w-5 transition-transform ${activeMobileSection === 'about' ? 'rotate-180' : ''}`} />
+                      </button>
+                      <AnimatePresence>
+                        {activeMobileSection === 'about' && (
+                          <motion.div
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: 'auto', opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                            className="overflow-hidden"
+                          >
+                            <div className="pl-4 border-l-2 border-coffee-100 dark:border-coffee-800 space-y-2 pb-2">
+                                <NavLink to="/about" onClick={() => setIsMobileMenuOpen(false)} className="block py-1 text-coffee-600 dark:text-coffee-400">{t('nav.ourStory')}</NavLink>
+                                <NavLink to="/about/careers" onClick={() => setIsMobileMenuOpen(false)} className="block py-1 text-coffee-600 dark:text-coffee-400">{t('nav.careers')}</NavLink>
+                                <NavLink to="/about/locations" onClick={() => setIsMobileMenuOpen(false)} className="block py-1 text-coffee-600 dark:text-coffee-400">{t('nav.locations')}</NavLink>
+                            </div>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
                   </div>
 
                   <NavLink to="/rewards" onClick={() => setIsMobileMenuOpen(false)} className="text-lg font-medium py-3 px-6 rounded-[2rem] text-coffee-600 dark:text-coffee-300 hover:bg-white/40 dark:hover:bg-coffee-800">{t('nav.rewards')}</NavLink>
@@ -433,19 +451,36 @@ export const Header: React.FC = () => {
 
                   {isAuthenticated && (
                       <div className="py-2 px-6 mt-2">
-                          <span className="text-lg font-medium text-coffee-900 dark:text-coffee-100 block mb-2">{t('nav.profile')}</span>
-                          <div className="pl-4 border-l-2 border-coffee-100 space-y-2">
-                              {['admin', 'superadmin', 'barista'].includes(user.role) && (
-                                  <NavLink to="/dashboard" onClick={() => setIsMobileMenuOpen(false)} className="block py-1 font-bold text-coffee-700 dark:text-coffee-300">
-                                      {t('common.dashboard')}
-                                  </NavLink>
-                              )}
-                              <NavLink to="/history" onClick={() => setIsMobileMenuOpen(false)} className="block py-1 text-coffee-600 dark:text-coffee-400">{t('nav.orderHistory')}</NavLink>
-                              <NavLink to="/favorites" onClick={() => setIsMobileMenuOpen(false)} className="block py-1 text-coffee-600 dark:text-coffee-400">{t('common.favorites')}</NavLink>
-                              <NavLink to="/wishlist" onClick={() => setIsMobileMenuOpen(false)} className="block py-1 text-coffee-600 dark:text-coffee-400">{t('nav.wishlist')}</NavLink>
-                              <NavLink to="/settings" onClick={() => setIsMobileMenuOpen(false)} className="block py-1 text-coffee-600 dark:text-coffee-400">{t('nav.settings')}</NavLink>
-                              <button onClick={() => { handleLogout(); setIsMobileMenuOpen(false); }} className="block py-1 text-red-500">{t('nav.signOut')}</button>
-                          </div>
+                          <button 
+                            onClick={() => setActiveMobileSection(activeMobileSection === 'profile' ? null : 'profile')}
+                            className="flex items-center justify-between w-full text-lg font-medium text-coffee-900 dark:text-coffee-100 mb-2"
+                          >
+                            {t('nav.profile')}
+                            <ChevronDown className={`h-5 w-5 transition-transform ${activeMobileSection === 'profile' ? 'rotate-180' : ''}`} />
+                          </button>
+                          <AnimatePresence>
+                            {activeMobileSection === 'profile' && (
+                              <motion.div
+                                initial={{ height: 0, opacity: 0 }}
+                                animate={{ height: 'auto', opacity: 1 }}
+                                exit={{ height: 0, opacity: 0 }}
+                                className="overflow-hidden"
+                              >
+                                <div className="pl-4 border-l-2 border-coffee-100 dark:border-coffee-800 space-y-2 pb-2">
+                                    {['admin', 'superadmin', 'barista'].includes(user.role) && (
+                                        <NavLink to="/dashboard" onClick={() => setIsMobileMenuOpen(false)} className="block py-1 font-bold text-coffee-700 dark:text-coffee-300">
+                                            {t('common.dashboard')}
+                                        </NavLink>
+                                    )}
+                                    <NavLink to="/history" onClick={() => setIsMobileMenuOpen(false)} className="block py-1 text-coffee-600 dark:text-coffee-400">{t('nav.orderHistory')}</NavLink>
+                                    <NavLink to="/favorites" onClick={() => setIsMobileMenuOpen(false)} className="block py-1 text-coffee-600 dark:text-coffee-400">{t('common.favorites')}</NavLink>
+                                    <NavLink to="/wishlist" onClick={() => setIsMobileMenuOpen(false)} className="block py-1 text-coffee-600 dark:text-coffee-400">{t('nav.wishlist')}</NavLink>
+                                    <NavLink to="/settings" onClick={() => setIsMobileMenuOpen(false)} className="block py-1 text-coffee-600 dark:text-coffee-400">{t('nav.settings')}</NavLink>
+                                    <button onClick={() => { handleLogout(); setIsMobileMenuOpen(false); }} className="block py-1 text-red-500">{t('nav.signOut')}</button>
+                                </div>
+                              </motion.div>
+                            )}
+                          </AnimatePresence>
                       </div>
                   )}
                 </nav>

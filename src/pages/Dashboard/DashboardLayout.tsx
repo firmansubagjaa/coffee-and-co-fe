@@ -384,6 +384,13 @@ export const DashboardLayout: React.FC = () => {
             <span className="font-serif font-bold text-lg tracking-tight">{t('dashboard.header.adminPortal')}</span>
         </div>
         <div className="flex items-center gap-4">
+            <button 
+                onClick={() => navigate('/')} 
+                className="p-2 text-coffee-400 hover:text-white"
+                aria-label={t('dashboard.header.viewShop')}
+            >
+                <Store className="w-5 h-5" />
+            </button>
             <ThemeToggle />
             <button onClick={() => setIsMobileMenuOpen(true)} className="p-2 text-coffee-400 hover:text-white">
                 <Menu className="w-6 h-6" />
