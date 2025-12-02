@@ -68,7 +68,7 @@ export const SearchDialog: React.FC = () => {
           </span>
         </button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[550px] p-0 overflow-hidden bg-cream-50 dark:bg-coffee-900 gap-0 border-coffee-200 dark:border-coffee-800">
+      <DialogContent className="sm:max-w-[550px] p-0 overflow-hidden bg-cream-50 dark:bg-coffee-900 gap-0 border-coffee-200 dark:border-coffee-800 top-[10%] translate-y-0">
         <DialogHeader className="px-4 py-4 border-b border-coffee-100 dark:border-coffee-800 bg-white dark:bg-coffee-900">
           <DialogTitle className="sr-only">{t('common.search')}</DialogTitle>
           <DialogDescription className="sr-only">{t('common.searchPlaceholder')}</DialogDescription>

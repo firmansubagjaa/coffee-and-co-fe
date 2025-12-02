@@ -342,13 +342,33 @@ export const id = {
       dailyBrew: "Daily Brew"
     },
     login: {
-      title: "Halo, Senang Bertemu Lagi!",
-      subtitle: "Masuk untuk nikmati rewards dan simpan menu favoritmu.",
-      submit: "Mulai Sekarang",
+      title: "Selamat Datang Kembali!",
+      subtitle: "Masuk untuk menikmati rewards dan minuman favorit Anda.",
+      emailLabel: "Alamat Email",
+      passwordLabel: "Kata Sandi",
+      submit: "Masuk",
+      submitting: "Sedang Masuk...",
+      forgotPassword: "Lupa Kata Sandi?",
+      noAccount: "Belum punya akun?",
+      register: "Daftar",
+      or: "Atau masuk dengan",
+      error: {
+        missingFields: "Mohon masukkan email dan kata sandi Anda untuk masuk.",
+        generic: "Terjadi kesalahan yang tidak terduga. Silakan coba lagi."
+      }
+    },
+    register: {
+      title: "Buat Akun",
+      subtitle: "Akses streak, favorit, dan pesanan Anda kapan saja.",
+      nameLabel: "Nama Lengkap",
+      emailLabel: "Email Anda",
+      passwordLabel: "Kata Sandi",
+      confirmPasswordLabel: "Konfirmasi Kata Sandi",
+      submit: "Mulai",
       submitting: "Membuat Akun...",
       hasAccount: "Sudah punya akun?",
       login: "Masuk",
-      or: "Atau lanjut dengan",
+      or: "Atau lanjutkan dengan",
       validation: {
         nameMin: "Nama minimal 2 karakter",
         emailRequired: "Email wajib diisi",

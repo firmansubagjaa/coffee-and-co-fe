@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useRef, useId } from 'react';
 import { useQuery } from '@tanstack/react-query';
+import { SEO } from '@/components/common/SEO';
 import { fetchProducts } from '../../services/api';
 import { ProductCard } from '../../features/products/ProductCard';
 import { ProductCardSkeleton } from '../../features/products/ProductCardSkeleton';
-import { ChevronDown, ChevronUp, SlidersHorizontal, X, Search } from 'lucide-react';
+import { ChevronDown, ChevronUp, SlidersHorizontal, X, Search, Check, Coffee } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '../../components/common/Button';
 import {
@@ -97,15 +98,13 @@ const CheckboxFilter: React.FC<CheckboxFilterProps> = ({ label, checked, onChang
   const inputId = id || generatedId;
 
   return (
-    <div className="flex items-center space-x-3">
-      <Checkbox 
-        id={inputId} 
-        checked={checked} 
-        onCheckedChange={(c) => onChange(c as boolean)} 
-      />
+    <div className="flex items-center space-x-3 group cursor-pointer" onClick={() => onChange(!checked)}>
+      <div className={`w-5 h-5 rounded-md border flex items-center justify-center transition-all duration-200 ${checked ? 'bg-coffee-900 border-coffee-900 dark:bg-coffee-100 dark:border-coffee-100' : 'border-coffee-300 dark:border-coffee-600 group-hover:border-coffee-500'}`}>
+         {checked && <Check className="w-3.5 h-3.5 text-white dark:text-coffee-900" />}
+      </div>
       <Label 
         htmlFor={inputId} 
-        className="text-sm font-normal leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-coffee-600 dark:text-coffee-300 hover:text-coffee-900 dark:hover:text-white cursor-pointer"
+        className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-coffee-600 dark:text-coffee-300 group-hover:text-coffee-900 dark:group-hover:text-white cursor-pointer transition-colors"
       >
         {label}
       </Label>
@@ -213,7 +212,11 @@ export const MenuPage: React.FC = () => {
   }, [isMobileFiltersOpen]);
 
   return (
-    <div className="min-h-screen bg-white dark:bg-coffee-950 pt-4 pb-20" ref={topRef}>
+    <div className="min-h-screen bg-cream-50 dark:bg-coffee-950 pt-6 pb-12 transition-colors duration-300" ref={topRef}>
+      <SEO 
+        title="Our Menu" 
+        description="Explore our wide selection of premium coffees, teas, and pastries. From single-origin espressos to vegan treats, find your perfect flavor match."
+      />
       <div className="container mx-auto px-4 md:px-8">
         
         {/* Breadcrumbs */}
@@ -285,29 +288,34 @@ export const MenuPage: React.FC = () => {
         </div>
 
         {/* Desktop Header */}
-        <header className="hidden md:flex flex-col gap-4 mb-8">
-          <div className="flex items-center justify-between gap-4">
-            <h1 className="text-3xl md:text-4xl font-serif font-bold text-coffee-900 dark:text-white tracking-tight">
-                {t('nav.menu')} <span className="text-lg text-coffee-400 dark:text-coffee-500 font-sans font-normal ml-2">({isLoading ? '...' : filteredProducts.length})</span>
-            </h1>
+        <header className="hidden md:flex flex-col gap-6 mb-10">
+          <div className="flex items-end justify-between gap-4 border-b border-coffee-200 dark:border-coffee-800 pb-6">
+            <div>
+                <h1 className="text-4xl md:text-5xl font-serif font-bold text-coffee-900 dark:text-white tracking-tight mb-2">
+                    {t('nav.menu')}
+                </h1>
+                <p className="text-coffee-500 dark:text-coffee-400">
+                    Showing {isLoading ? '...' : filteredProducts.length} results
+                </p>
+            </div>
 
-            <div className="flex items-center gap-3 justify-end flex-wrap">
-                <div className="relative group w-64">
-                     <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-coffee-400 group-focus-within:text-coffee-600 transition-colors pointer-events-none" />
+            <div className="flex items-center gap-4 justify-end">
+                <div className="relative group w-72">
+                     <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-coffee-400 group-focus-within:text-coffee-600 transition-colors pointer-events-none" />
                      <Input 
                         type="text" 
                         placeholder={t('common.searchPlaceholder')}
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
-                        className="pl-10 h-10 rounded-full bg-white dark:bg-coffee-800 border-coffee-200 dark:border-coffee-700 text-coffee-900 dark:text-white placeholder:text-coffee-400 dark:placeholder:text-coffee-500"
+                        className="pl-11 h-12 rounded-full bg-white dark:bg-coffee-800 border-coffee-200 dark:border-coffee-700 text-coffee-900 dark:text-white placeholder:text-coffee-400 dark:placeholder:text-coffee-500 shadow-sm focus-visible:ring-coffee-400 focus-visible:border-coffee-400 transition-all"
                      />
                 </div>
 
-                <div className="w-[180px]">
+                <div className="w-[200px]">
                     <Select value={sortBy} onValueChange={setSortBy}>
-                        <SelectTrigger className="w-full h-10 rounded-full bg-white dark:bg-coffee-800 border-coffee-200 dark:border-coffee-700">
+                        <SelectTrigger className="w-full h-12 rounded-full bg-white dark:bg-coffee-800 border-coffee-200 dark:border-coffee-700 shadow-sm">
                              <div className="flex items-center gap-2">
-                                <span className="text-coffee-500 dark:text-coffee-400">{t('common.sort')}:</span>
+                                <span className="text-coffee-500 dark:text-coffee-400 font-medium">{t('common.sort')}:</span>
                                 <SelectValue placeholder={t('common.sort')} />
                              </div>
                         </SelectTrigger>
@@ -378,14 +386,21 @@ export const MenuPage: React.FC = () => {
                      ))}
                    </div>
                 ) : filteredProducts.length === 0 ? (
-                    <div className="text-center py-20 bg-coffee-50 dark:bg-coffee-900 rounded-3xl">
-                        <p className="text-xl text-coffee-600 dark:text-coffee-300 font-serif">{t('menu.empty')}</p>
-                        <button 
+                    <div className="text-center py-32 bg-white dark:bg-coffee-900 rounded-[2.5rem] border border-coffee-100 dark:border-coffee-800 shadow-sm">
+                        <div className="w-24 h-24 bg-coffee-50 dark:bg-coffee-800 rounded-full flex items-center justify-center mx-auto mb-6">
+                            <Coffee className="w-10 h-10 text-coffee-300 dark:text-coffee-500" />
+                        </div>
+                        <h3 className="text-2xl font-serif font-bold text-coffee-900 dark:text-white mb-2">{t('menu.empty')}</h3>
+                        <p className="text-coffee-500 dark:text-coffee-400 mb-8 max-w-md mx-auto">
+                            We couldn't find any items matching your filters. Try adjusting your search or clearing filters.
+                        </p>
+                        <Button 
+                            variant="outline"
                             onClick={() => { setSelectedCategories([]); setPriceRange([]); setSearchQuery(''); }}
-                            className="mt-4 text-coffee-900 dark:text-white underline font-medium hover:text-coffee-600 dark:hover:text-coffee-300"
+                            className="min-w-[150px]"
                         >
                             {t('menu.clearFilters')}
-                        </button>
+                        </Button>
                     </div>
                 ) : (
                     <>

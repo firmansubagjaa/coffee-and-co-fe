@@ -19,6 +19,7 @@ import {
 import { cn } from '../../utils/cn';
 import { toast } from 'sonner';
 import { Order } from '@/types';
+import { SEO } from '@/components/common/SEO';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { Checkbox } from '../../components/ui/checkbox';
 import { Label } from '../../components/ui/label';
@@ -125,35 +126,35 @@ const OrderCard: React.FC<{ order: Order }> = ({ order }) => {
         <motion.div 
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="bg-white dark:bg-coffee-900 rounded-[2rem] p-5 md:p-8 shadow-[0_2px_20px_rgba(0,0,0,0.04)] border border-white dark:border-coffee-800 hover:shadow-lg transition-all duration-300 relative group"
+            className="bg-white dark:bg-coffee-900 rounded-[2.5rem] p-6 md:p-8 shadow-sm border border-coffee-100 dark:border-coffee-800 hover:shadow-xl hover:border-coffee-200 dark:hover:border-coffee-700 transition-all duration-300 relative group"
         >
             {/* Close/Action Top Right */}
-            <div className="absolute top-4 right-4 md:top-6 md:right-6 z-20">
-                 <button className="text-coffee-300 dark:text-coffee-400 hover:text-coffee-900 dark:hover:text-white transition-colors p-2 rounded-full hover:bg-coffee-50 dark:hover:bg-coffee-800">
-                    <X className="w-4 h-4" />
+            <div className="absolute top-6 right-6 z-20">
+                 <button className="text-coffee-300 dark:text-coffee-500 hover:text-coffee-900 dark:hover:text-white transition-colors p-2 rounded-full hover:bg-coffee-50 dark:hover:bg-coffee-800">
+                    <ChevronRight className="w-5 h-5" />
                  </button>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
                 
                 {/* 1. Timeline Section (Left) - Col Span 3 */}
                 <div className="hidden lg:flex flex-col md:col-span-3 pt-2 relative">
                     {/* Vertical Line Container */}
-                    <div className="absolute left-[4px] top-3 bottom-[calc(100%-75px)] w-px bg-coffee-100/80 dark:bg-coffee-800 -z-0" />
+                    <div className="absolute left-[5px] top-3 bottom-[calc(100%-80px)] w-0.5 bg-coffee-100 dark:bg-coffee-800 -z-0" />
 
-                    <div className="flex flex-col justify-between h-full gap-8">
+                    <div className="flex flex-col justify-between h-full gap-6">
                         {order.timeline?.map((step, idx) => (
-                            <div key={idx} className="relative flex gap-4 items-start">
-                                <div className="mt-1.5 flex flex-col items-center">
+                            <div key={idx} className="relative flex gap-4 items-start group/step">
+                                <div className="mt-1.5 flex flex-col items-center relative z-10">
                                     <TimelineDot status={step.status} />
                                 </div>
                                 
-                                <div>
+                                <div className={cn("transition-opacity duration-300", step.status === 'pending' ? "opacity-50" : "opacity-100")}>
                                     <p className={cn(
                                         "font-serif text-sm tracking-wide mb-0.5",
-                                        step.status === 'pending' ? "text-coffee-300 dark:text-coffee-500 font-normal" : "text-coffee-900 dark:text-white font-bold"
+                                        step.status === 'pending' ? "text-coffee-400 dark:text-coffee-500 font-normal" : "text-coffee-900 dark:text-white font-bold"
                                     )}>{step.label}</p>
-                                    <p className="text-[10px] text-coffee-400 font-sans tracking-widest uppercase">{step.date}</p>
+                                    <p className="text-[10px] text-coffee-400 font-sans tracking-widest uppercase font-medium">{step.date}</p>
                                 </div>
                             </div>
                         ))}
@@ -166,23 +167,23 @@ const OrderCard: React.FC<{ order: Order }> = ({ order }) => {
                          {/* Mobile Header */}
                         <div>
                             <h3 className="font-serif font-bold text-lg text-coffee-900 dark:text-white">{order.id}</h3>
-                            <span className="text-xs text-coffee-500 dark:text-coffee-400">{new Date(order.date).toLocaleDateString()}</span>
+                            <span className="text-xs text-coffee-500 dark:text-coffee-400 font-medium">{new Date(order.date).toLocaleDateString()}</span>
                         </div>
-                        <Badge variant={isDelivered ? "neutral" : "warning"}>
+                        <Badge variant={isDelivered ? "neutral" : "warning"} className="shadow-sm">
                             {order.status}
                         </Badge>
                      </div>
 
                      {/* Image Grid */}
-                     <div className="flex gap-4 items-center overflow-x-auto pb-2 md:pb-0 scrollbar-hide">
-                        {order.items.slice(0, 2).map((item, idx) => (
+                     <div className="flex gap-4 items-center overflow-x-auto pb-4 md:pb-0 scrollbar-hide">
+                        {order.items.slice(0, 3).map((item, idx) => (
                             <div key={idx} className="relative group/image shrink-0">
-                                <div className="w-20 h-24 sm:w-24 sm:h-32 md:w-28 md:h-36 rounded-xl overflow-hidden bg-coffee-50 dark:bg-coffee-800 shadow-sm border border-coffee-100/50 dark:border-coffee-700">
-                                    <img src={item.image} alt={item.name} className="w-full h-full object-cover mix-blend-multiply dark:mix-blend-normal" />
+                                <div className="w-20 h-24 sm:w-24 sm:h-32 md:w-28 md:h-36 rounded-2xl overflow-hidden bg-coffee-50 dark:bg-coffee-800 shadow-inner border border-coffee-100/50 dark:border-coffee-700">
+                                    <img src={item.image} alt={item.name} className="w-full h-full object-cover mix-blend-multiply dark:mix-blend-normal transform group-hover/image:scale-110 transition-transform duration-500" />
                                 </div>
                                 {/* Notification Badge for Quantity */}
                                 {item.quantity > 1 && (
-                                    <div className="absolute -top-2 -right-2 bg-coffee-800 text-white text-[10px] w-6 h-6 flex items-center justify-center rounded-full border-2 border-white shadow-sm">
+                                    <div className="absolute -top-2 -right-2 bg-coffee-900 text-white text-[10px] font-bold w-6 h-6 flex items-center justify-center rounded-full border-2 border-white dark:border-coffee-900 shadow-md">
                                         {item.quantity}
                                     </div>
                                 )}
@@ -190,43 +191,48 @@ const OrderCard: React.FC<{ order: Order }> = ({ order }) => {
                         ))}
                         
                         {/* Overflow Counter */}
-                        {order.items.length > 2 && (
-                            <div className="w-20 h-24 sm:w-24 sm:h-32 md:w-28 md:h-36 rounded-xl bg-cream-50 dark:bg-coffee-800 flex flex-col items-center justify-center text-coffee-400 dark:text-coffee-300 border border-coffee-100/50 dark:border-coffee-700 hover:bg-coffee-100/50 dark:hover:bg-coffee-700 transition-colors cursor-pointer shrink-0">
-                                <span className="text-xl font-serif font-bold">+{order.items.length - 2}</span>
+                        {order.items.length > 3 && (
+                            <div className="w-20 h-24 sm:w-24 sm:h-32 md:w-28 md:h-36 rounded-2xl bg-cream-50 dark:bg-coffee-800 flex flex-col items-center justify-center text-coffee-500 dark:text-coffee-300 border border-coffee-100/50 dark:border-coffee-700 hover:bg-coffee-100 dark:hover:bg-coffee-700 transition-colors cursor-pointer shrink-0 group/more">
+                                <span className="text-xl font-serif font-bold group-hover/more:scale-110 transition-transform">+{order.items.length - 3}</span>
+                                <span className="text-[10px] uppercase tracking-widest mt-1 opacity-60">Items</span>
                             </div>
                         )}
                      </div>
                 </div>
 
                 {/* 3. Order Info & Actions (Right) - Col Span 4 */}
-                <div className="md:col-span-4 flex flex-col justify-between h-full py-2">
+                <div className="md:col-span-4 flex flex-col justify-between h-full py-2 pl-4 border-l border-coffee-50 dark:border-coffee-800/50">
                     <div className="hidden md:block text-right">
                         <div className="flex items-center justify-end gap-3 mb-2">
-                             <h3 className="font-serif font-bold text-xl text-coffee-900 dark:text-white tracking-tight">{order.id}</h3>
-                             <Badge variant={isDelivered ? "neutral" : "warning"} className="px-3 py-1 rounded-full font-medium">
+                             <h3 className="font-serif font-bold text-2xl text-coffee-900 dark:text-white tracking-tight">{order.id}</h3>
+                             <Badge variant={isDelivered ? "neutral" : "warning"} className="px-3 py-1 rounded-full font-bold shadow-sm">
                                 {order.status}
                              </Badge>
                         </div>
-                        <p className="text-xs text-coffee-400 font-medium tracking-wide uppercase">{new Date(order.date).toLocaleDateString()}</p>
+                        <p className="text-xs text-coffee-400 font-bold tracking-widest uppercase">{new Date(order.date).toLocaleDateString()}</p>
                     </div>
 
-                    <div className="space-y-6 md:text-right mt-4 md:mt-0">
+                    <div className="space-y-8 md:text-right mt-6 md:mt-0">
                         <div className="hidden md:block">
-                            <p className="text-[10px] text-coffee-400 font-bold uppercase tracking-widest mb-1.5">Order Location</p>
+                            <div className="flex items-center justify-end gap-2 mb-2 text-coffee-400">
+                                <MapPin className="w-3 h-3" />
+                                <p className="text-[10px] font-bold uppercase tracking-widest">Order Location</p>
+                            </div>
                             <p className="text-sm text-coffee-700 dark:text-coffee-200 font-medium leading-relaxed max-w-[200px] md:ml-auto">
                                 {order.location}
                             </p>
                         </div>
 
-                         <div className="flex items-end justify-between md:justify-end md:gap-4 border-t border-coffee-50 pt-4 md:border-0 md:pt-0">
+                         <div className="flex items-end justify-between md:justify-end md:gap-6 border-t border-coffee-50 dark:border-coffee-800 pt-6 md:border-0 md:pt-0">
                              <div className="md:hidden">
                                 <p className="text-[10px] text-coffee-400 font-bold uppercase tracking-widest mb-1">Total</p>
-                                <p className="font-serif font-bold text-lg text-coffee-900 dark:text-white">{CURRENCY}{order.total.toFixed(2)}</p>
+                                <p className="font-serif font-bold text-xl text-coffee-900 dark:text-white">{CURRENCY}{order.total.toFixed(2)}</p>
                              </div>
                              
-                             <Button variant="ghost" size="sm" className="text-xs font-bold text-coffee-400 hover:text-coffee-900 dark:hover:text-white hover:bg-transparent px-0 uppercase tracking-widest underline decoration-coffee-200 dark:decoration-coffee-700 underline-offset-4">
-                                More Detail
-                             </Button>
+                             <div className="hidden md:block text-right">
+                                <p className="text-[10px] text-coffee-400 font-bold uppercase tracking-widest mb-1">Total Amount</p>
+                                <p className="font-serif font-bold text-2xl text-coffee-900 dark:text-white">{CURRENCY}{order.total.toFixed(2)}</p>
+                             </div>
                         </div>
                     </div>
                 </div>
@@ -280,7 +286,12 @@ export const OrderHistoryPage: React.FC = () => {
   }, [isMobileFiltersOpen]);
 
   return (
-    <div className="min-h-screen bg-white dark:bg-coffee-950 pt-4 pb-20">
+    <div className="min-h-screen bg-cream-50 dark:bg-coffee-950 pt-6 pb-20">
+      <SEO 
+        title="Order History" 
+        description="Track your past orders and reorder your favorites with ease. View detailed receipts and order status in your account history."
+      />
+      {/* Hero Section */}
       <div className="container mx-auto px-4 md:px-8">
         
         {/* Breadcrumbs */}
@@ -357,13 +368,13 @@ export const OrderHistoryPage: React.FC = () => {
                 
                 {/* Empty State */}
                 {filteredOrders.length === 0 && (
-                    <div className="text-center py-24 bg-coffee-50 dark:bg-coffee-900 rounded-[2rem] border border-coffee-100 dark:border-coffee-800 shadow-sm">
-                        <div className="w-20 h-20 bg-white dark:bg-coffee-800 rounded-full flex items-center justify-center mx-auto mb-6 shadow-sm">
-                            <ShoppingBag className="w-8 h-8 text-coffee-300" />
+                    <div className="text-center py-24 bg-coffee-50 dark:bg-coffee-900 rounded-[3rem] border border-coffee-100 dark:border-coffee-800 shadow-inner">
+                        <div className="w-24 h-24 bg-white dark:bg-coffee-800 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg shadow-coffee-100 dark:shadow-none">
+                            <ShoppingBag className="w-10 h-10 text-coffee-400 fill-coffee-100 dark:fill-coffee-900/20" />
                         </div>
-                        <h3 className="text-2xl font-serif font-bold text-coffee-900 dark:text-white mb-2">{t('history.empty.title')}</h3>
-                        <p className="text-coffee-500 dark:text-coffee-400 mb-8">{t('history.empty.desc')}</p>
-                        <Button onClick={() => navigate('/menu')} className="shadow-lg">
+                        <h3 className="text-3xl font-serif font-bold text-coffee-900 dark:text-white mb-3">{t('history.empty.title')}</h3>
+                        <p className="text-coffee-500 dark:text-coffee-400 mb-8 max-w-md mx-auto text-lg leading-relaxed">{t('history.empty.desc')}</p>
+                        <Button size="lg" onClick={() => navigate('/menu')} className="rounded-full px-8 shadow-xl hover:shadow-2xl transition-all hover:-translate-y-1">
                             {t('history.empty.browse')}
                         </Button>
                     </div>

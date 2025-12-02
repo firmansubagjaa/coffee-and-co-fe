@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { CheckCircle, ShoppingBag, ArrowRight, Calendar, MapPin } from 'lucide-react';
+import { CheckCircle, ShoppingBag, ArrowRight, Calendar, MapPin, Receipt, Home } from 'lucide-react';
 import { Button } from '../../components/common/Button';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { CURRENCY } from '../../utils/constants';
 import confetti from 'canvas-confetti';
+import { SEO } from '@/components/common/SEO';
 
 export const ThankYouPage: React.FC = () => {
   const navigate = useNavigate();
@@ -35,7 +36,6 @@ export const ThankYouPage: React.FC = () => {
       if (timeLeft <= 0) {
         return clearInterval(interval);
       }
-
       const particleCount = 50 * (timeLeft / duration);
       confetti({ ...defaults, particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } });
       confetti({ ...defaults, particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } });
@@ -45,99 +45,130 @@ export const ThankYouPage: React.FC = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-white dark:bg-coffee-950 pt-20 pb-10 px-4">
-      <div className="container mx-auto max-w-3xl">
+    <div className="min-h-screen bg-coffee-900 pt-6 pb-20 px-4 relative overflow-hidden">
+      <SEO 
+        title="Order Confirmed" 
+        description="Thank you for your order! We are preparing your coffee with care. Check your order status in your history."
+      />
+      
+      {/* Background Pattern */}
+      <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] pointer-events-none"></div>
+
+      <div className="container mx-auto max-w-2xl relative z-10">
         
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="text-center mb-12"
+          className="text-center mb-10"
         >
-          <div className="w-24 h-24 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center mx-auto mb-6">
+          <div className="w-24 h-24 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-6 backdrop-blur-sm border border-green-500/30">
             <motion.div
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
               transition={{ type: "spring", stiffness: 200, delay: 0.2 }}
             >
-              <CheckCircle className="w-12 h-12 text-green-600 dark:text-green-400" />
+              <CheckCircle className="w-12 h-12 text-green-400" />
             </motion.div>
           </div>
           
-          <h1 className="text-4xl md:text-5xl font-serif font-bold text-coffee-900 dark:text-white mb-4">
+          <h1 className="text-4xl md:text-5xl font-serif font-bold text-white mb-4 tracking-tight">
             {t('thankYou.title')}
           </h1>
-          <p className="text-lg text-coffee-600 dark:text-coffee-300">
+          <p className="text-lg text-coffee-200 font-medium">
             {t('thankYou.subtitle')}
           </p>
         </motion.div>
 
+        {/* Receipt Card */}
         <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          className="bg-cream-50 dark:bg-coffee-900 rounded-[2rem] p-6 md:p-8 border border-coffee-100 dark:border-coffee-800 shadow-sm mb-8"
+          initial={{ opacity: 0, y: 50, scale: 0.9 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{ type: "spring", bounce: 0.3, delay: 0.2 }}
+          className="bg-white text-coffee-900 rounded-t-3xl shadow-2xl overflow-hidden relative"
         >
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8 pb-6 border-b border-coffee-200 dark:border-coffee-700">
-            <div>
-              <p className="text-sm text-coffee-500 dark:text-coffee-400 mb-1">{t('thankYou.orderNumber')}</p>
-              <p className="text-xl font-mono font-bold text-coffee-900 dark:text-white">{order.id}</p>
+            {/* Receipt Header */}
+            <div className="bg-coffee-50 p-8 text-center border-b border-dashed border-coffee-200">
+                <p className="text-sm font-bold text-coffee-400 uppercase tracking-widest mb-2">Order Receipt</p>
+                <p className="text-3xl font-mono font-bold tracking-wider">{order.id}</p>
+                <p className="text-sm text-coffee-500 mt-2">{new Date().toLocaleString()}</p>
             </div>
-            <div className="text-left md:text-right">
-              <p className="text-sm text-coffee-500 dark:text-coffee-400 mb-1">{t('thankYou.estimatedDelivery')}</p>
-              <p className="text-lg font-medium text-coffee-900 dark:text-white flex items-center gap-2 md:justify-end">
-                <Calendar className="w-4 h-4" />
-                {new Date(Date.now() + 86400000).toLocaleDateString()}
-              </p>
-            </div>
-          </div>
 
-          <div className="mb-8">
-            <h3 className="font-bold text-coffee-900 dark:text-white mb-4 flex items-center gap-2">
-              <ShoppingBag className="w-5 h-5" />
-              {t('thankYou.items')}
-            </h3>
-            <div className="space-y-4">
-              {order.items.map((item: any) => (
-                <div key={item.id} className="flex items-center gap-4 bg-white dark:bg-coffee-800 p-3 rounded-xl">
-                  <div className="w-12 h-12 bg-gray-100 dark:bg-coffee-700 rounded-lg overflow-hidden shrink-0">
-                    <img src={item.image} alt={item.name} className="w-full h-full object-cover" />
-                  </div>
-                  <div className="flex-1">
-                    <p className="font-medium text-coffee-900 dark:text-white line-clamp-1">{item.name}</p>
-                    <p className="text-sm text-coffee-500 dark:text-coffee-400">{t('common.qty')}: {item.quantity}</p>
-                  </div>
-                  <p className="font-bold text-coffee-900 dark:text-white">{CURRENCY}{(item.price * item.quantity).toFixed(2)}</p>
+            <div className="p-8">
+                {/* Items List */}
+                <div className="space-y-4 mb-8">
+                    {order.items.map((item: any) => (
+                        <div key={item.id} className="flex justify-between items-start">
+                            <div className="flex gap-3">
+                                <span className="font-mono font-bold text-coffee-400 w-6">{item.quantity}x</span>
+                                <div>
+                                    <p className="font-bold text-coffee-900">{item.name}</p>
+                                    <p className="text-xs text-coffee-500">Regular Size</p>
+                                </div>
+                            </div>
+                            <p className="font-mono font-bold">{CURRENCY}{(item.price * item.quantity).toFixed(2)}</p>
+                        </div>
+                    ))}
                 </div>
-              ))}
-            </div>
-          </div>
 
-          <div className="flex justify-between items-center pt-4 border-t border-coffee-200 dark:border-coffee-700">
-            <div className="flex items-center gap-2 text-coffee-600 dark:text-coffee-300">
-                <MapPin className="w-4 h-4" />
-                <span className="text-sm truncate max-w-[150px] md:max-w-xs">{order.location}</span>
+                {/* Divider */}
+                <div className="border-t-2 border-dashed border-coffee-100 my-6"></div>
+
+                {/* Totals */}
+                <div className="space-y-2 mb-8">
+                    <div className="flex justify-between text-coffee-600">
+                        <span>Subtotal</span>
+                        <span className="font-mono">{CURRENCY}{order.total.toFixed(2)}</span>
+                    </div>
+                    <div className="flex justify-between text-coffee-600">
+                        <span>Tax (Included)</span>
+                        <span className="font-mono">{CURRENCY}0.00</span>
+                    </div>
+                    <div className="flex justify-between text-xl font-bold text-coffee-900 pt-4 border-t border-coffee-100 mt-4">
+                        <span>Total Paid</span>
+                        <span className="font-mono">{CURRENCY}{order.total.toFixed(2)}</span>
+                    </div>
+                </div>
+
+                {/* Delivery Info */}
+                <div className="bg-coffee-50 rounded-xl p-4 flex items-start gap-3 mb-8">
+                    <MapPin className="w-5 h-5 text-coffee-600 shrink-0 mt-0.5" />
+                    <div>
+                        <p className="font-bold text-coffee-900 text-sm mb-1">Delivery Location</p>
+                        <p className="text-sm text-coffee-600 leading-relaxed">{order.location}</p>
+                    </div>
+                </div>
+
+                {/* Barcode Mockup */}
+                <div className="flex flex-col items-center justify-center gap-2 opacity-40 mb-2">
+                    <div className="h-12 w-full max-w-[200px] bg-coffee-900" style={{ maskImage: 'repeating-linear-gradient(90deg, black, black 2px, transparent 2px, transparent 4px)' }}></div>
+                    <p className="font-mono text-xs tracking-[0.5em]">{order.id.replace('#', '')}</p>
+                </div>
             </div>
-            <div className="text-right">
-              <p className="text-sm text-coffee-500 dark:text-coffee-400">{t('thankYou.total')}</p>
-              <p className="text-2xl font-bold text-coffee-900 dark:text-white">{CURRENCY}{order.total.toFixed(2)}</p>
-            </div>
-          </div>
+
+            {/* Jagged Bottom Edge */}
+            <div className="h-4 bg-white w-full relative" style={{ 
+                backgroundImage: 'linear-gradient(45deg, transparent 75%, #1c1917 75%), linear-gradient(-45deg, transparent 75%, #1c1917 75%)',
+                backgroundSize: '20px 20px',
+                backgroundPosition: '0 0'
+            }}></div>
         </motion.div>
 
-        <div className="flex flex-col md:flex-row gap-4 justify-center">
+        {/* Action Buttons */}
+        <div className="flex flex-col md:flex-row gap-4 justify-center mt-10">
           <Button 
             variant="outline" 
             size="lg" 
             onClick={() => navigate('/menu')}
-            className="w-full md:w-auto"
+            className="w-full md:w-auto border-white/20 text-white hover:bg-white/10 hover:text-white"
           >
+            <Home className="mr-2 w-4 h-4" />
             {t('thankYou.backToMenu')}
           </Button>
           <Button 
             size="lg" 
             onClick={() => navigate('/history')}
-            className="w-full md:w-auto shadow-lg hover:shadow-xl bg-coffee-600 hover:bg-coffee-700 text-white"
+            className="w-full md:w-auto shadow-xl hover:shadow-2xl bg-white text-coffee-900 hover:bg-cream-50"
           >
             {t('thankYou.viewHistory')}
             <ArrowRight className="ml-2 w-4 h-4" />

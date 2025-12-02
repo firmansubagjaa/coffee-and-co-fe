@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { SEO } from '@/components/common/SEO';
 import { useCartStore } from '../../features/cart/store';
 import { Button } from '../../components/common/Button';
 import { CURRENCY } from '../../utils/constants';
@@ -83,7 +84,12 @@ export const CartPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white dark:bg-coffee-950 font-sans text-coffee-900 dark:text-white pb-20 pt-4">
+    <div className="min-h-screen bg-cream-50 dark:bg-coffee-950 pt-6">
+      <SEO 
+        title="Your Cart" 
+        description="Review your selected items and proceed to checkout. Your perfect coffee order is just a few clicks away."
+      />
+      {/* Hero Section */}
       
       <div className="container mx-auto px-4 md:px-8">
         

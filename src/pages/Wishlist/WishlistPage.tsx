@@ -12,13 +12,18 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "../../components/ui/Breadcrumb";
+import { SEO } from '@/components/common/SEO';
 
 export const WishlistPage: React.FC = () => {
   const navigate = useNavigate();
   const { items: products } = useWishlistStore();
 
   return (
-    <div className="min-h-screen bg-white dark:bg-coffee-950 pt-4 pb-20">
+    <div className="min-h-screen bg-cream-50 dark:bg-coffee-950 pt-6">
+      <SEO 
+        title="My Wishlist" 
+        description="Save your favorite coffee items for later. Create your dream order and keep track of products you want to try next."
+      />
       <div className="container mx-auto px-4 md:px-8">
         
         {/* Breadcrumbs */}
@@ -47,13 +52,15 @@ export const WishlistPage: React.FC = () => {
         <div className="flex flex-col gap-10">
             <main className="flex-1">
                  {products.length === 0 ? (
-                    <div className="flex flex-col items-center justify-center py-20 bg-coffee-50 dark:bg-coffee-900 rounded-3xl text-center px-4">
-                        <div className="w-16 h-16 bg-white dark:bg-coffee-800 rounded-full flex items-center justify-center mb-4 shadow-sm">
-                            <Bookmark className="h-8 w-8 text-coffee-300 dark:text-coffee-500" />
+                    <div className="flex flex-col items-center justify-center py-24 bg-coffee-50 dark:bg-coffee-900 rounded-[3rem] text-center px-6 border border-coffee-100 dark:border-coffee-800 shadow-inner">
+                        <div className="w-24 h-24 bg-white dark:bg-coffee-800 rounded-full flex items-center justify-center mb-6 shadow-lg shadow-coffee-100 dark:shadow-none">
+                            <Bookmark className="h-10 w-10 text-coffee-400 fill-coffee-100 dark:fill-coffee-900/20" />
                         </div>
-                        <h3 className="text-xl font-bold text-coffee-900 dark:text-white mb-2">Your wishlist is empty</h3>
-                        <p className="text-coffee-600 dark:text-coffee-300 mb-6 max-w-md">Save items you want to buy later by clicking the bookmark icon on any product.</p>
-                        <Button onClick={() => navigate('/menu')}>Browse Menu</Button>
+                        <h3 className="text-3xl font-serif font-bold text-coffee-900 dark:text-white mb-3">Your wishlist is empty</h3>
+                        <p className="text-coffee-600 dark:text-coffee-300 mb-8 max-w-md text-lg leading-relaxed">Save items you want to buy later by clicking the bookmark icon on any product.</p>
+                        <Button size="lg" onClick={() => navigate('/menu')} className="rounded-full px-8 shadow-xl hover:shadow-2xl transition-all hover:-translate-y-1">
+                            Browse Menu
+                        </Button>
                     </div>
                 ) : (
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-10">

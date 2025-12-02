@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Coffee, Heart, Zap, ChevronDown } from 'lucide-react';
+import { Coffee, Heart, Zap, ChevronDown, MapPin, Clock } from 'lucide-react';
 import { Button } from '../../components/common/Button';
 import { useLanguage } from '../../contexts/LanguageContext';
 
@@ -48,21 +48,20 @@ const JobAccordion: React.FC<{ job: JobPosition }> = ({ job }) => {
   const { t } = useLanguage();
 
   return (
-    <div className="border border-coffee-200 dark:border-coffee-700 rounded-2xl bg-white dark:bg-coffee-900 overflow-hidden hover:border-coffee-400 dark:hover:border-coffee-500 transition-colors">
+    <div className="border border-coffee-200 dark:border-coffee-700 rounded-[2rem] bg-white dark:bg-coffee-900 overflow-hidden hover:border-coffee-400 dark:hover:border-coffee-500 hover:shadow-lg transition-all duration-300 group">
       <button 
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full flex items-center justify-between p-6 text-left focus:outline-none"
+        className="w-full flex items-center justify-between p-8 text-left focus:outline-none"
       >
         <div>
-          <h3 className="text-xl font-bold text-coffee-900 dark:text-white">{t(job.titleKey as any)}</h3>
-          <div className="flex gap-4 text-sm text-coffee-500 dark:text-coffee-400 mt-1">
-            <span>{job.location}</span>
-            <span>•</span>
-            <span>{t(job.typeKey as any)}</span>
+          <h3 className="text-2xl font-bold text-coffee-900 dark:text-white mb-2 group-hover:text-coffee-700 dark:group-hover:text-coffee-300 transition-colors">{t(job.titleKey as any)}</h3>
+          <div className="flex gap-4 text-sm font-medium text-coffee-500 dark:text-coffee-400">
+            <span className="flex items-center gap-1.5 bg-coffee-50 dark:bg-coffee-800 px-3 py-1 rounded-full"><MapPin className="w-3.5 h-3.5" /> {job.location}</span>
+            <span className="flex items-center gap-1.5 bg-coffee-50 dark:bg-coffee-800 px-3 py-1 rounded-full"><Clock className="w-3.5 h-3.5" /> {t(job.typeKey as any)}</span>
           </div>
         </div>
-        <div className={`p-2 rounded-full bg-coffee-50 dark:bg-coffee-800 text-coffee-900 dark:text-white transition-transform ${isOpen ? 'rotate-180' : ''}`}>
-          <ChevronDown className="w-5 h-5" />
+        <div className={`p-3 rounded-full bg-coffee-50 dark:bg-coffee-800 text-coffee-900 dark:text-white transition-transform duration-300 ${isOpen ? 'rotate-180 bg-coffee-200 dark:bg-coffee-700' : 'group-hover:bg-coffee-100 dark:group-hover:bg-coffee-700'}`}>
+          <ChevronDown className="w-6 h-6" />
         </div>
       </button>
       <AnimatePresence>
@@ -72,9 +71,9 @@ const JobAccordion: React.FC<{ job: JobPosition }> = ({ job }) => {
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
           >
-            <div className="px-6 pb-6 pt-0 text-coffee-600 dark:text-coffee-300 border-t border-coffee-100 dark:border-coffee-800 mt-2 pt-4">
-              <p className="mb-6 leading-relaxed">{t(job.descKey as any)}</p>
-              <Button size="sm">{t('about.careers.openings.apply')}</Button>
+            <div className="px-8 pb-8 pt-0 text-coffee-600 dark:text-coffee-300 border-t border-coffee-100 dark:border-coffee-800 mt-2 pt-6">
+              <p className="mb-8 leading-relaxed text-lg">{t(job.descKey as any)}</p>
+              <Button size="lg" className="shadow-lg hover:shadow-xl">{t('about.careers.openings.apply')}</Button>
             </div>
           </motion.div>
         )}
@@ -83,19 +82,29 @@ const JobAccordion: React.FC<{ job: JobPosition }> = ({ job }) => {
   );
 };
 
+import { SEO } from '@/components/common/SEO';
+
 export const CareersPage: React.FC = () => {
   const { t } = useLanguage();
 
   return (
-    <div className="min-h-screen bg-white dark:bg-coffee-950">
-      {/* Hero */}
-      <section className="bg-coffee-900 text-white py-24 relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-96 h-96 bg-yellow-500/10 rounded-full blur-3xl -mr-20 -mt-20"></div>
+    <div className="min-h-screen bg-cream-50 dark:bg-coffee-950 pt-6">
+      <SEO 
+        title="Careers" 
+        description="Join the Coffee & Co family! We're looking for passionate baristas and team members. Explore current job openings and build your career with us."
+      />
+      {/* Hero Section */}
+      <section className="bg-coffee-900 text-white py-32 relative overflow-hidden">
+        <div className="absolute inset-0">
+            <img src="https://picsum.photos/id/447/1920/1080" alt="Team" className="w-full h-full object-cover opacity-20" />
+            <div className="absolute inset-0 bg-gradient-to-t from-coffee-900 via-coffee-900/80 to-transparent"></div>
+        </div>
+        <div className="absolute top-0 right-0 w-96 h-96 bg-yellow-500/10 rounded-full blur-3xl -mr-20 -mt-20 animate-pulse"></div>
         <div className="container mx-auto px-4 md:px-8 relative z-10 text-center">
           <motion.h1 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-5xl md:text-7xl font-serif font-bold mb-6"
+            className="text-6xl md:text-8xl font-serif font-bold mb-8 leading-tight"
           >
             {t('about.careers.title')}
           </motion.h1>
@@ -103,7 +112,7 @@ export const CareersPage: React.FC = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="text-xl text-coffee-200 max-w-2xl mx-auto"
+            className="text-xl md:text-2xl text-coffee-200 max-w-3xl mx-auto font-light leading-relaxed"
           >
             {t('about.careers.subtitle')}
           </motion.p>

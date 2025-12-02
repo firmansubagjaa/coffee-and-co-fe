@@ -22,6 +22,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../../components/ui/select";
+import { SEO } from '@/components/common/SEO';
 import { useLanguage } from '../../contexts/LanguageContext';
 
 // --- Reusing Filter Components (Duplicated for isolation as per KISS) ---
@@ -168,6 +169,10 @@ export const FavoritesPage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-white dark:bg-coffee-950 pt-4 pb-20">
+      <SEO 
+        title="My Favorites" 
+        description="Your personalized coffee collection. Quickly access your most-loved drinks and pastries for a faster, easier ordering experience."
+      />
       <div className="container mx-auto px-4 md:px-8">
         
         {/* Breadcrumbs */}
@@ -258,23 +263,25 @@ export const FavoritesPage: React.FC = () => {
             {/* Product Grid */}
             <main className="flex-1">
                  {filteredProducts.length === 0 ? (
-                    <div className="flex flex-col items-center justify-center py-20 bg-coffee-50 dark:bg-coffee-900 rounded-3xl text-center px-4">
-                        <div className="w-16 h-16 bg-white dark:bg-coffee-800 rounded-full flex items-center justify-center mb-4 shadow-sm">
-                            <Heart className="h-8 w-8 text-coffee-300 dark:text-coffee-500" />
+                    <div className="flex flex-col items-center justify-center py-24 bg-coffee-50 dark:bg-coffee-900 rounded-[3rem] text-center px-6 border border-coffee-100 dark:border-coffee-800 shadow-inner">
+                        <div className="w-24 h-24 bg-white dark:bg-coffee-800 rounded-full flex items-center justify-center mb-6 shadow-lg shadow-coffee-100 dark:shadow-none">
+                            <Heart className="h-10 w-10 text-red-400 fill-red-100 dark:fill-red-900/20" />
                         </div>
                         {products.length === 0 ? (
                              <>
-                                <h3 className="text-xl font-bold text-coffee-900 dark:text-white mb-2">{t('favorites.emptyTitle')}</h3>
-                                <p className="text-coffee-600 dark:text-coffee-300 mb-6 max-w-md">{t('favorites.emptyDesc')}</p>
-                                <Button onClick={() => navigate('/menu')}>{t('favorites.startBrowsing')}</Button>
+                                <h3 className="text-3xl font-serif font-bold text-coffee-900 dark:text-white mb-3">{t('favorites.emptyTitle')}</h3>
+                                <p className="text-coffee-600 dark:text-coffee-300 mb-8 max-w-md text-lg leading-relaxed">{t('favorites.emptyDesc')}</p>
+                                <Button size="lg" onClick={() => navigate('/menu')} className="rounded-full px-8 shadow-xl hover:shadow-2xl transition-all hover:-translate-y-1">
+                                    {t('favorites.startBrowsing')}
+                                </Button>
                              </>
                         ) : (
                              <>
-                                <h3 className="text-xl font-bold text-coffee-900 dark:text-white mb-2">{t('favorites.noMatchTitle')}</h3>
-                                <p className="text-coffee-600 dark:text-coffee-300 mb-6">{t('favorites.noMatchDesc')}</p>
+                                <h3 className="text-2xl font-bold text-coffee-900 dark:text-white mb-3">{t('favorites.noMatchTitle')}</h3>
+                                <p className="text-coffee-600 dark:text-coffee-300 mb-8">{t('favorites.noMatchDesc')}</p>
                                 <button 
                                     onClick={() => { setSelectedCategories([]); setPriceRange([]); }}
-                                    className="text-coffee-900 dark:text-white underline font-medium hover:text-coffee-600 dark:hover:text-coffee-300"
+                                    className="text-coffee-900 dark:text-white font-bold underline decoration-2 underline-offset-4 hover:text-coffee-600 dark:hover:text-coffee-300 transition-colors"
                                 >
                                     {t('menu.clearFilters')}
                                 </button>
@@ -282,7 +289,7 @@ export const FavoritesPage: React.FC = () => {
                         )}
                     </div>
                 ) : (
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-10">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12">
                         {filteredProducts.map((product) => (
                             <ProductCard key={product.id} product={product} />
                         ))}

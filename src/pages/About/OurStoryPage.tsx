@@ -4,6 +4,7 @@ import { Leaf, Users, Award } from 'lucide-react';
 import { Button } from '../../components/common/Button';
 import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '../../contexts/LanguageContext';
+import { SEO } from '@/components/common/SEO';
 
 const SectionFade: React.FC<{ children: React.ReactNode; delay?: number }> = ({ children, delay = 0 }) => (
   <motion.div
@@ -21,21 +22,29 @@ export const OurStoryPage: React.FC = () => {
   const { t } = useLanguage();
 
   return (
-    <div className="bg-cream-50 dark:bg-coffee-950 min-h-screen pb-20">
+    <div className="min-h-screen bg-cream-50 dark:bg-coffee-950 pt-6">
+      <SEO 
+        title="Our Story" 
+        description="Discover the passion behind Coffee & Co. From humble beginnings to a community-driven coffee haven, read our journey of flavor and dedication."
+      />
       {/* Hero Section */}
-      <section className="relative h-[60vh] min-h-[500px] overflow-hidden flex items-center justify-center">
+      <section className="relative h-[70vh] min-h-[600px] overflow-hidden flex items-center justify-center group">
         <div className="absolute inset-0">
-          <img 
+          <motion.img 
+            initial={{ scale: 1.1 }}
+            animate={{ scale: 1 }}
+            transition={{ duration: 10, repeat: Infinity, repeatType: "reverse" }}
             src="https://picsum.photos/id/425/1920/1080" 
             alt="Coffee Roasting" 
             className="w-full h-full object-cover filter brightness-50"
           />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/60"></div>
         </div>
-        <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
+        <div className="relative z-10 text-center px-4 max-w-5xl mx-auto">
           <motion.span 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="inline-block py-1 px-4 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-cream-50 text-sm font-bold tracking-widest uppercase mb-6"
+            className="inline-block py-2 px-6 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-cream-50 text-sm font-bold tracking-[0.2em] uppercase mb-8 shadow-lg"
           >
             {t('about.story.est')}
           </motion.span>
@@ -43,7 +52,7 @@ export const OurStoryPage: React.FC = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="text-5xl md:text-7xl font-serif font-bold text-white mb-6 leading-tight"
+            className="text-6xl md:text-8xl font-serif font-bold text-white mb-8 leading-tight drop-shadow-2xl"
           >
             {t('about.story.title').split('\n').map((line, i) => (
               <React.Fragment key={i}>
@@ -56,7 +65,7 @@ export const OurStoryPage: React.FC = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="text-xl text-coffee-100 max-w-2xl mx-auto leading-relaxed"
+            className="text-xl md:text-2xl text-coffee-100 max-w-3xl mx-auto leading-relaxed font-light"
           >
             {t('about.story.subtitle')}
           </motion.p>

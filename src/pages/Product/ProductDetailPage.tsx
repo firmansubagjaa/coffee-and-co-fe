@@ -13,6 +13,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ProductCard } from '../../features/products/ProductCard';
 import { ImageZoom } from '../../components/ui/ImageZoom';
 import { ReviewSection } from '../../features/reviews/ReviewSection';
+import { SEO } from '@/components/common/SEO';
 import {
   Breadcrumb,
   BreadcrumbItem,

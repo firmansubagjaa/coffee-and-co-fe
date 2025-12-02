@@ -12,6 +12,8 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { cn } from '../../utils/cn';
 import { useLanguage } from '../../contexts/LanguageContext';
 
+import { SEO } from '@/components/common/SEO';
+
 export const RegisterPage: React.FC = () => {
   const navigate = useNavigate();
   const registerAction = useAuthStore((state) => state.register);
@@ -64,6 +66,10 @@ export const RegisterPage: React.FC = () => {
       title={t('auth.register.title')}
       subtitle={t('auth.register.subtitle')}
     >
+      <SEO 
+        title="Create Account" 
+        description="Join Coffee & Co today. Create an account to start earning rewards, saving your favorites, and enjoying a personalized coffee experience."
+      />
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
         
         {/* Name Field */}

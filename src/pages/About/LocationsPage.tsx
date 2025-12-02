@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { MapPin, Clock, Phone } from 'lucide-react';
 import { Button } from '../../components/common/Button';
 import { useLanguage } from '../../contexts/LanguageContext';
+import { SEO } from '@/components/common/SEO';
 
 interface Location {
   id: string;
@@ -53,8 +54,12 @@ export const LocationsPage: React.FC = () => {
   const { t } = useLanguage();
 
   return (
-    <div className="min-h-screen bg-white dark:bg-coffee-950">
-      {/* Header */}
+    <div className="min-h-screen bg-cream-50 dark:bg-coffee-950 pt-6">
+      <SEO 
+        title="Locations" 
+        description="Find a Coffee & Co near you. Visit our cozy cafes for the perfect cup of coffee, free Wi-Fi, and a welcoming atmosphere in your neighborhood."
+      />
+      {/* Hero Section */}
       <div className="bg-coffee-50 dark:bg-coffee-900 py-16 md:py-24">
         <div className="container mx-auto px-4 md:px-8 text-center">
           <motion.h1 
@@ -87,28 +92,31 @@ export const LocationsPage: React.FC = () => {
                  initial={{ opacity: 0, x: -20 }}
                  whileInView={{ opacity: 1, x: 0 }}
                  viewport={{ once: true }}
-                 className={`text-left p-6 rounded-3xl border transition-all duration-300 group ${
+                 className={`text-left p-4 rounded-[2rem] border transition-all duration-300 group relative overflow-hidden ${
                     selectedLocation.id === loc.id 
-                    ? 'bg-coffee-900 text-white border-coffee-900 shadow-lg dark:bg-coffee-100 dark:text-coffee-900 dark:border-coffee-100' 
-                    : 'bg-white border-coffee-100 hover:border-coffee-300 hover:shadow-md dark:bg-coffee-900 dark:border-coffee-800 dark:hover:border-coffee-700'
+                    ? 'bg-coffee-900 text-white border-coffee-900 shadow-xl dark:bg-coffee-100 dark:text-coffee-900 dark:border-coffee-100 scale-[1.02]' 
+                    : 'bg-white border-coffee-100 hover:border-coffee-300 hover:shadow-lg dark:bg-coffee-900 dark:border-coffee-800 dark:hover:border-coffee-700 hover:scale-[1.01]'
                  }`}
                >
-                  <div className="flex justify-between items-start mb-2">
-                    <h3 className="font-bold text-xl">{t(loc.nameKey as any)}</h3>
-                    {selectedLocation.id === loc.id && <MapPin className="w-5 h-5 text-yellow-400 dark:text-yellow-600" />}
-                  </div>
-                  <p className={`text-sm mb-4 leading-relaxed ${selectedLocation.id === loc.id ? 'text-coffee-200 dark:text-coffee-600' : 'text-coffee-600 dark:text-coffee-300'}`}>
-                    {t(loc.addressKey as any)}
-                  </p>
-                  <div className={`flex flex-col gap-2 text-sm ${selectedLocation.id === loc.id ? 'text-coffee-300 dark:text-coffee-500' : 'text-coffee-500 dark:text-coffee-400'}`}>
-                     <div className="flex items-center gap-2">
-                        <Clock className="w-4 h-4" />
-                        <span>{loc.hours}</span>
-                     </div>
-                     <div className="flex items-center gap-2">
-                        <Phone className="w-4 h-4" />
-                        <span>{loc.phone}</span>
-                     </div>
+                  <div className="flex gap-4">
+                      <div className="w-20 h-20 rounded-2xl overflow-hidden shrink-0 bg-coffee-100 dark:bg-coffee-800">
+                          <img src={loc.image} alt={t(loc.nameKey as any)} className="w-full h-full object-cover" />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                          <div className="flex justify-between items-start mb-1">
+                            <h3 className="font-bold text-lg truncate pr-2">{t(loc.nameKey as any)}</h3>
+                            {selectedLocation.id === loc.id && <MapPin className="w-5 h-5 text-yellow-400 dark:text-yellow-600 shrink-0" />}
+                          </div>
+                          <p className={`text-sm mb-2 line-clamp-1 ${selectedLocation.id === loc.id ? 'text-coffee-200 dark:text-coffee-600' : 'text-coffee-600 dark:text-coffee-300'}`}>
+                            {t(loc.addressKey as any)}
+                          </p>
+                          <div className={`flex items-center gap-4 text-xs ${selectedLocation.id === loc.id ? 'text-coffee-300 dark:text-coffee-500' : 'text-coffee-500 dark:text-coffee-400'}`}>
+                             <div className="flex items-center gap-1.5">
+                                <Clock className="w-3.5 h-3.5" />
+                                <span>{loc.hours}</span>
+                             </div>
+                          </div>
+                      </div>
                   </div>
                </motion.button>
              ))}

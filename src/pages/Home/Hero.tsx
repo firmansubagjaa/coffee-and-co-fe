@@ -13,8 +13,8 @@ export const Hero: React.FC = () => {
   const y = useTransform(scrollY, [0, 1000], [0, 400]);
 
   return (
-    <section className="px-3 md:px-6 w-full mb-8">
-        <div className="relative h-[85vh] min-h-[600px] w-full rounded-[2.5rem] overflow-hidden flex items-center shadow-2xl shadow-coffee-900/20">
+    <section className="px-3 md:px-6 w-full mb-12">
+        <div className="relative h-[90vh] min-h-[700px] w-full rounded-[2.5rem] overflow-hidden flex items-center shadow-2xl shadow-coffee-900/20 group">
             {/* Background Image with Parallax */}
             <motion.div 
                 style={{ y }}
@@ -23,9 +23,10 @@ export const Hero: React.FC = () => {
                 <img 
                     src="https://picsum.photos/id/42/1920/1080" 
                     alt="Coffee Shop Interior" 
-                    className="w-full h-full object-cover scale-110"
+                    className="w-full h-full object-cover scale-110 transition-transform duration-1000 group-hover:scale-105"
                 />
-                <div className="absolute inset-0 bg-gradient-to-r from-coffee-950/90 via-coffee-900/50 to-transparent"></div>
+                <div className="absolute inset-0 bg-gradient-to-r from-coffee-950/95 via-coffee-900/60 to-transparent/20"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-coffee-950/50 via-transparent to-transparent"></div>
             </motion.div>
 
             <div className="container mx-auto px-4 md:px-12 relative z-10">
@@ -33,10 +34,11 @@ export const Hero: React.FC = () => {
                     variants={VARIANTS.staggerContainer}
                     initial="initial"
                     animate="animate"
-                    className="max-w-xl text-white pl-4 md:pl-8"
+                    className="max-w-2xl text-white pl-4 md:pl-8"
                 >
                     <motion.div variants={VARIANTS.fadeInUp} transition={TRANSITIONS.spring}>
-                        <div className="inline-block px-4 py-1.5 mb-6 rounded-full border border-white/30 bg-white/10 backdrop-blur-md text-xs font-bold tracking-widest uppercase shadow-sm">
+                        <div className="inline-flex items-center gap-2 px-4 py-2 mb-8 rounded-full border border-white/20 bg-white/10 backdrop-blur-md text-xs font-bold tracking-[0.2em] uppercase shadow-lg hover:bg-white/20 transition-colors cursor-default">
+                            <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
                             {t('home.hero.badge')}
                         </div>
                     </motion.div>
@@ -44,7 +46,7 @@ export const Hero: React.FC = () => {
                     <motion.h1 
                         variants={VARIANTS.fadeInUp} 
                         transition={TRANSITIONS.spring}
-                        className="text-5xl md:text-7xl font-serif font-bold mb-6 leading-tight drop-shadow-lg whitespace-pre-line"
+                        className="text-6xl md:text-8xl font-serif font-bold mb-8 leading-[1.1] drop-shadow-lg whitespace-pre-line tracking-tight"
                     >
                         {t('home.hero.title')}
                     </motion.h1>
@@ -52,7 +54,7 @@ export const Hero: React.FC = () => {
                     <motion.p 
                         variants={VARIANTS.fadeInUp}
                         transition={TRANSITIONS.spring}
-                        className="text-lg md:text-xl text-coffee-50 mb-8 font-light leading-relaxed drop-shadow-md max-w-lg"
+                        className="text-lg md:text-2xl text-coffee-100 mb-10 font-light leading-relaxed drop-shadow-md max-w-lg opacity-90"
                     >
                         {t('home.hero.subtitle')}
                     </motion.p>
@@ -60,13 +62,13 @@ export const Hero: React.FC = () => {
                     <motion.div 
                         variants={VARIANTS.fadeInUp}
                         transition={TRANSITIONS.spring}
-                        className="flex flex-col sm:flex-row gap-4"
+                        className="flex flex-col sm:flex-row gap-5"
                     >
                         <Button 
                             size="lg" 
                             variant="primary"
                             onClick={() => navigate('/menu')}
-                            className="shadow-lg hover:shadow-xl transition-all duration-300"
+                            className="h-14 px-8 text-lg shadow-xl hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 bg-white text-coffee-900 hover:bg-cream-100 border-none"
                         >
                             {t('home.hero.cta')}
                         </Button>
@@ -74,7 +76,7 @@ export const Hero: React.FC = () => {
                             size="lg" 
                             variant="outline"
                             onClick={() => navigate('/about')}
-                            className="!border-white !text-white hover:!bg-white hover:!text-coffee-900 shadow-lg hover:shadow-xl transition-all duration-300 backdrop-blur-sm bg-white/5"
+                            className="h-14 px-8 text-lg !border-white/30 !text-white hover:!bg-white/10 hover:!border-white shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 backdrop-blur-sm"
                         >
                             {t('home.hero.storyCta')}
                         </Button>

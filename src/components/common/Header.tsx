@@ -399,7 +399,7 @@ export const Header: React.FC = () => {
                 initial={{ height: 0, opacity: 0 }}
                 animate={{ height: 'auto', opacity: 1 }}
                 exit={{ height: 0, opacity: 0 }}
-                transition={TRANSITIONS.spring}
+                transition={{ duration: 0.2, ease: "easeInOut" }}
                 className="md:hidden overflow-hidden"
               >
                 <nav className="flex flex-col p-5 pt-0 gap-2 pb-8">
@@ -422,9 +422,8 @@ export const Header: React.FC = () => {
                   {/* Mobile Language Trigger */}
                   <button 
                     onClick={() => { setIsLanguageDialogOpen(true); setIsMobileMenuOpen(false); }}
-                    className="text-lg font-medium py-3 px-6 rounded-[2rem] text-coffee-600 dark:text-coffee-300 hover:bg-white/40 dark:hover:bg-coffee-800 text-left flex items-center gap-2"
+                    className="text-lg font-medium py-3 px-6 rounded-[2rem] text-coffee-600 dark:text-coffee-300 hover:bg-white/40 dark:hover:bg-coffee-800 text-left"
                   >
-                    <Globe className="h-5 w-5" />
                     {t('nav.language')}
                   </button>
 
@@ -436,6 +435,11 @@ export const Header: React.FC = () => {
                       <div className="py-2 px-6 mt-2">
                           <span className="text-lg font-medium text-coffee-900 dark:text-coffee-100 block mb-2">{t('nav.profile')}</span>
                           <div className="pl-4 border-l-2 border-coffee-100 space-y-2">
+                              {['admin', 'superadmin', 'barista'].includes(user.role) && (
+                                  <NavLink to="/dashboard" onClick={() => setIsMobileMenuOpen(false)} className="block py-1 font-bold text-coffee-700 dark:text-coffee-300">
+                                      {t('common.dashboard')}
+                                  </NavLink>
+                              )}
                               <NavLink to="/history" onClick={() => setIsMobileMenuOpen(false)} className="block py-1 text-coffee-600 dark:text-coffee-400">{t('nav.orderHistory')}</NavLink>
                               <NavLink to="/favorites" onClick={() => setIsMobileMenuOpen(false)} className="block py-1 text-coffee-600 dark:text-coffee-400">{t('common.favorites')}</NavLink>
                               <NavLink to="/wishlist" onClick={() => setIsMobileMenuOpen(false)} className="block py-1 text-coffee-600 dark:text-coffee-400">{t('nav.wishlist')}</NavLink>

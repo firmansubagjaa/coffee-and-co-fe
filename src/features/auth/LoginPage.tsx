@@ -11,6 +11,8 @@ import { useForm } from 'react-hook-form';
 import { Alert, AlertDescription, AlertTitle } from '../../components/ui/alert';
 import { useLanguage } from '../../contexts/LanguageContext';
 
+import { SEO } from '@/components/common/SEO';
+
 export const LoginPage: React.FC = () => {
   const navigate = useNavigate();
   const login = useAuthStore((state) => state.login);
@@ -52,6 +54,10 @@ export const LoginPage: React.FC = () => {
       title={t('auth.login.title')}
       subtitle={t('auth.login.subtitle')}
     >
+      <SEO 
+        title="Sign In" 
+        description="Welcome back! Sign in to your Coffee & Co account to access your rewards, order history, and saved favorites."
+      />
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
         
         {/* Validation Alert */}

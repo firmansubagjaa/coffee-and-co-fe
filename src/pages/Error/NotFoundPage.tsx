@@ -4,12 +4,17 @@ import { useNavigate } from 'react-router-dom';
 import { Coffee, Search } from 'lucide-react';
 import { Button } from '../../components/common/Button';
 import { motion } from 'framer-motion';
+import { SEO } from '@/components/common/SEO';
 
 export const NotFoundPage: React.FC = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-white flex items-center justify-center p-4 overflow-hidden relative">
+    <div className="min-h-screen bg-cream-50 dark:bg-coffee-950 flex items-center justify-center p-4 text-center">
+      <SEO 
+        title="Page Not Found" 
+        description="The page you are looking for does not exist. Return to Coffee & Co home to continue your journey."
+      />
       {/* Decorative background elements */}
       <div className="absolute top-20 left-20 w-32 h-32 bg-coffee-50 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
       <div className="absolute top-40 right-20 w-40 h-40 bg-cream-100 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000"></div>

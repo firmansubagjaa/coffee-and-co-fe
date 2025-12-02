@@ -12,6 +12,7 @@ import {
 } from "../../components/ui/select";
 import { exportData } from '../../utils/export';
 import { toast } from 'sonner';
+import { SEO } from '@/components/common/SEO';
 import { useLanguage } from '../../contexts/LanguageContext';
 
 const SALES_DATA = [12, 15, 18, 16, 22, 28, 26, 35, 42, 38, 48, 55]; // in k$
@@ -39,8 +40,12 @@ export const AnalyticsPage: React.FC = () => {
   };
 
   return (
-    <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 pb-2">
+    <div className="space-y-6">
+      <SEO 
+        title="Dashboard Analytics" 
+        description="Overview of store performance, sales metrics, and customer insights."
+      />
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div>
                 <h1 className="text-4xl font-serif font-bold text-gray-900 dark:text-white flex items-center gap-3">
                     {t('dashboard.analytics.title')}
