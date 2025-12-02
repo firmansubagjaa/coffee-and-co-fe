@@ -1,0 +1,1273 @@
+export const en = {
+  common: {
+    search: "Discover your favorite...",
+    searchPlaceholder: "Explore our menu...",
+    filters: "Refine Selection",
+    sort: "Organize By",
+    edit: "Modify",
+    save: "Save Changes",
+    copy: "Copy",
+    saving: "Saving...",
+    cancel: "Cancel",
+    delete: "Delete",
+    remove: "Remove",
+    back: "Back",
+    next: "Next",
+    loading: "Brewing...",
+    error: "Something went wrong",
+    success: "Success",
+
+    outOfStock: "Out of Stock",
+    new: "New Arrival",
+    bestseller: "Bestseller",
+    qty: "Qty",
+    merch: "Merchandise",
+    drinks: "Prepared Drinks",
+    months: {
+      jan: "Jan",
+      feb: "Feb",
+      mar: "Mar",
+      apr: "Apr",
+      may: "May",
+      jun: "Jun",
+      jul: "Jul",
+      aug: "Aug",
+      sep: "Sep",
+      oct: "Oct",
+      nov: "Nov",
+      dec: "Dec"
+    },
+    roastLevels: {
+      light: "Light",
+      medium: "Medium",
+      mediumDark: "Medium-Dark",
+      dark: "Dark"
+    },
+    dashboard: "Dashboard",
+    favorites: "Favorites",
+
+
+    categories: {
+      coffee: "Coffee",
+      pastry: "Pastry",
+      merch: "Merchandise",
+      drinks: "Prepared Drinks"
+    },
+    startTyping: "Start typing to search...",
+    noResults: "No results for",
+    pressEsc: "Press Esc to close",
+    results: "results",
+    days: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+    orderStatus: {
+      pending: "Pending",
+      preparing: "Preparing",
+      ready: "Ready",
+      completed: "Completed",
+      cancelled: "Cancelled",
+      all: "All"
+    },
+    userStatus: {
+      active: "Active",
+      inactive: "Inactive",
+      suspended: "Suspended"
+    },
+    daysShort: ["S", "M", "T", "W", "T", "F", "S"],
+    roles: {
+      customer: "Customer",
+      barista: "Barista",
+      admin: "Admin",
+      superadmin: "Super Admin",
+      data_analyst: "Data Analyst"
+    }
+  },
+
+  footer: {
+    brandDesc: "Experience the art of coffee with our handcrafted blends. From sustainable farms directly to your morning cup.",
+    explore: "Explore",
+    menu: "Menu",
+    offers: "Offers",
+    rewards: "Rewards",
+    locations: "Locations",
+    company: "Company",
+    about: "About Us",
+    careers: "Careers",
+    privacy: "Privacy Policy",
+    contact: "Contact Us",
+    stayConnected: "Stay Connected",
+    rights: "All rights reserved."
+  },
+  nav: {
+    home: "Home",
+    menu: "Menu",
+    about: "About",
+    cart: "Cart",
+    ourStory: "Our Story",
+    ourStoryDesc: "From humble beginnings to your cup.",
+    careers: "Careers",
+    careersDesc: "Join our passionate team.",
+    locations: "Locations",
+    locationsDesc: "Find a cafe near you.",
+    rewards: "Rewards",
+    signIn: "Sign In",
+    signOut: "Sign Out",
+    profile: "Profile",
+    orderHistory: "Order History",
+    wishlist: "Wishlist",
+    settings: "Settings",
+    language: "Language",
+    logoutConfirmTitle: "Sign out?",
+    logoutConfirmDesc: "Are you sure you want to sign out of your account?",
+    cancel: "Cancel",
+    confirmLogout: "Sign Out"
+  },
+  home: {
+    hero: {
+      badge: "Premium Roasters",
+      title: "Brewed Fresh,\nServed Warm",
+      subtitle: "Experience the art of coffee with our handcrafted blends. From sustainable farms directly to your morning cup.",
+      cta: "Order Now",
+      secondaryCta: "View Menu",
+      storyCta: "Our Story"
+    },
+    featured: {
+      title: "Weekly Favorites",
+      subtitle: "Curated picks from our master roasters, chosen for their exceptional flavor profiles."
+    },
+    philosophy: {
+      badge: "Our Philosophy",
+      title: "Beyond Coffee.\nIt's a Lifestyle.",
+      description: "We believe in the power of a good cup of coffee to bring people together. Our beans are ethically sourced, meticulously roasted, and brewed with passion in a space designed for comfort.",
+      stat1: "Organic Beans",
+      stat2: "Local Farms",
+      cta: "Read Our Story"
+    }
+  },
+  menu: {
+    title: "Signature Collection",
+    subtitle: "Explore our wide range of premium coffees, refreshing teas, and delicious pastries.",
+    categories: {
+      all: "All",
+      coffee: "Coffee",
+      nonCoffee: "Non-Coffee",
+      food: "Food",
+      pastry: "Pastry",
+      merch: "Merchandise"
+    },
+    sort: {
+      featured: "Featured",
+      newest: "Newest",
+      priceLow: "Price: Low to High",
+      priceHigh: "Price: High to Low"
+    },
+    filters: {
+      category: "Category",
+      price: "Price Range",
+      roast: "Roast Level",
+      dietary: "Dietary",
+      under5: "Under $5",
+      "5to10": "$5 - $10",
+      light: "Light Roast",
+      medium: "Medium Roast",
+      dark: "Dark Roast",
+      vegan: "Vegan",
+      glutenFree: "Gluten Free",
+      dairyFree: "Dairy Free"
+    },
+    empty: "No products found matching your filters.",
+    clearFilters: "Clear all filters",
+    showResults: "Show Results"
+  },
+  product: {
+    size: "Size",
+    grind: "Grind / Type",
+    addToOrder: "Add to Order",
+    description: "Description",
+    originRoast: "Origin & Roast",
+    shippingReturns: "Shipping & Returns",
+    shippingText: "Free shipping on orders over $30.0",
+    freshnessText: "Freshness guaranteed. Returns accepted within 30 days.",
+    youMightLike: "You might also like",
+    addToFavorites: "Add to Favorites",
+    removeFromFavorites: "Remove from Favorites",
+    expandImage: "Expand Image",
+    notFound: "Product not found.",
+    loginRequired: "Please log in",
+    loginDesc: "You need to be logged in to add items to your order.",
+    loginFavDesc: "You need to be logged in to save favorites.",
+    addedToCart: "Added to cart",
+    addedToCartDesc: "{desc} added to your order.",
+    addedToFav: "Added to favorites",
+    saved: "{name} saved.",
+    removedFromFav: "Removed from favorites",
+    origin: "Origin:",
+    roastLevel: "Roast Level:",
+    notes: "Notes:",
+    reviews: "reviews"
+  },
+  rewards: {
+    title: "Loyalty Rewards",
+    subtitle: "Earn points, unlock tiers, and enjoy exclusive perks.",
+    currentStreak: "Current Streak",
+    keepStreak: "Keep the fire burning!",
+    nextReward: "Next Reward",
+    freePastry: "Free Pastry",
+    daysToUnlock: "{current}/{total} days to unlock",
+    freeEspresso: "Free Espresso",
+    redeemPoints: "Redeem for {points} pts",
+    redeem: "Redeem",
+    tierStatus: "Tier Status",
+    currentPoints: "Current Points",
+    points: "Points",
+    benefits: "Benefits",
+    locked: "Locked",
+    unlocked: "Unlocked",
+    mystery: {
+      title: "Daily Mystery Reward",
+      subtitle: "Spin to win bonus points or exclusive discounts!",
+      cta: "Reveal Reward",
+      won: "You won {reward}!"
+    },
+    tiers: {
+      bronze: "Bean Starter",
+      silver: "Brew Master",
+      gold: "Coffee Legend",
+      nextTier: "Next Tier: {tier}",
+      pointsToGo: "{points} pts to go"
+    },
+    popular: "Popular"
+  },
+  about: {
+    story: {
+      est: "Est. 2015",
+      title: "Crafting the Perfect\nCup, Every Time.",
+      subtitle: "From the misty highlands of Java to the bustling streets of Jakarta, our journey is defined by a relentless pursuit of quality.",
+      introTitle: "It started with a single bean.",
+      introText1: "Coffee & Co. was born out of a simple frustration: coffee shouldn't just be fuel; it should be an experience. In 2015, our founders traveled across the Indonesian archipelago, meeting farmers in Aceh, Toraja, and Bali. They discovered that the best coffee wasn't just about the soil—it was about the hands that tended to it.",
+      introText2: "We brought those beans back to a small garage roastery in South Jakarta. With a second-hand roaster and a lot of passion, we began experimenting. We burned a few batches, learned a lot of lessons, but eventually, we found our signature roast profile: bold, smooth, and distinctively Indonesian.",
+      values: {
+        ethicallySourced: {
+          title: "Ethically Sourced",
+          desc: "We work directly with local farmers, ensuring fair wages and sustainable farming practices that protect our environment for future generations."
+        },
+        communityFirst: {
+          title: "Community First",
+          desc: "Our cafes are more than shops; they are gathering places. We believe in the power of conversation over a warm cup to bridge divides."
+        },
+        masterRoasted: {
+          title: "Master Roasted",
+          desc: "Our roasting process is a blend of art and science. Small batches, precise temperatures, and constant tasting ensure consistency."
+        }
+      },
+      future: {
+        title: "The Future of Coffee",
+        desc: "We are constantly innovating. From developing biodegradable pods to exploring new fermentation methods with our partner farms, Coffee & Co. is committed to pushing the boundaries of what coffee can be.",
+        cta: "Taste the Difference"
+      }
+    },
+    careers: {
+      title: "Join the Brew Crew",
+      subtitle: "We're always looking for passionate people to help us build the best coffee community in the world.",
+      whyUs: {
+        title: "Why work with us?",
+        subtitle: "More than just a paycheck. We take care of our own.",
+        health: {
+          title: "Health & Wellness",
+          desc: "Comprehensive health insurance for you and your family, plus mental health support days."
+        },
+        growth: {
+          title: "Growth Opportunities",
+          desc: "Paid training, SCA certifications, and a clear path to management or specialized roles."
+        },
+        coffee: {
+          title: "Free Coffee",
+          desc: "Unlimited coffee while on shift, and a weekly bag of beans to take home. The best perk of all."
+        }
+      },
+      openings: {
+        title: "Open Positions",
+        subtitle: "Find your place in our growing team.",
+        apply: "Apply Now",
+        empty: "Don't see the right role?",
+        email: "Send your CV to careers@coffeeandco.id and tell us why you belong here."
+      },
+      jobs: {
+        barista: {
+          title: "Senior Barista",
+          desc: "We are looking for an experienced barista with a passion for latte art and customer service. You will lead the shift, train junior staff, and maintain our high standards of brewing."
+        },
+        manager: {
+          title: "Store Manager",
+          desc: "Manage daily operations, inventory, and staff scheduling. The ideal candidate has 3+ years of retail management experience and a love for the beach lifestyle."
+        },
+        roaster: {
+          title: "Head Roaster",
+          desc: "Oversee our roasting facility. Requires deep knowledge of green bean sourcing, profile roasting, and quality control cupping sessions."
+        },
+        marketing: {
+          title: "Marketing Specialist",
+          desc: "Help us tell our story. You will manage social media, organize community events, and collaborate with influencers."
+        }
+      },
+      types: {
+        fullTime: "Full-time",
+        partTime: "Part-time"
+      }
+    },
+    locations: {
+      title: "Find Us",
+      subtitle: "Whether you're looking for a quiet corner to work or a lively spot to catch up with friends, we have a space for you.",
+      getDirections: "Get Directions",
+      list: {
+        senopati: {
+          name: "Senopati Flagship",
+          city: "Jakarta",
+          address: "Jl. Senopati No. 10, Kebayoran Baru, Jakarta Selatan, 12190"
+        },
+        canggu: {
+          name: "Canggu Beach House",
+          city: "Bali",
+          address: "Jl. Pantai Berawa No. 99, Tibubeneng, Kuta Utara, Badung, Bali 80361"
+        },
+        braga: {
+          name: "Braga Heritage",
+          city: "Bandung",
+          address: "Jl. Braga No. 50, Sumur Bandung, Kota Bandung, Jawa Barat 40111"
+        }
+      }
+    }
+  },
+  auth: {
+    layout: {
+      title: "Get access to your\nDaily Brew & Exclusive Perks.",
+      subtitle: "Join the club for free refills, loyalty streaks, and early access to our seasonal blends.",
+      est: "Est. 2024 • {{appName}}",
+      dailyBrew: "Daily Brew"
+    },
+    login: {
+      title: "Welcome Back!",
+      subtitle: "Sign in to enjoy rewards and your favorite brews.",
+      emailLabel: "Email Address",
+      passwordLabel: "Password",
+      submit: "Sign In",
+      submitting: "Signing In...",
+      forgotPassword: "Forgot Password?",
+      noAccount: "Don't have an account?",
+      register: "Sign up",
+      or: "Or sign in with",
+      error: {
+        missingFields: "Please enter both your email and password to sign in.",
+        generic: "An unexpected error occurred. Please try again."
+      }
+    },
+    register: {
+      title: "Create an account",
+      subtitle: "Access your streaks, favorites, and orders anytime.",
+      nameLabel: "Full Name",
+      emailLabel: "Your email",
+      passwordLabel: "Password",
+      confirmPasswordLabel: "Confirm Password",
+      submit: "Get Started",
+      submitting: "Creating Account...",
+      hasAccount: "Already have an account?",
+      login: "Sign in",
+      or: "Or continue with",
+      validation: {
+        nameMin: "Name must be at least 2 characters",
+        emailRequired: "Email is required",
+        emailInvalid: "Please enter a valid email address",
+        passwordMin: "Password must be at least 8 characters",
+        passwordUppercase: "Must contain at least one uppercase letter",
+        passwordNumber: "Must contain at least one number",
+        passwordMatch: "Passwords don't match"
+      }
+    },
+    forgotPassword: {
+      title: "Forgot Password?",
+      subtitle: "Don't worry, we'll send you reset instructions.",
+      emailLabel: "Email address",
+      emailPlaceholder: "Enter your email",
+      submit: "Send Reset Link",
+      submitting: "Sending...",
+      backToLogin: "Back to Login",
+      success: {
+        title: "Reset link sent!",
+        desc: "If an account exists for this email, we've sent a verification code."
+      },
+      error: "Something went wrong"
+    },
+    verifyOtp: {
+      title: "Check your email",
+      subtitle: "We sent a code to",
+      label: "Verification Code",
+      submit: "Verify Code",
+      submitting: "Verifying...",
+      resendText: "Didn't receive the email?",
+      resendLink: "Click to resend",
+      backToLogin: "Back to Login",
+      tip: "Tip: For this demo, use code",
+      success: "Email verified",
+      error: "Invalid verification code",
+      validation: {
+        required: "Code is required",
+        length: "Code must be 6 digits",
+        invalid: "Invalid code. Try \"123456\""
+      }
+    },
+    resetPassword: {
+      title: "Set new password",
+      subtitle: "Must be at least 8 characters.",
+      passwordLabel: "New Password",
+      confirmPasswordLabel: "Confirm Password",
+      submit: "Reset Password",
+      submitting: "Resetting Password...",
+      success: {
+        title: "Password reset successful!",
+        desc: "You can now log in with your new password."
+      }
+    }
+  },
+  dashboard: {
+    nav: {
+      overview: "Overview",
+      activeOrders: "Active Orders",
+      logistics: "Logistics",
+      transactions: "Transactions",
+      products: "Products",
+      inventory: "Inventory",
+      finance: "Finance & Audit",
+      userManagement: "User Management",
+      employees: "Employees",
+      customers: "Customers",
+      segmentation: "Segmentation",
+      cms: "Content (CMS)",
+      jobs: "Jobs & Careers",
+      locations: "Store Locations",
+      analytics: "Analytics",
+      intelligence: "Intelligence (ML)"
+    },
+    header: {
+      adminPortal: "Admin Portal",
+      signOut: "Sign Out",
+      viewShop: "View Shop",
+      systemOperational: "System Operational",
+      signOutDialog: {
+        title: "Sign Out",
+        description: "Are you sure you want to sign out? You will need to sign in again to access the dashboard.",
+        confirm: "Sign Out",
+        cancel: "Cancel"
+      }
+    },
+    analytics: {
+      title: "Business Analytics",
+      subtitle: "Deep dive into historical performance and growth metrics.",
+      netSales: "Net Sales",
+      avgOrderValue: "Avg. Order Value",
+      refundRate: "Refund Rate",
+      revenueTrend: "Revenue Trend",
+      salesByCategory: "Sales by Category",
+      customerRetention: "Customer Retention (Cohort)",
+      cohort: "Cohort",
+      month: "Month",
+      exportSuccess: "Analytics exported as {format}",
+      export: "Export"
+    },
+    finance: {
+      title: "Finance & Audit",
+      subtitle: "Financial performance tracking, business valuation, and security logs.",
+      pnl: "P&L Statement",
+      valuation: "Valuation",
+      auditLogs: "Audit Logs",
+      totalRevenue: "Total Revenue",
+      grossProfit: "Gross Profit",
+      totalExpenses: "Total Expenses",
+      netProfit: "Net Profit",
+      incomeStatement: "Income Statement (Monthly)",
+      income: "Income",
+      cogs: "Cost of Goods Sold (COGS)",
+      opex: "Operating Expenses (OpEx)",
+      businessValuation: "Business Valuation",
+      annualizedNetProfit: "Annualized Net Profit",
+      addBacks: "Add-Backs",
+      sde: "SDE (Seller's Discretionary Earnings)",
+      industryMultiplier: "Industry Multiplier",
+      estimatedValuation: "Estimated Valuation",
+      systemAuditLogs: "System Audit Logs",
+      timestamp: "Timestamp",
+      user: "User",
+      module: "Module",
+      action: "Action",
+      details: "Details",
+      severity: "Severity",
+      exportAuditSuccess: "Audit logs exported securely.",
+      exportLogs: "Export Logs",
+      auditSubtitle: "Tracking critical actions for security and compliance.",
+      valuationSubtitle: "Using Seller's Discretionary Earnings (SDE) Method.",
+      addBacksHelper: "Owner Salary, Depreciation, One-time expenses",
+      multipliers: {
+        distressed: "1.0x (Distressed)",
+        healthy: "3.0x (Healthy)",
+        premium: "5.0x (Premium Brand)"
+      },
+      valuationDisclaimer: "This valuation is an estimate based on SDE x {multiplier} multiplier. Actual market value may vary based on assets, location, and brand equity.",
+      severityLevels: {
+        critical: "Critical",
+        warning: "Warning",
+        info: "Info"
+      }
+    },
+    inventory: {
+      title: "Inventory Health",
+      subtitle: "Track stock levels, par values, and asset valuation.",
+      report: "Report",
+      addItem: "Add Item",
+      totalValuation: "Total Valuation",
+      totalItems: "Total Items",
+      restockNeeded: "Restock Needed",
+      searchPlaceholder: "Search by name or SKU...",
+      category: "Category",
+      status: "Status",
+      itemDetails: "Item Details",
+      stockLevel: "Stock Level",
+      value: "Value",
+      supplier: "Supplier",
+      action: "Action",
+      restock: "Restock",
+      noItems: "No inventory items found matching your filters.",
+      restockSuccess: "Restock Request Sent",
+      exportSuccess: "Inventory report downloaded",
+      toast: {
+        orderInitiated: "Order initiated for {itemName}",
+        addedSuccess: "Inventory item added successfully"
+      },
+      filters: {
+        all: "All",
+        lowStock: "Low Stock",
+        critical: "Critical"
+      },
+      actions: {
+        viewHistory: "View History",
+        editItem: "Edit Item"
+      },
+      parLevel: "(Par: {level})",
+      statusLevels: {
+        optimal: "Optimal",
+        low: "Low",
+        critical: "Critical"
+      },
+      form: {
+        title: "Add Inventory Item",
+        subtitle: "Register new stock items.",
+        stockDetails: "Stock Details",
+        labels: {
+          name: "Item Name",
+          sku: "SKU",
+          category: "Category",
+          supplier: "Supplier",
+          currentStock: "Current Stock",
+          unit: "Unit",
+          parLevel: "Par Level",
+          unitCost: "Unit Cost ($)"
+        },
+        placeholders: {
+          name: "e.g. Arabica Beans",
+          sku: "e.g. ING-001",
+          category: "Select category",
+          supplier: "e.g. Global Origins",
+          unit: "e.g. kg, pcs, L"
+        },
+        helper: {
+          parLevel: "Minimum stock before restock alert."
+        },
+        validation: {
+          nameRequired: "Name is required",
+          skuRequired: "SKU is required",
+          stockNegative: "Stock cannot be negative",
+          unitRequired: "Unit is required",
+          parLevelNegative: "Par level cannot be negative",
+          unitCostNegative: "Unit cost cannot be negative",
+          supplierRequired: "Supplier is required"
+        },
+        buttons: {
+          cancel: "Cancel",
+          save: "Save Item"
+        },
+        options: {
+          ingredient: "Ingredient",
+          retail: "Retail",
+          packaging: "Packaging",
+          equipment: "Equipment"
+        }
+      }
+    },
+    transactions: {
+      title: "Transactions",
+      subtitle: "Overview of your recent transactions",
+      totalVolume: "Total Volume",
+      successfulPayments: "Successful Payments",
+      refunds: "Refunds",
+      searchPlaceholder: "Search transaction ID, customer...",
+      id: "Transaction ID",
+      customer: "Customer",
+      date: "Date",
+      amount: "Amount",
+      payment: "Payment",
+      noTransactions: "No transactions found matching your criteria.",
+      showingRecent: "Showing {count} recent transactions",
+      exportSuccess: "Report exported as {format}",
+      export: "Export",
+      status: {
+        all: "All",
+        completed: "Completed",
+        pending: "Pending",
+        failed: "Failed",
+        refunded: "Refunded"
+      },
+      method: {
+        creditCard: "Credit Card",
+        cash: "Cash",
+        digitalWallet: "Digital Wallet"
+      }
+    },
+    users: {
+      title: "User Management",
+      subtitle: "Manage access, roles, and user accounts.",
+      addUser: "Add User",
+      searchPlaceholder: "Search by name or email...",
+      filterRole: "Role",
+      allRoles: "All Roles",
+      table: {
+        user: "User",
+        role: "Role",
+        status: "Status",
+        location: "Location",
+        lastActive: "Last Active",
+        actions: "Actions",
+        editRole: "Edit Role"
+      },
+      noUsers: "No users found matching your filters.",
+      showing: "Showing {count} users",
+      dialog: {
+        title: "Change User Role",
+        desc: "Modifying access permissions for {name}.",
+        selectLabel: "Select New Role",
+        selectPlaceholder: "Select role",
+        note: "Note: Changing roles will immediately update the user's dashboard access permissions.",
+        cancel: "Cancel",
+        save: "Save Changes"
+      },
+      toast: {
+        updated: "Role updated for {name}",
+        desc: "Changed to {role}"
+      }
+    },
+    products: {
+      title: "Products",
+      subtitle: "Manage your menu items.",
+      export: "Export",
+      addProduct: "Add Product",
+      searchPlaceholder: "Search products...",
+      loading: "Loading products...",
+      table: {
+        product: "Product",
+        category: "Category",
+        price: "Price",
+        status: "Status",
+        actions: "Actions"
+      },
+      noProducts: "No products found",
+      deleteDialog: {
+        title: "Delete Product?",
+        desc: "Are you sure you want to delete {name}? This action cannot be undone.",
+        cancel: "Cancel",
+        delete: "Delete"
+      },
+      toast: {
+        deleted: "Product deleted successfully",
+        deleteFailed: "Failed to delete product",
+        noExport: "No products to export",
+        exported: "Inventory exported as {format}"
+      },
+      form: {
+        editTitle: "Edit Product",
+        newTitle: "New Product",
+        subtitle: "Fill in the details below.",
+        labels: {
+          name: "Product Name",
+          category: "Category",
+          price: "Price ($)",
+          description: "Description",
+          details: "Product Details",
+          origin: "Origin",
+          roastLevel: "Roast Level",
+          tastingNotes: "Tasting Notes",
+          media: "Media",
+          mainImage: "Main Image URL",
+          gallery: "Product Gallery",
+          variants: "Variants",
+          sizes: "Available Sizes",
+          grind: "Grind Options",
+          highlights: "Product Highlights"
+        },
+        placeholders: {
+          name: "e.g. Espresso Romano",
+          category: "Select category",
+          roast: "Select roast",
+          origin: "e.g. Ethiopia & Colombia Blend",
+          tastingNotes: "e.g. Dark Chocolate, Caramel, Dried Fruit (Comma separated)",
+          image: "https://...",
+          highlight: "e.g. 100% Organic"
+        },
+        helpers: {
+          tastingNotes: "Separate multiple notes with commas.",
+          image: "Optional: Paste a direct URL or use uploader below.",
+          upload: "Click to upload or drag & drop",
+          uploadFormat: "SVG, PNG, JPG or WebP (max 2MB)",
+          noHighlights: "No highlights added yet."
+        },
+        buttons: {
+          add: "Add",
+          cancel: "Cancel",
+          save: "Save Product"
+        },
+        toast: {
+          created: "Product created successfully",
+          updated: "Product updated successfully",
+          noImage: "Please provide at least one image (URL or Upload)",
+          fileTooLarge: "File {name} is too large. Max 2MB.",
+          formatNotSupported: "File {name} format not supported. Use JPG, PNG, or WebP.",
+          processed: "{count} image(s) processed."
+        },
+        validation: {
+          nameRequired: "Name is required",
+          categoryRequired: "Category is required",
+          pricePositive: "Price must be greater than 0",
+          descShort: "Description is too short",
+          highlightEmpty: "Description highlight cannot be empty"
+        }
+      },
+      recipe: {
+        title: "Recipe & Costing Engine",
+        subtitle: "Map ingredients to calculate COGS per variant.",
+        estimatedCost: "Estimated Cost",
+        selectVariant: "Select Variant to Configure",
+        noVariants: "Add variants (e.g. Sizes) above to configure recipes.",
+        table: {
+          ingredient: "Ingredient",
+          quantity: "Quantity",
+          unit: "Unit",
+          action: "Action"
+        },
+        placeholders: {
+          selectItem: "Select item..."
+        },
+        noIngredients: "No ingredients linked to {variant} yet.",
+        addFirst: "Add First Ingredient",
+        addAnother: "Add Another Ingredient",
+        info: {
+          title: "Why map ingredients?",
+          content: "By linking raw materials (e.g. 18g Beans) to this variant, the system will automatically deduct from your Inventory Stock whenever a sale is made."
+        }
+      }
+    },
+    orders: {
+      detail: {
+        title: "Order {id}",
+        subtitle: "{date} • {count} Items",
+        print: "Print Invoice",
+        refund: "Refund",
+        refundDialog: {
+          title: "Refund Order?",
+          desc: "This will refund the total amount of {amount} to the customer's original payment method. This action cannot be undone.",
+          cancel: "Cancel",
+          confirm: "Confirm Refund"
+        },
+        toast: {
+          refunded: "Refund processed for {id}"
+        },
+        sections: {
+          items: "Order Items",
+          timeline: "Order Timeline",
+          customer: "Customer Details",
+          shipping: "Shipping Address",
+          payment: "Payment"
+        },
+        labels: {
+          shipment: "Shipment #{number}",
+          sku: "SKU",
+          qty: "Qty",
+          subtotal: "Subtotal",
+          shipping: "Shipping",
+          tax: "Tax",
+          total: "Total",
+          registered: "Registered Customer",
+          method: "Method",
+          tracking: "Tracking",
+          paymentSuccess: "Payment Successful"
+        },
+        timeline: {
+          placed: "Order Placed",
+          confirmed: "Payment Confirmed",
+          processing: "Processing",
+          shipped: "Shipped",
+          delivered: "Delivered"
+        }
+      }
+    },
+    jobs: {
+      title: "Careers & Jobs",
+      subtitle: "Manage open positions and recruitment.",
+      postJob: "Post Job",
+      searchPlaceholder: "Search jobs...",
+      table: {
+        position: "Position",
+        department: "Department",
+        type: "Type",
+        location: "Location",
+        status: "Status",
+        actions: "Actions"
+      },
+      dialog: {
+        editTitle: "Edit Position",
+        newTitle: "Post New Position",
+        labels: {
+          title: "Job Title",
+          department: "Department",
+          type: "Type",
+          location: "Location",
+          status: "Status"
+        },
+        placeholders: {
+          title: "e.g. Head Roaster",
+          department: "e.g. Operations",
+          location: "e.g. Jakarta, ID",
+          type: "Select type",
+          status: "Select status"
+        },
+        buttons: {
+          cancel: "Cancel",
+          save: "Save Job"
+        }
+      },
+      toast: {
+        required: "Please fill in required fields",
+        updated: "Job updated",
+        posted: "Job posted",
+        deleted: "Job deleted"
+      },
+      types: {
+        fullTime: "Full-time",
+        partTime: "Part-time",
+        contract: "Contract"
+      },
+      status: {
+        active: "Active",
+        closed: "Closed"
+      }
+    },
+    locations: {
+      title: "Store Locations",
+      subtitle: "Manage physical outlets and hours.",
+      addLocation: "Add Location",
+      searchPlaceholder: "Search locations...",
+      table: {
+        storeName: "Store Name",
+        address: "Address",
+        contact: "Contact",
+        status: "Status",
+        actions: "Actions"
+      },
+      dialog: {
+        editTitle: "Edit Location",
+        newTitle: "Add New Location",
+        labels: {
+          storeName: "Store Name",
+          address: "Address",
+          phone: "Phone",
+          hours: "Hours",
+          status: "Status"
+        },
+        placeholders: {
+          storeName: "e.g. Downtown Hub",
+          address: "Full address",
+          phone: "+62...",
+          hours: "08:00 - 22:00",
+          status: "Select status"
+        },
+        buttons: {
+          cancel: "Cancel",
+          save: "Save Location"
+        }
+      },
+      toast: {
+        required: "Name and Address are required",
+        updated: "Location updated",
+        added: "New location added",
+        removed: "Location removed"
+      },
+      status: {
+        open: "Open",
+        renovation: "Renovation",
+        comingSoon: "Coming Soon"
+      }
+    },
+    customers: {
+      title: "Customer Segmentation",
+      subtitle: "RFM Analysis groups your customers for targeted marketing.",
+      all: "All",
+      totalDatabase: "Total Database",
+      segments: {
+        champion: {
+          name: "Champion",
+          desc: "Big spenders, frequent visitors.",
+          action: "Offer VIP Perks"
+        },
+        loyalist: {
+          name: "Loyalist",
+          desc: "Steady regulars.",
+          action: "Upsell / Loyalty Points"
+        },
+        atRisk: {
+          name: "At Risk",
+          desc: "High value, hasn't visited lately.",
+          action: "Win-back Campaign"
+        },
+        new: {
+          name: "New",
+          desc: "Recent first purchase.",
+          action: "Welcome Series"
+        },
+        hibernating: {
+          name: "Hibernating",
+          desc: "Low frequency, low recency.",
+          action: "Re-engagement"
+        }
+      },
+      table: {
+        customer: "Customer",
+        segment: "Segment",
+        totalSpent: "Total Spent",
+        orders: "Orders",
+        lastVisit: "Last Visit",
+        actions: "Actions"
+      },
+      searchPlaceholder: "Search customers...",
+      noCustomers: "No customers found in this segment.",
+      toast: {
+        campaignDrafted: "Campaign Drafted for {segment}"
+      }
+    },
+    logistics: {
+      title: "Station Logistics",
+      subtitle: "Monitor inventory levels, equipment health, and safety standards.",
+      lastCheck: "Last Check",
+      justNow: "Just now",
+      equipmentHealth: "Equipment Health",
+      ingredients: "Ingredients",
+      current: "Current",
+      supplies: "Supplies",
+      fridgeSafety: "Fridge Safety",
+      checkAuto: "Check: Auto",
+      optimalZone: "Optimal Zone",
+      highTemp: "Warning: High Temp",
+      haccpLog: "HACCP Log auto-updated.",
+      markEmpty: "Mark Empty",
+      levels: {
+        high: "High",
+        low: "Low",
+        out: "Out"
+      },
+      toast: {
+        criticalTitle: "Item marked as Critical!",
+        criticalDesc: "Notify back-of-house for restock."
+      }
+    },
+    bi: {
+      title: "Business Intelligence",
+      subtitle: "Predictive models and advanced data exploration.",
+      dataSources: "Data Sources",
+      churn: {
+        title: "Churn Risk Prediction",
+        modelInfo: "ML Model: XGBoost v2.4 (Accuracy: 92%)",
+        active: "Model Active",
+        table: {
+          customer: "Customer ID",
+          lastVisit: "Last Visit",
+          avgSpend: "Avg Spend",
+          riskScore: "Risk Score",
+          action: "Action",
+          sendOffer: "Send Offer",
+          view: "View"
+        }
+      },
+      forecast: {
+        title: "Demand Forecast",
+        subtitle: "AI-predicted inventory needs for next week.",
+        predicted: "{percent}% Predicted",
+        stable: "Stable",
+        recommended: "Recommended Order: {amount} Units",
+        alert: {
+          title: "Rainy Weather Alert",
+          desc: "Forecast predicts heavy rain next Tuesday. Hot drink demand expected to rise by ~22%."
+        }
+      },
+      query: {
+        console: "query_console.sql",
+        executed: "Query executed in {time}s"
+      },
+      products: {
+        wholeMilk: "Whole Milk (L)",
+        espressoBeans: "Espresso Beans (kg)"
+      },
+      categories: {
+        service: "Service"
+      }
+    },
+    admin: {
+      executiveView: "Executive View",
+      commandCenter: "Command Center",
+      report: "Report",
+      deepDive: "Deep Dive",
+      revenueTrend: "Revenue Trend",
+      avgOrderTime: "Avg. Order Time",
+      customerSatisfaction: "Customer Satisfaction",
+      topStaff: "Top Staff",
+      manageStaff: "Manage Staff",
+      thisWeek: "This Week",
+      morningBriefing: "Morning Briefing",
+      requiresAttention: "Requires Attention",
+      issues: "Issues",
+      resolve: "Resolve",
+      allSystemsNominal: "All systems nominal.",
+      last7Days: "Last 7 Days Performance",
+      goals: {
+        newCustomers: "New Customers",
+        nps: "Net Promoter Score",
+      },
+      exportFormats: {
+        csv: "Excel (CSV)",
+        json: "JSON",
+      },
+      alerts: {
+        inventory: "Inventory",
+        finance: "Finance",
+        staff: "Staff",
+        stockCritical: "Oat Milk stock critical (< 10%)",
+        refundSpike: "Unusual refund spike detected (3 in 1hr)",
+        lateClockIn: "Morning shift late clock-in (2 staff)",
+      },
+      toTarget: "to target",
+      orders: "Orders",
+      avg: "avg",
+      staffStatus: {
+        topPerformer: "Top Performer",
+        onTrack: "On Track",
+        coachingNeeded: "Coaching Needed"
+      }
+    },
+    barista: {
+      kds: "Kitchen Display System",
+      activeTickets: "Active Tickets",
+      avgTktTime: "Avg Ticket Time",
+      startPrep: "Start Prep",
+      markReady: "Mark Ready",
+      complete: "Complete",
+      noOrders: "No {status} orders",
+      greatJob: "Great job! All orders cleared.",
+      orderCompleted: "Order #{id} completed!",
+      note: "Note: \"{note}\""
+    }
+  },
+  settings: {
+    title: "Settings",
+    profile: "Profile Settings",
+    notifications: "Notifications",
+    appearance: "Appearance",
+    language: "Language",
+    save: "Save Changes",
+    fullName: "Full Name",
+    email: "Email",
+    phone: "Phone",
+    address: "Address",
+    theme: {
+      light: "Light Mode",
+      dark: "Dark Mode",
+      system: "System Default"
+    },
+    contact: "Contact Information",
+    role: "Account Role",
+    mobile: "Mobile",
+    deliveryNote: "Delivery Note (Optional)",
+    noChanges: "No changes made",
+  },
+  cart: {
+    label: "Cart",
+    title: "Your Selection",
+    empty: "Your cart is empty.",
+    emptyDesc: "Let's fill it with something delicious.",
+    summary: "Order Summary",
+    subtotal: "Subtotal",
+    delivery: "Delivery Fee",
+    shipping: "Shipping",
+    free: "Free",
+    total: "Total Amount",
+    checkout: "Proceed to Checkout",
+    selectPayment: "Select Payment Method",
+    notePlaceholder: "Add a note for the barista (optional)...",
+    promoCode: "Promo Code",
+    apply: "Apply",
+    removeTitle: "Remove Item?",
+    removeDesc: "Are you sure you want to remove this item from your cart? You can always add it back from the menu.",
+    browseMenu: "Browse Menu"
+  },
+  languageDialog: {
+    title: "Select Language",
+    subtitle: "Choose your preferred language",
+    indonesian: "Bahasa Indonesia",
+    mainLanguage: "Main Language",
+    english: "English",
+    international: "International"
+  },
+  addToCart: "Add to Order",
+  thankYou: {
+    title: "Thank You!",
+    subtitle: "Your order has been placed successfully. We are preparing it with care.",
+    orderNumber: "Order Number",
+    estimatedDelivery: "Estimated Delivery",
+    items: "Items Ordered",
+    total: "Total Paid",
+    trackOrder: "Track Order",
+    backToMenu: "Back to Menu",
+    viewHistory: "View Order History",
+  },
+  checkout: {
+    title: "Checkout",
+    contactInfo: "Contact Information",
+    deliveryDetails: "Delivery Details",
+    paymentMethod: "Payment Method",
+    placeOrder: "Place Order",
+    processing: "Processing...",
+    fullName: "Full Name",
+    address: "Delivery Address",
+    phone: "Phone Number",
+    deliveryNote: "Delivery Note (Optional)",
+    validation: {
+      nameShort: "Name is too short",
+      mobileInvalid: "Mobile number invalid",
+      emailInvalid: "Invalid email address",
+      addressShort: "Address is too short"
+    },
+    payment: {
+      title: "Secure Payment",
+      secure: "Secure Payment",
+      total: "Total",
+      subtitle: "Choose your preferred payment method.",
+      bankTransfer: "Bank Transfer",
+      eWallet: "E-Wallet",
+      creditCard: "Credit Card",
+      pay: "Pay Now",
+      poweredBy: "Powered by Midtrans",
+      expiresIn: "Expires In",
+      simulate: "Simulate Payment",
+      verifying: "Verifying Payment...",
+      success: "Payment Successful!",
+      return: "Return to Merchant",
+      methods: {
+        transfer: "Bank Transfer (VA)",
+        gopay: "GoPay / E-Wallet",
+        qris: "QRIS",
+        creditCard: "Credit Card",
+      },
+      changeMethod: "Change Method",
+      doNotClose: "Please do not close this window.",
+      successDesc: "Your transaction has been processed securely.",
+      secureGateway: "Secure Payment Gateway",
+      mockCard: "Mock Card Payment",
+      copied: "Copied to clipboard",
+      instruction: {
+        transfer: "Please transfer the exact amount to the Virtual Account number above.",
+        scan: "Scan QR to Pay",
+        card: "Click \"Simulate Payment\" below to bypass card entry.",
+        simulation: "This is a simulation. No real money will be deducted.",
+      }
+    },
+    footer: {
+      brandDesc: "Crafting moments of joy, one cup at a time. Join us on our journey of flavor and community.",
+      explore: "Explore",
+      menu: "Our Menu",
+      offers: "Special Offers",
+      rewards: "Rewards Program",
+      locations: "Locations",
+      company: "Company",
+      about: "About Us",
+      careers: "Careers",
+      privacy: "Privacy Policy",
+      contact: "Contact",
+      stayConnected: "Stay Connected",
+      rights: "All rights reserved.",
+    }
+  },
+
+
+  favorites: {
+    title: 'Favorites',
+    yourFavorites: 'Your Favorites',
+    emptyTitle: 'Your favorites list is empty',
+    emptyDesc: 'Browse our menu and heart the items you love to save them here for later.',
+    startBrowsing: 'Start Browsing',
+    noMatchTitle: 'No favorites match filters',
+    noMatchDesc: 'Try adjusting your filters to see your saved items.'
+  },
+  orders: {
+    title: 'Order Details',
+    subtitle: 'View and manage order information',
+    status: 'Status',
+    items: 'Items',
+    customer: 'Customer',
+    timeline: 'Order Timeline',
+    total: 'Total Amount',
+    payment: 'Payment Method',
+    date: 'Order Date',
+    notes: 'Notes',
+    actions: {
+      accept: 'Accept Order',
+      ready: 'Mark as Ready',
+      complete: 'Complete Order',
+      cancel: 'Cancel Order',
+      print: 'Print Receipt'
+    },
+    statusLabels: {
+      pending: 'Pending',
+      preparing: 'Preparing',
+      ready: 'Ready',
+      completed: 'Completed',
+      cancelled: 'Cancelled'
+    },
+    toast: {
+      statusUpdated: 'Order status updated successfully'
+    }
+  },
+  history: {
+    title: 'Order History',
+    subtitle: 'Manage your orders and preferences.',
+    filters: {
+      title: 'Filters',
+      status: 'Order Status',
+      all: 'All Orders',
+      active: 'Active',
+      completed: 'Completed',
+      cancelled: 'Cancelled'
+    },
+    empty: {
+      title: 'No past orders',
+      desc: "Looks like you haven't ordered any delicious coffee yet.",
+      browse: 'Browse Menu'
+    },
+    tabs: {
+      history: 'History',
+      liked: 'Liked',
+      faq: 'FAQ',
+      exit: 'Exit'
+    }
+  },
+
+};

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Coffee & Co.</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+      body {
+        background-color: #FAF9F6;
+        color: #3E2723;
+      }
+      /* Tiptap Basic Styles */
+      .ProseMirror {
+        outline: none;
+        min-height: 150px;
+      }
+      .ProseMirror p.is-editor-empty:first-child::before {
+        content: attr(data-placeholder);
+        float: left;
+        color: #adb5bd;
+        pointer-events: none;
+        height: 0;
+      }
+      .ProseMirror ul {
+        list-style-type: disc;
+        padding-left: 1.5em;
+      }
+      .ProseMirror ol {
+        list-style-type: decimal;
+        padding-left: 1.5em;
+      }
+      .ProseMirror blockquote {
+        border-left: 3px solid #ccc;
+        padding-left: 1rem;
+      }
+    </style>
+
+</head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/index.tsx"></script>
+</body>
+</html>
