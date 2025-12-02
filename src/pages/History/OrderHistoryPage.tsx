@@ -121,7 +121,7 @@ const TimelineDot = ({ status }: { status: OrderStatusType }) => {
 
 const OrderCard: React.FC<{ order: Order }> = ({ order }) => {
     const isDelivered = order.status === 'Delivered';
-    const navigate = useNavigate();
+    // const navigate = useNavigate(); // Removed in favor of Link
 
     return (
         <motion.div 
@@ -134,15 +134,15 @@ const OrderCard: React.FC<{ order: Order }> = ({ order }) => {
                 <div className={`absolute top-8 -left-1.5 w-3 h-3 rounded-full border-2 border-coffee-100 dark:border-coffee-900 ${isDelivered ? 'bg-coffee-900 dark:bg-white' : 'bg-yellow-500'}`} />
             </div>
 
-            <div 
-                onClick={() => navigate(`/orders/${order.id}`)}
-                className="bg-[#3C2A21] dark:bg-[#1E1B1A] rounded-[2.5rem] p-6 md:p-8 text-white relative overflow-hidden group cursor-pointer transition-transform hover:-translate-y-1 duration-300"
+            <Link 
+                to={`/history/${order.id.replace('#', '')}`}
+                className="block bg-white dark:bg-[#3C2A21] rounded-[2.5rem] p-6 md:p-8 text-coffee-900 dark:text-white relative overflow-hidden group shadow-sm border border-coffee-100 dark:border-none transition-all duration-300 hover:-translate-y-1 hover:shadow-md"
             >
                 {/* Mobile: Top Row */}
                 <div className="flex justify-between items-start mb-6 md:mb-0 md:absolute md:right-8 md:top-8 md:text-right z-10">
                     <div className="md:hidden">
                         <h3 className="font-serif font-bold text-2xl tracking-tight mb-1">#{order.id}</h3>
-                        <p className="text-xs text-white/60 font-medium">{new Date(order.date).toLocaleDateString()}</p>
+                        <p className="text-xs text-coffee-500 dark:text-white/60 font-medium">{new Date(order.date).toLocaleDateString()}</p>
                     </div>
                     <Badge variant="secondary" className={`rounded-full px-4 py-1.5 font-bold text-xs ${isDelivered ? 'bg-coffee-100 text-coffee-900' : 'bg-yellow-100 text-yellow-900'}`}>
                         {order.status}
@@ -152,11 +152,11 @@ const OrderCard: React.FC<{ order: Order }> = ({ order }) => {
                 <div className="flex flex-col md:flex-row md:items-center gap-6 md:gap-12">
                     
                     {/* Image Section */}
-                    <div className="relative w-32 h-40 md:w-48 md:h-48 shrink-0 rounded-2xl overflow-hidden bg-black/20 shadow-inner mx-auto md:mx-0">
+                    <div className="relative w-32 h-40 md:w-48 md:h-48 shrink-0 rounded-2xl overflow-hidden bg-coffee-50 dark:bg-black/20 shadow-inner mx-auto md:mx-0">
                         <img 
                             src={order.items[0].image} 
                             alt={order.items[0].name} 
-                            className="w-full h-full object-cover mix-blend-overlay opacity-90 group-hover:scale-110 transition-transform duration-700" 
+                            className="w-full h-full object-cover mix-blend-normal dark:mix-blend-overlay opacity-100 dark:opacity-90 transition-transform duration-700" 
                         />
                         {order.items.length > 1 && (
                             <div className="absolute bottom-2 right-2 bg-black/60 backdrop-blur-sm text-white text-[10px] font-bold px-2 py-1 rounded-full">
@@ -169,30 +169,30 @@ const OrderCard: React.FC<{ order: Order }> = ({ order }) => {
                     <div className="flex-1 text-center md:text-left space-y-4 md:space-y-2">
                         <div className="hidden md:block">
                             <h3 className="font-serif font-bold text-3xl tracking-tight mb-1">#{order.id}</h3>
-                            <p className="text-sm text-white/60 font-medium mb-4">{new Date(order.date).toLocaleDateString()}</p>
+                            <p className="text-sm text-coffee-500 dark:text-white/60 font-medium mb-4">{new Date(order.date).toLocaleDateString()}</p>
                         </div>
 
                         <div className="space-y-1">
-                            <div className="flex items-center justify-center md:justify-start gap-2 text-white/60 text-xs uppercase tracking-widest font-bold">
+                            <div className="flex items-center justify-center md:justify-start gap-2 text-coffee-400 dark:text-white/60 text-xs uppercase tracking-widest font-bold">
                                 <MapPin className="w-3 h-3" />
                                 <span>Location</span>
                             </div>
-                            <p className="text-sm font-medium text-white/90">{order.location}</p>
+                            <p className="text-sm font-medium text-coffee-800 dark:text-white/90">{order.location}</p>
                         </div>
                     </div>
 
                     {/* Total Section */}
-                    <div className="mt-4 md:mt-0 pt-4 md:pt-0 border-t border-white/10 md:border-0 text-center md:text-right">
-                        <p className="text-[10px] text-white/40 font-bold uppercase tracking-widest mb-1">Total Amount</p>
-                        <p className="font-serif font-bold text-3xl text-white">{CURRENCY}{order.total.toFixed(2)}</p>
+                    <div className="mt-4 md:mt-0 pt-4 md:pt-0 border-t border-coffee-100 dark:border-white/10 md:border-0 text-center md:text-right">
+                        <p className="text-[10px] text-coffee-400 dark:text-white/40 font-bold uppercase tracking-widest mb-1">Total Amount</p>
+                        <p className="font-serif font-bold text-3xl text-coffee-900 dark:text-white">{CURRENCY}{order.total.toFixed(2)}</p>
                     </div>
 
                     {/* Arrow Icon (Desktop) */}
-                    <div className="hidden md:flex items-center justify-center w-12 h-12 rounded-full border border-white/10 text-white/40 group-hover:bg-white group-hover:text-coffee-900 transition-all duration-300">
+                    <div className="hidden md:flex items-center justify-center w-12 h-12 rounded-full border border-coffee-100 dark:border-white/10 text-coffee-400 dark:text-white/40 group-hover:bg-coffee-900 group-hover:text-white dark:group-hover:bg-white dark:group-hover:text-coffee-900 transition-all duration-300">
                         <ChevronRight className="w-5 h-5" />
                     </div>
                 </div>
-            </div>
+            </Link>
         </motion.div>
     );
 }

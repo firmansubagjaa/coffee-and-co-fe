@@ -1,13 +1,21 @@
 import React, { useState } from 'react';
 import { useStreak } from '../../features/streak/useStreak';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Flame, Gift, Lock, Sparkles, Star, ChevronRight, Zap } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { Flame, Gift, Lock, Sparkles, Star, Zap, Trophy, ChevronRight } from 'lucide-react';
 import { Button } from '../../components/common/Button';
 import { useLanguage } from '../../contexts/LanguageContext';
-import { MOCK_USER_REWARDS, REWARD_TIERS, REWARD_ITEMS, RewardTier } from '../../data/mockRewards';
+import { MOCK_USER_REWARDS, REWARD_TIERS, REWARD_ITEMS } from '../../data/mockRewards';
 import { cn } from '../../utils/cn';
 import { toast } from 'sonner';
 import { SEO } from '@/components/common/SEO';
+import { 
+  Breadcrumb, 
+  BreadcrumbItem, 
+  BreadcrumbLink, 
+  BreadcrumbList, 
+  BreadcrumbPage, 
+  BreadcrumbSeparator 
+} from "../../components/ui/Breadcrumb";
 
 export const RewardsPage: React.FC = () => {
   const { streak } = useStreak();
@@ -35,176 +43,152 @@ export const RewardsPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-cream-50 dark:bg-coffee-950 pt-6">
-      <SEO 
-        title="Rewards" 
-        description="Earn points with every sip! Join our rewards program to unlock exclusive perks, free drinks, and special offers. Start earning today."
-      />
-      {/* Hero Section */}
-      <div className="container mx-auto px-4 md:px-6">
+    <div className="min-h-screen bg-cream-50 dark:bg-coffee-950 pt-6 pb-20">
+      <SEO title="Rewards" description="Your rewards dashboard." />
+      
+      <div className="container mx-auto px-4 md:px-8 max-w-7xl">
         
-        <div className="max-w-5xl mx-auto">
-            <div className="text-center mb-12">
-                <h1 className="text-4xl font-serif font-bold text-coffee-900 dark:text-white mb-4">{t('rewards.title')}</h1>
-                <p className="text-coffee-600 dark:text-coffee-300">{t('rewards.subtitle')}</p>
-            </div>
+        {/* Breadcrumbs */}
+        <div className="mb-6">
+            <Breadcrumb>
+                <BreadcrumbList>
+                    <BreadcrumbItem>
+                        <BreadcrumbLink to="/">Home</BreadcrumbLink>
+                    </BreadcrumbItem>
+                    <BreadcrumbSeparator />
+                    <BreadcrumbItem>
+                        <BreadcrumbPage>Rewards</BreadcrumbPage>
+                    </BreadcrumbItem>
+                </BreadcrumbList>
+            </Breadcrumb>
+        </div>
 
-            {/* Tier Status Card */}
+        <div className="mb-8 flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div>
+                <h1 className="text-3xl md:text-4xl font-serif font-bold text-coffee-900 dark:text-white mb-2">{t('rewards.title')}</h1>
+                <p className="text-coffee-500 dark:text-white/60">Unlock exclusive perks and enjoy free drinks.</p>
+            </div>
+            <div className="flex items-center gap-2 bg-white dark:bg-coffee-800 px-4 py-2 rounded-full shadow-sm border border-coffee-100 dark:border-white/10 self-start md:self-auto">
+                <Flame className="w-5 h-5 text-orange-500 fill-orange-500 animate-pulse" />
+                <span className="font-bold text-base text-coffee-900 dark:text-white">{streak} Day Streak</span>
+            </div>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
+            {/* Hero Card - Expanded */}
             <motion.div 
                 initial={{ y: 20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
-                whileHover={{ scale: 1.01 }}
-                transition={{ duration: 0.5 }}
                 className={cn(
-                    "rounded-[3rem] p-8 md:p-12 text-white shadow-2xl mb-16 relative overflow-hidden ring-1 ring-white/20",
+                    "lg:col-span-2 rounded-[2.5rem] p-8 md:p-10 relative overflow-hidden shadow-2xl text-white min-h-[300px] flex flex-col justify-between",
                     "bg-gradient-to-br",
                     currentTier.color
                 )}
             >
-                {/* Background Pattern */}
                 <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
-                <div className="absolute top-0 right-0 -mr-32 -mt-32 opacity-20 rotate-12">
-                    <currentTier.icon className="w-[500px] h-[500px]" />
+                <div className="absolute top-0 right-0 -mr-20 -mt-20 opacity-10 rotate-12">
+                    <currentTier.icon className="w-96 h-96" />
                 </div>
                 
-                <div className="relative z-10 grid md:grid-cols-2 gap-12 items-center">
-                    <div>
-                        <div className="flex items-center gap-3 mb-6">
-                            <div className="p-3 bg-white/20 rounded-2xl backdrop-blur-md shadow-lg border border-white/10">
-                                <currentTier.icon className="w-8 h-8" />
-                            </div>
-                            <span className="font-bold tracking-[0.2em] uppercase text-sm bg-black/20 px-4 py-1.5 rounded-full border border-white/10 backdrop-blur-sm">
-                                {t(`rewards.tiers.${currentTier.id}`)}
-                            </span>
+                <div className="relative z-10">
+                    <div className="flex items-center gap-3 mb-6">
+                        <div className="p-2 bg-white/20 rounded-xl backdrop-blur-md shadow-lg">
+                            <currentTier.icon className="w-6 h-6" />
+                        </div>
+                        <span className="font-bold tracking-[0.2em] uppercase text-sm bg-black/20 px-4 py-1.5 rounded-full border border-white/10 backdrop-blur-sm">
+                            {t(`rewards.tiers.${currentTier.id}`)} Member
+                        </span>
+                    </div>
+
+                    <div className="flex flex-col md:flex-row md:items-end gap-4 md:gap-12 mb-8">
+                        <div>
+                            <h2 className="text-6xl md:text-7xl font-bold tracking-tighter drop-shadow-md">{user.currentPoints}</h2>
+                            <p className="text-white/80 text-lg font-medium">{t('rewards.currentPoints')}</p>
                         </div>
                         
-                        <div className="mb-8">
-                            <h2 className="text-7xl md:text-8xl font-bold mb-2 tracking-tighter drop-shadow-lg">{user.currentPoints}</h2>
-                            <p className="text-white/90 text-xl font-medium">{t('rewards.currentPoints')}</p>
-                        </div>
-
+                        {/* Desktop Progress Circle */}
                         {nextTier && (
-                            <div className="bg-black/20 rounded-3xl p-6 backdrop-blur-md border border-white/10 shadow-inner">
-                                <div className="flex justify-between text-sm mb-3 font-bold tracking-wide">
-                                    <span className="text-white/90">{t('rewards.tiers.nextTier', { tier: t(`rewards.tiers.${nextTier.id}`) })}</span>
-                                    <span className="text-yellow-300">{t('rewards.tiers.pointsToGo', { points: pointsToNextTier })}</span>
+                            <div className="hidden md:flex items-center gap-4 bg-black/20 p-4 rounded-2xl backdrop-blur-md border border-white/10">
+                                <div className="w-16 h-16 rounded-full border-4 border-white/20 flex items-center justify-center relative shrink-0">
+                                    <span className="text-sm font-bold">{Math.round(progressPercent)}%</span>
+                                    <svg className="absolute inset-0 w-full h-full -rotate-90" viewBox="0 0 36 36">
+                                        <path
+                                            d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            strokeWidth="4"
+                                            strokeDasharray={`${progressPercent}, 100`}
+                                            className="text-yellow-400"
+                                        />
+                                    </svg>
                                 </div>
-                                <div className="w-full bg-black/30 h-6 rounded-full overflow-hidden p-1 border border-white/5 relative">
-                                    <motion.div 
-                                        initial={{ width: 0 }}
-                                        animate={{ width: `${progressPercent}%` }}
-                                        transition={{ duration: 1.5, ease: "easeOut", delay: 0.2 }}
-                                        className="bg-gradient-to-r from-yellow-300 to-yellow-500 h-full rounded-full shadow-[0_0_20px_rgba(253,224,71,0.5)] relative overflow-hidden"
-                                    >
-                                        <div className="absolute inset-0 bg-white/30 w-full h-full animate-[shimmer_2s_infinite] skew-x-12"></div>
-                                    </motion.div>
+                                <div>
+                                    <p className="text-sm font-bold text-white">Next Reward</p>
+                                    <p className="text-xs text-white/70">{pointsToNextTier} points to {t(`rewards.tiers.${nextTier.id}`)}</p>
                                 </div>
-                                <p className="text-xs text-white/60 mt-2 text-right">
-                                    {Math.round(progressPercent)}% {t('common.complete')}
-                                </p>
                             </div>
                         )}
                     </div>
+                </div>
 
-                    <div className="space-y-6">
-                        <div className="bg-white/10 backdrop-blur-xl p-8 rounded-[2.5rem] border border-white/20 shadow-xl hover:bg-white/15 transition-colors">
-                            <h3 className="font-bold text-2xl mb-6 flex items-center gap-3">
-                                <div className="p-2 bg-yellow-400/20 rounded-xl">
-                                    <Star className="w-6 h-6 text-yellow-300 fill-yellow-300" />
-                                </div>
-                                {t('rewards.benefits')}
-                            </h3>
-                            <ul className="space-y-4">
-                                {currentTier.benefits.map((benefit, idx) => (
-                                    <motion.li 
-                                        initial={{ opacity: 0, x: 20 }}
-                                        animate={{ opacity: 1, x: 0 }}
-                                        transition={{ delay: 0.3 + (idx * 0.1) }}
-                                        key={idx} 
-                                        className="flex items-center gap-4 text-base md:text-lg font-medium"
-                                    >
-                                        <div className="w-2 h-2 rounded-full bg-yellow-300 shadow-[0_0_10px_rgba(253,224,71,0.8)]" />
-                                        {benefit}
-                                    </motion.li>
-                                ))}
-                            </ul>
+                {/* Mobile/Tablet Linear Progress */}
+                {nextTier && (
+                    <div className="relative z-10 md:hidden bg-black/20 rounded-2xl p-4 backdrop-blur-md border border-white/10">
+                        <div className="flex justify-between text-xs font-bold mb-2">
+                            <span className="text-white/90">Next: {t(`rewards.tiers.${nextTier.id}`)}</span>
+                            <span className="text-yellow-300">{pointsToNextTier} pts to go</span>
                         </div>
-
-                        <div className="flex items-center gap-5 bg-gradient-to-r from-orange-500/20 to-red-500/20 p-6 rounded-[2rem] border border-orange-500/30 backdrop-blur-md">
-                            <div className="p-3 bg-orange-500/20 rounded-2xl">
-                                <Flame className="w-8 h-8 text-orange-400 fill-orange-400 animate-pulse" />
-                            </div>
-                            <div>
-                                <p className="text-xs uppercase tracking-[0.15em] font-bold opacity-80 mb-1">{t('rewards.currentStreak')}</p>
-                                <p className="font-bold text-2xl">{streak} {t('common.days')}</p>
-                            </div>
+                        <div className="w-full bg-black/30 h-3 rounded-full overflow-hidden">
+                            <motion.div 
+                                initial={{ width: 0 }}
+                                animate={{ width: `${progressPercent}%` }}
+                                className="bg-yellow-400 h-full rounded-full shadow-[0_0_10px_rgba(250,204,21,0.5)]"
+                            />
                         </div>
                     </div>
-                </div>
+                )}
             </motion.div>
 
-            {/* Mystery Reward Section */}
-            <div className="mb-20">
-                <div className="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 rounded-[3rem] p-1.5 relative overflow-hidden shadow-2xl group">
-                    <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-50 animate-pulse"></div>
-                    <div className="bg-coffee-950 rounded-[2.8rem] p-10 md:p-16 text-center relative overflow-hidden">
-                        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full bg-gradient-to-b from-purple-500/20 to-transparent pointer-events-none" />
-                        
-                        <div className="relative z-10">
-                            <motion.div 
-                                animate={{ rotate: isSpinning ? 360 : 0 }}
-                                transition={{ duration: 1, repeat: isSpinning ? Infinity : 0, ease: "linear" }}
-                                className="inline-block mb-6"
-                            >
-                                <Sparkles className="w-16 h-16 text-purple-400 drop-shadow-[0_0_15px_rgba(192,132,252,0.8)]" />
-                            </motion.div>
-                            
-                            <h3 className="text-4xl md:text-5xl font-bold text-white mb-4 tracking-tight">{t('rewards.mystery.title')}</h3>
-                            <p className="text-purple-200 text-xl mb-10 max-w-2xl mx-auto">{t('rewards.mystery.subtitle')}</p>
-
-                            <div className="flex justify-center">
-                                <Button 
-                                    size="lg"
-                                    onClick={handleMysterySpin}
-                                    disabled={mysteryRevealed || isSpinning}
-                                    className={cn(
-                                        "rounded-full px-12 py-8 text-xl font-bold shadow-[0_0_40px_rgba(168,85,247,0.6)] transition-all transform hover:scale-105 hover:shadow-[0_0_60px_rgba(168,85,247,0.8)] border-2 border-white/20",
-                                        mysteryRevealed 
-                                            ? "bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-400 hover:to-emerald-500" 
-                                            : "bg-gradient-to-r from-purple-600 via-pink-600 to-orange-600 hover:from-purple-500 hover:via-pink-500 hover:to-orange-500"
-                                    )}
-                                >
-                                    {isSpinning ? (
-                                        <div className="flex items-center gap-3">
-                                            <Zap className="w-6 h-6 animate-spin" />
-                                            <span>Spinning...</span>
-                                        </div>
-                                    ) : mysteryRevealed ? (
-                                        <div className="flex items-center gap-3">
-                                            <Gift className="w-6 h-6 animate-bounce" />
-                                            <span>{t('rewards.mystery.won', { reward: '50 pts' })}</span>
-                                        </div>
-                                    ) : (
-                                        t('rewards.mystery.cta')
-                                    )}
-                                </Button>
-                            </div>
-                        </div>
+            {/* Mystery Reward & Benefits Column */}
+            <div className="lg:col-span-1 flex flex-col gap-6">
+                {/* Mystery Banner */}
+                <div className="flex-1 bg-gradient-to-br from-indigo-600 to-purple-700 rounded-[2.5rem] p-8 relative overflow-hidden shadow-xl text-white flex flex-col justify-center items-center text-center group">
+                    <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-30 animate-pulse"></div>
+                    <div className="relative z-10 w-full">
+                        <Sparkles className="w-12 h-12 text-yellow-300 mb-4 mx-auto drop-shadow-lg" />
+                        <h3 className="font-bold text-2xl mb-2">{t('rewards.mystery.title')}</h3>
+                        <p className="text-sm text-white/80 mb-6">Spin daily for a chance to win bonus points and exclusive coupons!</p>
+                        <Button 
+                            size="lg"
+                            onClick={handleMysterySpin}
+                            disabled={mysteryRevealed || isSpinning}
+                            className={cn(
+                                "rounded-full px-8 font-bold shadow-lg border border-white/20 w-full h-12 text-lg transition-transform hover:scale-105",
+                                mysteryRevealed ? "bg-green-500 hover:bg-green-600" : "bg-white text-purple-700 hover:bg-purple-50"
+                            )}
+                        >
+                            {isSpinning ? <Zap className="w-5 h-5 animate-spin" /> : mysteryRevealed ? "Won 50 pts!" : "Spin Now"}
+                        </Button>
                     </div>
                 </div>
             </div>
+        </div>
 
-            {/* Rewards Grid */}
-            <div className="flex items-center gap-4 mb-10">
-                <div className="p-3 bg-coffee-100 dark:bg-coffee-800 rounded-2xl">
-                    <Gift className="w-8 h-8 text-coffee-900 dark:text-white" />
-                </div>
-                <h3 className="text-3xl font-serif font-bold text-coffee-900 dark:text-white">
+        {/* Rewards Grid - Responsive */}
+        <div className="mb-6">
+            <div className="flex items-center justify-between mb-6">
+                <h3 className="text-2xl font-serif font-bold text-coffee-900 dark:text-white flex items-center gap-3">
+                    <div className="p-2 bg-coffee-100 dark:bg-coffee-800 rounded-xl">
+                        <Gift className="w-6 h-6 text-coffee-900 dark:text-white" />
+                    </div>
                     {t('rewards.redeem')}
                 </h3>
+                <Button variant="ghost" className="text-coffee-600 dark:text-coffee-300 hover:bg-coffee-50 dark:hover:bg-coffee-800">
+                    View All <ChevronRight className="w-4 h-4 ml-1" />
+                </Button>
             </div>
             
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                 {REWARD_ITEMS.map((item, idx) => {
                     const isLocked = item.minTierId && 
                         (Object.keys(REWARD_TIERS).indexOf(user.currentTierId) < Object.keys(REWARD_TIERS).indexOf(item.minTierId));
@@ -212,45 +196,40 @@ export const RewardsPage: React.FC = () => {
                     return (
                         <motion.div 
                             key={item.id}
-                            initial={{ opacity: 0, y: 20 }}
+                            initial={{ opacity: 0, y: 10 }}
                             whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ delay: idx * 0.1 }}
-                            whileHover={!isLocked ? { y: -8, scale: 1.02 } : {}}
+                            transition={{ delay: idx * 0.05 }}
                             className={cn(
-                                "bg-white dark:bg-coffee-900 p-8 rounded-[2.5rem] shadow-lg border border-coffee-100 dark:border-coffee-800 flex flex-col relative overflow-hidden group transition-all duration-300",
-                                isLocked ? "opacity-80 grayscale-[0.8]" : "hover:shadow-2xl hover:border-coffee-300 dark:hover:border-coffee-600"
+                                "bg-white dark:bg-[#3C2A21] p-6 rounded-[2rem] shadow-sm border border-coffee-100 dark:border-none flex flex-col gap-4 group transition-all hover:shadow-xl hover:-translate-y-1",
+                                isLocked && "opacity-60 grayscale"
                             )}
                         >
-                            {item.isPopular && (
-                                <div className="absolute top-6 right-6 bg-gradient-to-r from-red-500 to-pink-500 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-lg z-10 tracking-wide uppercase">
-                                    {t('rewards.popular')}
+                            <div className="flex justify-between items-start">
+                                <div className={cn(
+                                    "w-16 h-16 rounded-2xl flex items-center justify-center shrink-0 transition-colors shadow-inner",
+                                    isLocked ? "bg-gray-100 dark:bg-white/5" : "bg-cream-100 dark:bg-black/20 group-hover:bg-coffee-900 group-hover:text-white dark:group-hover:bg-white dark:group-hover:text-coffee-900"
+                                )}>
+                                    {isLocked ? <Lock className="w-6 h-6 text-gray-400" /> : <item.icon className="w-8 h-8 text-coffee-600 dark:text-coffee-200 group-hover:text-white dark:group-hover:text-coffee-900" />}
                                 </div>
-                            )}
-
-                            <div className={cn(
-                                "w-20 h-20 rounded-[1.5rem] flex items-center justify-center mb-8 transition-all duration-500 shadow-inner",
-                                isLocked 
-                                    ? "bg-gray-100 dark:bg-coffee-800 text-gray-400" 
-                                    : "bg-cream-100 dark:bg-coffee-800 text-coffee-600 dark:text-coffee-300 group-hover:bg-coffee-900 group-hover:text-white dark:group-hover:bg-white dark:group-hover:text-coffee-900 group-hover:scale-110 group-hover:rotate-3"
-                            )}>
-                                {isLocked ? <Lock className="w-8 h-8" /> : <item.icon className="w-10 h-10" />}
+                                {item.isPopular && (
+                                    <span className="bg-red-100 text-red-600 text-[10px] font-bold px-2 py-1 rounded-full uppercase tracking-wide">
+                                        Popular
+                                    </span>
+                                )}
                             </div>
 
-                            <h4 className="font-bold text-coffee-900 dark:text-white text-2xl mb-2 group-hover:text-coffee-700 dark:group-hover:text-coffee-200 transition-colors">{item.title}</h4>
-                            <p className="text-coffee-500 dark:text-coffee-400 text-base mb-8 flex items-center gap-2 font-medium">
-                                <span className="font-bold text-xl text-yellow-600 dark:text-yellow-400">{item.pointsCost}</span>
-                                {t('rewards.points')}
-                            </p>
-
-                            <div className="mt-auto">
+                            <div className="flex-1">
+                                <h4 className="font-bold text-lg text-coffee-900 dark:text-white mb-1 line-clamp-1">{item.title}</h4>
+                                <p className="text-sm text-coffee-500 dark:text-white/60 font-medium mb-4">{item.pointsCost} pts</p>
+                                
                                 {isLocked ? (
-                                    <div className="w-full py-4 px-6 rounded-2xl bg-gray-100 dark:bg-coffee-800 text-gray-500 text-sm font-bold text-center flex items-center justify-center gap-2 border border-dashed border-gray-300 dark:border-coffee-700">
-                                        <Lock className="w-4 h-4" />
-                                        {t('rewards.tiers.nextTier', { tier: t(`rewards.tiers.${item.minTierId}`) })}
+                                    <div className="w-full py-3 bg-gray-50 dark:bg-white/5 rounded-xl text-xs font-bold text-gray-400 uppercase tracking-wide flex items-center justify-center gap-2">
+                                        <Lock className="w-3 h-3" />
+                                        {t(`rewards.tiers.${item.minTierId}`)}
                                     </div>
                                 ) : (
-                                    <Button variant="outline" className="w-full h-14 rounded-2xl text-lg font-bold group-hover:bg-coffee-900 group-hover:text-white dark:group-hover:bg-white dark:group-hover:text-coffee-900 border-coffee-200 dark:border-coffee-700 shadow-sm group-hover:shadow-lg transition-all">
-                                        {t('rewards.redeem')}
+                                    <Button variant="outline" className="w-full rounded-xl font-bold border-coffee-200 dark:border-white/10 hover:bg-coffee-900 hover:text-white dark:hover:bg-white dark:hover:text-coffee-900 transition-colors">
+                                        Redeem
                                     </Button>
                                 )}
                             </div>

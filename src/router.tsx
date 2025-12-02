@@ -34,6 +34,7 @@ import { SettingsPage } from '@/pages/Settings/SettingsPage';
 const CheckoutPage = lazy(() => import('@/pages/Checkout/CheckoutPage').then(module => ({ default: module.CheckoutPage })));
 const ThankYouPage = lazy(() => import('@/pages/Checkout/ThankYouPage').then(module => ({ default: module.ThankYouPage })));
 const OrderHistoryPage = lazy(() => import('@/pages/History/OrderHistoryPage').then(module => ({ default: module.OrderHistoryPage })));
+const OrderHistoryDetailPage = lazy(() => import('@/pages/History/OrderHistoryDetailPage').then(module => ({ default: module.OrderHistoryDetailPage })));
 
 // About Sub-pages
 const OurStoryPage = lazy(() => import('@/pages/About/OurStoryPage').then(module => ({ default: module.OurStoryPage })));
@@ -113,6 +114,10 @@ export const router = createBrowserRouter([
       {
         path: 'history',
         element: <ProtectedRoute><PageTransition><OrderHistoryPage /></PageTransition></ProtectedRoute>,
+      },
+      {
+        path: 'history/:id',
+        element: <ProtectedRoute><PageTransition><OrderHistoryDetailPage /></PageTransition></ProtectedRoute>,
       },
       {
         path: 'login',
