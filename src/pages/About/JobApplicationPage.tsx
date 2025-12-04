@@ -97,13 +97,13 @@ export const JobApplicationPage: React.FC = () => {
 
       console.log("Application submitted:", application);
 
-      toast.success(t("about.careers.application.success" as any), {
-        description: t("about.careers.application.successDesc" as any),
+      // Navigate to success page instead of showing toast
+      navigate("/about/careers/application-success", {
+        state: {
+          jobTitle: jobData.jobTitle,
+          jobId: jobData.jobId,
+        },
       });
-
-      setTimeout(() => {
-        navigate("/about/careers");
-      }, 2000);
     } catch (error) {
       toast.error(t("about.careers.application.error" as any));
     } finally {

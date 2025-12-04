@@ -12,6 +12,7 @@ import {
   Heart,
   LayoutDashboard,
   History,
+  FileText,
   Bookmark,
   Settings,
   Globe,
@@ -357,6 +358,14 @@ export const Header: React.FC = () => {
                                 </NavigationMenuLink>
                               </li>
                               <li>
+                                <NavigationMenuLink to="/my-applications">
+                                  <div className="flex items-center gap-2">
+                                    <FileText className="h-4 w-4 text-coffee-500" />
+                                    {t("nav.myApplications")}
+                                  </div>
+                                </NavigationMenuLink>
+                              </li>
+                              <li>
                                 <NavigationMenuLink to="/settings">
                                   <div className="flex items-center gap-2">
                                     <Settings className="h-4 w-4 text-coffee-500" />
@@ -629,6 +638,13 @@ export const Header: React.FC = () => {
                                 className="block py-1 text-coffee-600 dark:text-coffee-400"
                               >
                                 {t("nav.orderHistory")}
+                              </NavLink>
+                              <NavLink
+                                to="/my-applications"
+                                onClick={() => setIsMobileMenuOpen(false)}
+                                className="block py-1 text-coffee-600 dark:text-coffee-400"
+                              >
+                                {t("nav.myApplications")}
                               </NavLink>
                               <NavLink
                                 to="/favorites"

@@ -26,3 +26,4 @@ dist-ssr
 package-lock.json
 backend_design.md
 system_design.md
+postman_guide.md

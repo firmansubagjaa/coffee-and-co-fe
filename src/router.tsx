@@ -197,6 +197,16 @@ const JobApplicationPage = lazy(() =>
     default: module.JobApplicationPage,
   }))
 );
+const ApplicationSuccessPage = lazy(() =>
+  import("@/pages/About/ApplicationSuccessPage").then((module) => ({
+    default: module.ApplicationSuccessPage,
+  }))
+);
+const MyApplicationsPage = lazy(() =>
+  import("@/pages/Profile/MyApplicationsPage").then((module) => ({
+    default: module.MyApplicationsPage,
+  }))
+);
 
 // Auth Flow Pages
 const ForgotPasswordPage = lazy(() =>
@@ -288,6 +298,14 @@ export const router = createBrowserRouter([
         ),
       },
       {
+        path: "about/careers/application-success",
+        element: (
+          <LazyPage>
+            <ApplicationSuccessPage />
+          </LazyPage>
+        ),
+      },
+      {
         path: "about/locations",
         element: (
           <LazyPage>
@@ -328,6 +346,14 @@ export const router = createBrowserRouter([
               <SettingsPage />
             </LazyPage>
           </ProtectedRoute>
+        ),
+      },
+      {
+        path: "my-applications",
+        element: (
+          <LazyPage>
+            <MyApplicationsPage />
+          </LazyPage>
         ),
       },
       {
