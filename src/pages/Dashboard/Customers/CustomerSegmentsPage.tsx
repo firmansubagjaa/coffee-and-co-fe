@@ -362,7 +362,10 @@ export const CustomerSegmentsPage: React.FC = () => {
                       {new Date(customer.lastVisit).toLocaleDateString()}
                     </td>
                     <td className="px-6 py-4 text-right">
-                      <button className="p-2 text-coffee-400 dark:text-coffee-500 hover:text-coffee-900 dark:hover:text-white hover:bg-coffee-50 dark:hover:bg-coffee-800 rounded-full transition-colors" aria-label="More options">
+                      <button
+                        className="p-2 text-coffee-400 dark:text-coffee-500 hover:text-coffee-900 dark:hover:text-white hover:bg-coffee-50 dark:hover:bg-coffee-800 rounded-full transition-colors"
+                        aria-label="More options"
+                      >
                         <MoreHorizontal className="w-4 h-4" />
                       </button>
                     </td>

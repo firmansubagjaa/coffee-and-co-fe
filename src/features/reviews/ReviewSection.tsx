@@ -184,7 +184,7 @@ export const ReviewSection: React.FC = () => {
                       type="button"
                       onClick={() => setValue("rating", star)}
                       className="focus:outline-none transition-transform hover:scale-110"
-                      aria-label={`Rate ${star} star${star > 1 ? 's' : ''}`}
+                      aria-label={`Rate ${star} star${star > 1 ? "s" : ""}`}
                     >
                       <Star
                         className={`w-8 h-8 ${

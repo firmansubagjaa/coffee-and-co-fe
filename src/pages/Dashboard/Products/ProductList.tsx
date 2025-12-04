@@ -249,7 +249,10 @@ export const ProductList: React.FC = () => {
 
                         <AlertDialog>
                           <AlertDialogTrigger asChild>
-                            <button className="p-2 text-coffee-500 dark:text-coffee-400 hover:text-error hover:bg-error/10 dark:hover:bg-error/20 rounded-lg transition-colors" aria-label="Delete product">
+                            <button
+                              className="p-2 text-coffee-500 dark:text-coffee-400 hover:text-error hover:bg-error/10 dark:hover:bg-error/20 rounded-lg transition-colors"
+                              aria-label="Delete product"
+                            >
                               <Trash2 className="w-4 h-4" />
                             </button>
                           </AlertDialogTrigger>

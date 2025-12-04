@@ -102,7 +102,10 @@ export const CartStep: React.FC<CartStepProps> = ({ onNext }) => {
 
                   <AlertDialog>
                     <AlertDialogTrigger asChild>
-                      <button className="p-2 text-coffee-400 hover:text-error transition-colors rounded-full hover:bg-error/10 dark:hover:bg-error/20" aria-label="Remove item">
+                      <button
+                        className="p-2 text-coffee-400 hover:text-error transition-colors rounded-full hover:bg-error/10 dark:hover:bg-error/20"
+                        aria-label="Remove item"
+                      >
                         <Trash2 className="h-5 w-5" />
                       </button>
                     </AlertDialogTrigger>
