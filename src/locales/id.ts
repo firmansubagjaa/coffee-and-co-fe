@@ -16,6 +16,7 @@ export const id = {
     loading: "Sedang meracik...",
     error: "Terjadi kesalahan",
     success: "Berhasil",
+    addToCart: "Tambah ke Keranjang",
 
     outOfStock: "Habis",
     new: "Menu Baru",
@@ -200,6 +201,10 @@ export const id = {
     removeFromFavorites: "Hapus dari Favorit",
     expandImage: "Perbesar Gambar",
     notFound: "Produk tidak ditemukan.",
+    oops: "Ups! Terjadi kesalahan",
+    loadError: "Kami tidak dapat memuat produk ini. Silakan coba lagi.",
+    tryAgain: "Coba Lagi",
+    backToMenu: "Kembali ke Menu",
     loginRequired: "Silakan masuk",
     loginDesc: "Anda perlu masuk untuk menambahkan item ke pesanan.",
     loginFavDesc: "Anda perlu masuk untuk menyimpan favorit.",

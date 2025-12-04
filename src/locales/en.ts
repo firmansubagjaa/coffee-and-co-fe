@@ -16,6 +16,7 @@ export const en = {
     loading: "Brewing...",
     error: "Something went wrong",
     success: "Success",
+    addToCart: "Add to Cart",
 
     outOfStock: "Out of Stock",
     new: "New Arrival",
@@ -201,6 +202,10 @@ export const en = {
     removeFromFavorites: "Remove from Favorites",
     expandImage: "Expand Image",
     notFound: "Product not found.",
+    oops: "Oops! Something went wrong",
+    loadError: "We couldn't load this product. Please try again.",
+    tryAgain: "Try Again",
+    backToMenu: "Back to Menu",
     loginRequired: "Please log in",
     loginDesc: "You need to be logged in to add items to your order.",
     loginFavDesc: "You need to be logged in to save favorites.",
