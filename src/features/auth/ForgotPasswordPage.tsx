@@ -43,7 +43,8 @@ export const ForgotPasswordPage: React.FC = () => {
       toast.success(t("auth.forgotPassword.success.title"), {
         description: t("auth.forgotPassword.success.desc"),
       });
-      navigate("/verify-otp");
+      // Navigate to ForgotPasswordOtp with email and type
+      navigate(`/forgot-password-otp?email=${encodeURIComponent(data.email)}`);
     } catch (error) {
       toast.error(t("auth.forgotPassword.error"));
     }

@@ -68,7 +68,8 @@ export const RegisterPage: React.FC = () => {
   const onSubmit = async (data: RegisterFormValues) => {
     try {
       await registerAction(data.name, data.email);
-      navigate("/");
+      // Redirect to OTP verification page
+      navigate(`/verify-otp?email=${encodeURIComponent(data.email)}&type=register`);
     } catch (error) {
       console.error("Registration failed", error);
     }

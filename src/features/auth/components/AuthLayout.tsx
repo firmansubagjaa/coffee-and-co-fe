@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Coffee, Star } from 'lucide-react';
+import { Coffee, Star, Globe } from 'lucide-react';
 import { APP_NAME } from '../../../utils/constants';
 import { Link } from 'react-router-dom';
 import { useLanguage } from '@/contexts/LanguageContext';
@@ -13,7 +13,12 @@ interface AuthLayoutProps {
 }
 
 export const AuthLayout: React.FC<AuthLayoutProps> = ({ children, title, subtitle }) => {
-  const { t } = useLanguage();
+  const { t, language, setLanguage } = useLanguage();
+  
+  const toggleLanguage = () => {
+    setLanguage(language === 'en' ? 'id' : 'en');
+  };
+  
   return (
     <div className="min-h-screen w-full flex bg-white dark:bg-coffee-950 overflow-hidden">
       {/* Left Side - Visual - Desktop Only */}
@@ -77,6 +82,16 @@ export const AuthLayout: React.FC<AuthLayoutProps> = ({ children, title, subtitl
                  <span className="font-serif font-bold text-coffee-900 dark:text-white text-lg tracking-tight">{APP_NAME}</span>
             </Link>
         </div>
+
+        {/* Language Toggle - Top Right */}
+        <button
+          onClick={toggleLanguage}
+          className="absolute top-6 right-6 flex items-center gap-2 px-3 py-2 rounded-lg bg-coffee-100 dark:bg-coffee-800 text-coffee-700 dark:text-coffee-300 hover:bg-coffee-200 dark:hover:bg-coffee-700 transition-colors font-medium text-sm"
+          aria-label="Toggle Language"
+        >
+          <Globe className="w-4 h-4" />
+          <span className="uppercase">{language}</span>
+        </button>
 
         <motion.div 
             initial={{ opacity: 0, y: 20 }}

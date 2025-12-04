@@ -8,6 +8,7 @@ interface AuthState {
   isAuthenticated: boolean;
   isLoading: boolean;
   resetEmail: string | null; // Track email during reset flow
+  tempRegistrationEmail: string | null; // Track email during registration OTP flow
   login: (email: string) => Promise<void>;
   register: (name: string, email: string) => Promise<void>;
   logout: () => void;
@@ -15,6 +16,9 @@ interface AuthState {
   requestPasswordReset: (email: string) => Promise<void>;
   verifyOTP: (code: string) => Promise<boolean>;
   resetPassword: (password: string) => Promise<void>;
+  // OTP Registration functions
+  verifyRegistrationOTP: (email: string, code: string) => Promise<boolean>;
+  resendOTP: (email: string) => Promise<void>;
 }
 
 export const useAuthStore = create<AuthState>()(
@@ -24,6 +28,7 @@ export const useAuthStore = create<AuthState>()(
       isAuthenticated: false,
       isLoading: false,
       resetEmail: null,
+      tempRegistrationEmail: null,
       login: async (email) => {
         set({ isLoading: true });
         // Simulate API call
@@ -60,33 +65,16 @@ export const useAuthStore = create<AuthState>()(
       },
       register: async (name, email) => {
         set({ isLoading: true });
-        // Simulate API call
+        // Simulate API call - send OTP to email
         await new Promise((resolve) => setTimeout(resolve, 1500));
         
-        const nameParts = name.split(' ');
-        const firstName = nameParts[0];
-        const lastName = nameParts.slice(1).join(' ') || '';
-
+        // Save email for OTP verification, but don't authenticate yet
         set({
           isLoading: false,
-          isAuthenticated: true,
-          user: {
-            id: '2',
-            name: name,
-            firstName,
-            lastName,
-            email: email,
-            role: 'customer',
-            streak: 0,
-            lastVisit: new Date().toISOString(),
-            mobile: '',
-            address: '',
-            deliveryNote: '',
-            avatarColor: '795548'
-          },
+          tempRegistrationEmail: email,
         });
       },
-      logout: () => set({ user: null, isAuthenticated: false, resetEmail: null }),
+      logout: () => set({ user: null, isAuthenticated: false, resetEmail: null, tempRegistrationEmail: null }),
       updateProfile: async (data) => {
         set({ isLoading: true });
         // Simulate API call
@@ -126,6 +114,29 @@ export const useAuthStore = create<AuthState>()(
         set({ isLoading: true });
         await new Promise((resolve) => setTimeout(resolve, 1500));
         set({ isLoading: false, resetEmail: null });
+      },
+      // --- Registration OTP Functions ---
+      verifyRegistrationOTP: async (email, code) => {
+        set({ isLoading: true });
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+        
+        // Mock validation: any 6-digit code is valid for demo
+        const isValid = code.length === 6 && /^\d+$/.test(code);
+        
+        if (isValid) {
+          // Clear temp email and mark as verified
+          set({ isLoading: false, tempRegistrationEmail: null });
+        } else {
+          set({ isLoading: false });
+        }
+        
+        return isValid;
+      },
+      resendOTP: async (email) => {
+        set({ isLoading: true });
+        // Simulate API call to resend OTP
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+        set({ isLoading: false });
       }
     }),
     {

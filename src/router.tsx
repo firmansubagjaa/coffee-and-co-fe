@@ -214,14 +214,19 @@ const ForgotPasswordPage = lazy(() =>
     default: module.ForgotPasswordPage,
   }))
 );
-const VerifyOtpPage = lazy(() =>
-  import("@/features/auth/VerifyOtpPage").then((module) => ({
-    default: module.VerifyOtpPage,
+const ForgotPasswordOtp = lazy(() =>
+  import("@/features/auth/ForgotPasswordOtp").then((module) => ({
+    default: module.ForgotPasswordOtp,
   }))
 );
 const ResetPasswordPage = lazy(() =>
   import("@/features/auth/ResetPasswordPage").then((module) => ({
     default: module.ResetPasswordPage,
+  }))
+);
+const AccountVerifyOtp = lazy(() =>
+  import("@/features/auth/AccountVerifyOtp").then((module) => ({
+    default: module.AccountVerifyOtp,
   }))
 );
 
@@ -402,46 +407,6 @@ export const router = createBrowserRouter([
               <OrderHistoryDetailPage />
             </LazyPage>
           </ProtectedRoute>
-        ),
-      },
-      {
-        path: "login",
-        element: (
-          <LazyPage>
-            <LoginPage />
-          </LazyPage>
-        ),
-      },
-      {
-        path: "register",
-        element: (
-          <LazyPage>
-            <RegisterPage />
-          </LazyPage>
-        ),
-      },
-      {
-        path: "forgot-password",
-        element: (
-          <LazyPage>
-            <ForgotPasswordPage />
-          </LazyPage>
-        ),
-      },
-      {
-        path: "verify-otp",
-        element: (
-          <LazyPage>
-            <VerifyOtpPage />
-          </LazyPage>
-        ),
-      },
-      {
-        path: "reset-password",
-        element: (
-          <LazyPage>
-            <ResetPasswordPage />
-          </LazyPage>
         ),
       },
       {
@@ -660,5 +625,54 @@ export const router = createBrowserRouter([
         element: <Navigate to="/404" replace />,
       },
     ],
+  },
+  // Auth Routes - No Navbar/Footer
+  {
+    path: "/login",
+    element: (
+      <LazyPage>
+        <LoginPage />
+      </LazyPage>
+    ),
+  },
+  {
+    path: "/register",
+    element: (
+      <LazyPage>
+        <RegisterPage />
+      </LazyPage>
+    ),
+  },
+  {
+    path: "/forgot-password",
+    element: (
+      <LazyPage>
+        <ForgotPasswordPage />
+      </LazyPage>
+    ),
+  },
+  {
+    path: "/forgot-password-otp",
+    element: (
+      <LazyPage>
+        <ForgotPasswordOtp />
+      </LazyPage>
+    ),
+  },
+  {
+    path: "/verify-otp",
+    element: (
+      <LazyPage>
+        <AccountVerifyOtp />
+      </LazyPage>
+    ),
+  },
+  {
+    path: "/reset-password",
+    element: (
+      <LazyPage>
+        <ResetPasswordPage />
+      </LazyPage>
+    ),
   },
 ]);

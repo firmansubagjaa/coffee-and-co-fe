@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { AuthLayout } from "./components/AuthLayout";
 import { Button } from "../../components/common/Button";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { useAuthStore } from "./store";
 import { ArrowLeft, AlertCircle } from "lucide-react";
 import { Label } from "../../components/ui/label";
@@ -15,10 +15,15 @@ import {
 } from "../../components/ui/input-otp";
 import { useLanguage } from "../../contexts/LanguageContext";
 
-export const VerifyOtpPage: React.FC = () => {
+export const AccountVerifyOtp: React.FC = () => {
   const navigate = useNavigate();
-  const { verifyOTP, isLoading, resetEmail } = useAuthStore();
+  const [searchParams] = useSearchParams();
   const { t } = useLanguage();
+ 
+  const email = searchParams.get("email");
+  const verifyOTP = useAuthStore((state) => state.verifyRegistrationOTP);
+  const resendOTP = useAuthStore((state) => state.resendOTP);
+  const isLoading = useAuthStore((state) => state.isLoading);
 
   const {
     control,
@@ -29,18 +34,25 @@ export const VerifyOtpPage: React.FC = () => {
     defaultValues: { otp: "" },
   });
 
-  // Protect route
-  if (!resetEmail) {
-    navigate("/forgot-password");
-    return null;
-  }
+  // Redirect if no email
+  useEffect(() => {
+    if (!email) {
+      navigate("/register");
+    }
+  }, [email, navigate]);
 
   const onSubmit = async (data: { otp: string }) => {
-    const isValid = await verifyOTP(data.otp);
+    if (!email) return;
+    
+    const isValid = await verifyOTP(email, data.otp);
 
     if (isValid) {
-      toast.success(t("auth.verifyOtp.success"));
-      navigate("/reset-password");
+      toast.success(t("auth.verifyOtp.success"), {
+        description: t("auth.verifyOtp.redirecting"),
+      });
+      setTimeout(() => {
+        navigate("/login");
+      }, 1500);
     } else {
       setError("otp", {
         type: "manual",
@@ -50,10 +62,21 @@ export const VerifyOtpPage: React.FC = () => {
     }
   };
 
+  const handleResend = async () => {
+    if (!email) return;
+    
+    try {
+      await resendOTP(email);
+      toast.success(t("auth.verifyOtp.resent"));
+    } catch (error: any) {
+      toast.error(error.message || "Failed to resend code");
+    }
+  };
+
   return (
     <AuthLayout
       title={t("auth.verifyOtp.title")}
-      subtitle={`${t("auth.verifyOtp.subtitle")} ${resetEmail}`}
+      subtitle={`${t("auth.verifyOtp.subtitle")} ${email}`}
     >
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
         <div className="space-y-4 flex flex-col items-center">
@@ -98,9 +121,9 @@ export const VerifyOtpPage: React.FC = () => {
             </p>
           )}
 
-          <p className="text-xs text-coffee-500">
+          <p className="text-xs text-coffee-500 dark:text-coffee-400">
             {t("auth.verifyOtp.tip")}{" "}
-            <strong className="text-coffee-900">123456</strong>
+            <strong className="text-coffee-900 dark:text-white">123456</strong>
           </p>
         </div>
 
@@ -118,20 +141,21 @@ export const VerifyOtpPage: React.FC = () => {
         </Button>
 
         <div className="text-center pt-4 flex flex-col gap-4">
-          <p className="text-sm text-coffee-600">
+          <p className="text-sm text-coffee-600 dark:text-coffee-400">
             {t("auth.verifyOtp.resendText")}{" "}
             <button
               type="button"
-              className="font-bold text-coffee-900 underline"
+              onClick={handleResend}
+              className="font-bold text-coffee-900 dark:text-white underline hover:no-underline"
             >
               {t("auth.verifyOtp.resendLink")}
             </button>
           </p>
           <Link
-            to="/login"
-            className="inline-flex items-center justify-center gap-2 text-sm font-bold text-coffee-600 hover:text-coffee-900 transition-colors"
+            to="/register"
+            className="inline-flex items-center justify-center gap-2 text-sm font-bold text-coffee-600 dark:text-coffee-400 hover:text-coffee-900 dark:hover:text-white transition-colors"
           >
-            <ArrowLeft className="w-4 h-4" /> {t("auth.verifyOtp.backToLogin")}
+            <ArrowLeft className="w-4 h-4" /> {t("auth.verifyOtp.backToRegister")}
           </Link>
         </div>
       </form>
