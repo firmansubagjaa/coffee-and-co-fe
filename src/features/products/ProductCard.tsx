@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo, useCallback } from "react";
 import { Product } from "@/types";
 import { Button } from "../../components/common/Button";
 import { useCartStore } from "../../features/cart/store";
@@ -23,7 +23,7 @@ interface ProductCardProps {
   product: Product;
 }
 
-export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
+export const ProductCard: React.FC<ProductCardProps> = memo(({ product }) => {
   const { t } = useLanguage();
   const navigate = useNavigate();
   const addToCart = useCartStore((state) => state.addToCart);
@@ -38,71 +38,80 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
       ? product.images
       : [product.image];
 
-  const handleAddToCart = (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
+  const handleAddToCart = useCallback(
+    (e: React.MouseEvent) => {
+      e.preventDefault();
+      e.stopPropagation();
 
-    if (!isAuthenticated) {
-      toast.error("Please log in", {
-        description: "You need to be logged in to add items to your order.",
+      if (!isAuthenticated) {
+        toast.error("Please log in", {
+          description: "You need to be logged in to add items to your order.",
+        });
+        navigate("/login");
+        return;
+      }
+
+      addToCart(product);
+      toast.success("Added to cart", {
+        description: `${product.name} has been added to your order.`,
       });
-      navigate("/login");
-      return;
-    }
+    },
+    [isAuthenticated, navigate, addToCart, product]
+  );
 
-    addToCart(product);
-    toast.success("Added to cart", {
-      description: `${product.name} has been added to your order.`,
-    });
-  };
+  const handleToggleFavorite = useCallback(
+    (e: React.MouseEvent) => {
+      e.preventDefault();
+      e.stopPropagation();
 
-  const handleToggleFavorite = (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
+      if (!isAuthenticated) {
+        toast.error("Please log in", {
+          description: "You need to be logged in to save favorites.",
+        });
+        navigate("/login");
+        return;
+      }
 
-    if (!isAuthenticated) {
-      toast.error("Please log in", {
-        description: "You need to be logged in to save favorites.",
-      });
-      navigate("/login");
-      return;
-    }
+      toggleFavorite(product);
+      if (!favorite) {
+        toast.success("Added to favorites", {
+          description: `${product.name} saved for later.`,
+        });
+      } else {
+        toast.info("Removed from favorites", {
+          description: `${product.name} removed from your collection.`,
+        });
+      }
+    },
+    [isAuthenticated, navigate, toggleFavorite, product, favorite]
+  );
 
-    toggleFavorite(product);
-    if (!favorite) {
-      toast.success("Added to favorites", {
-        description: `${product.name} saved for later.`,
-      });
-    } else {
-      toast.info("Removed from favorites", {
-        description: `${product.name} removed from your collection.`,
-      });
-    }
-  };
+  const handleToggleWishlist = useCallback(
+    (e: React.MouseEvent) => {
+      e.preventDefault();
+      e.stopPropagation();
 
-  const handleToggleWishlist = (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
+      if (!isAuthenticated) {
+        toast.error("Please log in", {
+          description: "You need to be logged in to manage your wishlist.",
+        });
+        navigate("/login");
+        return;
+      }
 
-    if (!isAuthenticated) {
-      toast.error("Please log in", {
-        description: "You need to be logged in to manage your wishlist.",
-      });
-      navigate("/login");
-      return;
-    }
-
-    toggleWishlist(product);
-    if (!inWishlist) {
-      toast.success("Added to wishlist", {
-        description: `${product.name} bookmarked.`,
-      });
-    } else {
-      toast.info("Removed from wishlist", {
-        description: `${product.name} removed from your wishlist.`,
-      });
-    }
-  };
+      toggleWishlist(product);
+      if (!inWishlist) {
+        toast.success("Added to wishlist", {
+          description: `${product.name} bookmarked.`,
+        });
+      } else {
+        toast.info("Removed from wishlist", {
+          description: `${product.name} removed from your wishlist.`,
+        });
+      }
+    },
+    [isAuthenticated, navigate, toggleWishlist, product, inWishlist]
+  );
 
   return (
     <motion.article
@@ -230,4 +239,6 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
       </div>
     </motion.article>
   );
-};
+});
+
+ProductCard.displayName = "ProductCard";

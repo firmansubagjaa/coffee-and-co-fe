@@ -8,6 +8,7 @@ import { LoadingScreen } from "@/components/common/LoadingScreen";
 
 import { SEO } from "@/components/common/SEO";
 import { NetworkStatusIndicator } from "@/components/common/NetworkStatus";
+import { SkipLink } from "@/components/common/Accessibility";
 import { useScrollToTop } from "@/utils/scroll";
 import NProgress from "nprogress";
 
@@ -31,6 +32,7 @@ export const RootLayout: React.FC = () => {
 
   return (
     <div className="flex flex-col min-h-screen bg-cream-50 dark:bg-coffee-950 text-coffee-900 dark:text-coffee-100 font-sans selection:bg-coffee-200 selection:text-coffee-900">
+      <SkipLink />
       <NetworkStatusIndicator />
       <SEO />
       <Header />

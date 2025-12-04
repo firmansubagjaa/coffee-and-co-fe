@@ -128,12 +128,14 @@ export const LocationsManager: React.FC = () => {
                           })
                         }
                         className="p-2 text-coffee-400 dark:text-coffee-500 hover:text-coffee-900 dark:hover:text-white hover:bg-coffee-100 dark:hover:bg-coffee-800 rounded-lg"
+                        aria-label="Edit location"
                       >
                         <Edit2 className="w-4 h-4" />
                       </button>
                       <button
                         onClick={() => handleDelete(loc.id)}
                         className="p-2 text-coffee-400 dark:text-coffee-500 hover:text-error hover:bg-error/10 dark:hover:bg-error/20 rounded-lg"
+                        aria-label="Delete location"
                       >
                         <Trash2 className="w-4 h-4" />
                       </button>

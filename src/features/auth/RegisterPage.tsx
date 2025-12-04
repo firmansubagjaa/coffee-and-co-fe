@@ -216,18 +216,21 @@ export const RegisterPage: React.FC = () => {
           <button
             type="button"
             className="flex items-center justify-center h-12 bg-cream-100 dark:bg-coffee-800 hover:bg-cream-200 dark:hover:bg-coffee-700 rounded-xl transition-colors focus:outline-none focus:ring-2 focus:ring-coffee-400 focus:ring-offset-2"
+            aria-label="Sign up with Phone"
           >
             <Smartphone className="w-5 h-5 text-coffee-700 dark:text-coffee-200" />
           </button>
           <button
             type="button"
             className="flex items-center justify-center h-12 bg-cream-100 dark:bg-coffee-800 hover:bg-cream-200 dark:hover:bg-coffee-700 rounded-xl transition-colors focus:outline-none focus:ring-2 focus:ring-coffee-400 focus:ring-offset-2"
+            aria-label="Sign up with Google"
           >
             <Chrome className="w-5 h-5 text-red-500 dark:text-red-400" />
           </button>
           <button
             type="button"
             className="flex items-center justify-center h-12 bg-cream-100 dark:bg-coffee-800 hover:bg-cream-200 dark:hover:bg-coffee-700 rounded-xl transition-colors focus:outline-none focus:ring-2 focus:ring-coffee-400 focus:ring-offset-2"
+            aria-label="Sign up with Facebook"
           >
             <Facebook className="w-5 h-5 text-blue-600 dark:text-blue-400" />
           </button>

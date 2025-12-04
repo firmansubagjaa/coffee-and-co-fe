@@ -529,6 +529,8 @@ export const ProductForm: React.FC = () => {
                     accept="image/png, image/jpeg, image/webp"
                     onChange={handleImageUpload}
                     className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
+                    aria-label="Upload product images"
+                    title="Upload product images"
                   />
                   <div className="border-2 border-dashed border-coffee-200 dark:border-coffee-700 rounded-xl p-6 flex flex-col items-center justify-center bg-coffee-50/50 dark:bg-coffee-800/50 group-hover:bg-coffee-50 dark:group-hover:bg-coffee-800 transition-colors">
                     <div className="p-3 bg-white dark:bg-coffee-700 rounded-full shadow-sm mb-3">
@@ -561,6 +563,7 @@ export const ProductForm: React.FC = () => {
                         type="button"
                         onClick={() => removeGalleryImage(idx)}
                         className="absolute top-1 right-1 p-1 bg-white/90 rounded-full text-error opacity-0 group-hover:opacity-100 transition-opacity shadow-sm hover:scale-110"
+                        aria-label="Remove image"
                       >
                         <X className="w-3 h-3" />
                       </button>

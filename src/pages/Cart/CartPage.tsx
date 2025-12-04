@@ -332,6 +332,7 @@ export const CartPage: React.FC = () => {
                               }
                               className="w-8 h-full flex items-center justify-center text-coffee-300 hover:text-white transition-colors"
                               disabled={item.quantity <= 1}
+                              aria-label="Decrease quantity"
                             >
                               <Minus className="h-3 w-3" />
                             </button>
@@ -343,6 +344,7 @@ export const CartPage: React.FC = () => {
                                 updateQuantity(item.id, item.quantity + 1)
                               }
                               className="w-8 h-full flex items-center justify-center text-coffee-300 hover:text-white transition-colors"
+                              aria-label="Increase quantity"
                             >
                               <Plus className="h-3 w-3" />
                             </button>

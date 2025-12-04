@@ -318,6 +318,7 @@ export const ProductDetailPage: React.FC = () => {
                       <button
                         onClick={() => setIsLightboxOpen(true)}
                         className="p-2.5 md:p-3 bg-white/90 dark:bg-coffee-800/90 backdrop-blur-sm rounded-full shadow-md text-coffee-900 dark:text-white hover:scale-110 transition-all pointer-events-auto"
+                        aria-label="Expand image"
                       >
                         <Maximize2 className="h-5 w-5" />
                       </button>
@@ -442,6 +443,7 @@ export const ProductDetailPage: React.FC = () => {
                     <button
                       onClick={() => setQuantity(Math.max(1, quantity - 1))}
                       className="w-10 h-10 flex items-center justify-center rounded-full bg-white dark:bg-coffee-700 text-coffee-900 dark:text-white shadow-sm hover:scale-105 transition-transform"
+                      aria-label="Decrease quantity"
                     >
                       <Minus className="h-4 w-4" />
                     </button>
@@ -451,6 +453,7 @@ export const ProductDetailPage: React.FC = () => {
                     <button
                       onClick={() => setQuantity(quantity + 1)}
                       className="w-10 h-10 flex items-center justify-center rounded-full bg-white dark:bg-coffee-700 text-coffee-900 dark:text-white shadow-sm hover:scale-105 transition-transform"
+                      aria-label="Increase quantity"
                     >
                       <Plus className="h-4 w-4" />
                     </button>
@@ -553,6 +556,7 @@ export const ProductDetailPage: React.FC = () => {
             <button
               onClick={() => setQuantity(Math.max(1, quantity - 1))}
               className="w-10 h-10 flex items-center justify-center rounded-full bg-white dark:bg-coffee-700 text-coffee-900 dark:text-white shadow-sm active:scale-90 transition-transform"
+              aria-label="Decrease quantity"
             >
               <Minus className="h-4 w-4" />
             </button>
@@ -562,6 +566,7 @@ export const ProductDetailPage: React.FC = () => {
             <button
               onClick={() => setQuantity(quantity + 1)}
               className="w-10 h-10 flex items-center justify-center rounded-full bg-white dark:bg-coffee-700 text-coffee-900 dark:text-white shadow-sm active:scale-90 transition-transform"
+              aria-label="Increase quantity"
             >
               <Plus className="h-4 w-4" />
             </button>
@@ -594,6 +599,7 @@ export const ProductDetailPage: React.FC = () => {
               whileTap={{ scale: 0.9 }}
               onClick={() => setIsLightboxOpen(false)}
               className="absolute top-6 right-6 p-2 bg-white/10 hover:bg-white/20 rounded-full text-white transition-colors"
+              aria-label="Close image viewer"
             >
               <X className="w-8 h-8" />
             </motion.button>

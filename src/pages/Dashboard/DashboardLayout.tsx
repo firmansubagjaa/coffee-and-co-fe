@@ -437,6 +437,7 @@ export const DashboardLayout: React.FC = () => {
           <button
             onClick={() => setIsMobileMenuOpen(true)}
             className="p-2 text-coffee-400 hover:text-white"
+            aria-label="Open menu"
           >
             <Menu className="w-6 h-6" />
           </button>
@@ -465,6 +466,7 @@ export const DashboardLayout: React.FC = () => {
                 <button
                   onClick={() => setIsMobileMenuOpen(false)}
                   className="p-2 text-coffee-400 hover:text-white bg-coffee-800/50 rounded-lg"
+                  aria-label="Close menu"
                 >
                   <X className="w-6 h-6" />
                 </button>

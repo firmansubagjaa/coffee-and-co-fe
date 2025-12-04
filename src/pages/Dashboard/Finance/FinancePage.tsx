@@ -449,6 +449,8 @@ export const FinancePage: React.FC = () => {
                 value={multiplier}
                 onChange={(e) => setMultiplier(parseFloat(e.target.value))}
                 className="w-full h-2 bg-coffee-200 dark:bg-coffee-700 rounded-lg appearance-none cursor-pointer accent-coffee-900 dark:accent-coffee-500"
+                aria-label="Industry multiplier"
+                title="Adjust industry multiplier"
               />
               <div className="flex justify-between text-xs text-coffee-400 mt-2">
                 <span>{t("dashboard.finance.multipliers.distressed")}</span>

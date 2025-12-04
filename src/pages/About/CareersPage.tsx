@@ -83,7 +83,7 @@ const JobAccordion: React.FC<{ job: JobPosition }> = ({ job }) => {
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
           >
-            <div className="px-8 pb-8 pt-0 text-coffee-600 dark:text-coffee-300 border-t border-coffee-100 dark:border-coffee-800 mt-2 pt-6">
+            <div className="px-8 pb-8 pt-6 text-coffee-600 dark:text-coffee-300 border-t border-coffee-100 dark:border-coffee-800 mt-2">
               <p className="mb-8 leading-relaxed text-lg">
                 {t(job.descKey as any)}
               </p>

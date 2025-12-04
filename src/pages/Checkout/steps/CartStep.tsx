@@ -84,6 +84,7 @@ export const CartStep: React.FC<CartStepProps> = ({ onNext }) => {
                       onClick={() => updateQuantity(item.id, item.quantity - 1)}
                       className="w-10 h-full flex items-center justify-center text-coffee-600 dark:text-coffee-300 hover:text-coffee-900 dark:hover:text-white transition-colors"
                       disabled={item.quantity <= 1}
+                      aria-label="Decrease quantity"
                     >
                       <Minus className="h-4 w-4" />
                     </button>
@@ -93,6 +94,7 @@ export const CartStep: React.FC<CartStepProps> = ({ onNext }) => {
                     <button
                       onClick={() => updateQuantity(item.id, item.quantity + 1)}
                       className="w-10 h-full flex items-center justify-center text-coffee-600 dark:text-coffee-300 hover:text-coffee-900 dark:hover:text-white transition-colors"
+                      aria-label="Increase quantity"
                     >
                       <Plus className="h-4 w-4" />
                     </button>
@@ -100,7 +102,7 @@ export const CartStep: React.FC<CartStepProps> = ({ onNext }) => {
 
                   <AlertDialog>
                     <AlertDialogTrigger asChild>
-                      <button className="p-2 text-coffee-400 hover:text-error transition-colors rounded-full hover:bg-error/10 dark:hover:bg-error/20">
+                      <button className="p-2 text-coffee-400 hover:text-error transition-colors rounded-full hover:bg-error/10 dark:hover:bg-error/20" aria-label="Remove item">
                         <Trash2 className="h-5 w-5" />
                       </button>
                     </AlertDialogTrigger>

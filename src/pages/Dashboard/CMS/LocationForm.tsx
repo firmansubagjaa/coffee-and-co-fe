@@ -305,6 +305,8 @@ export const LocationForm: React.FC = () => {
                 accept="image/*"
                 onChange={handleImageUpload}
                 className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
+                aria-label="Upload location image"
+                title="Upload location image"
               />
               {imagePreview ? (
                 <div className="relative w-full max-w-md mx-auto aspect-video rounded-lg overflow-hidden group">
@@ -323,6 +325,7 @@ export const LocationForm: React.FC = () => {
                       removeImage();
                     }}
                     className="absolute top-2 right-2 p-1 bg-error text-error-foreground rounded-full z-30 hover:bg-error/90"
+                    aria-label="Remove image"
                   >
                     <X className="w-4 h-4" />
                   </button>

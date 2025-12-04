@@ -378,6 +378,7 @@ export const FavoritesPage: React.FC = () => {
                 <button
                   onClick={() => setIsMobileFiltersOpen(false)}
                   className="p-2 hover:bg-coffee-50 dark:hover:bg-coffee-800 rounded-full text-coffee-600 dark:text-coffee-300"
+                  aria-label="Close filters"
                 >
                   <X className="h-6 w-6" />
                 </button>

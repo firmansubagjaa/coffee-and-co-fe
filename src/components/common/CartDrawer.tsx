@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Plus, Minus, Trash2 } from "lucide-react";
 import { useCartStore } from "../../features/cart/store";
@@ -8,17 +8,108 @@ import { useNavigate } from "react-router-dom";
 import { TRANSITIONS } from "../../utils/animations";
 import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/Tooltip";
 import { useLanguage } from "../../contexts/LanguageContext";
+import { CartItem } from "../../types";
 
-export const CartDrawer: React.FC = () => {
+// Memoized cart item component to prevent unnecessary re-renders
+interface CartItemRowProps {
+  item: CartItem;
+  onUpdateQuantity: (id: string, quantity: number) => void;
+  onRemove: (id: string) => void;
+  removeLabel: string;
+}
+
+const CartItemRow = memo<CartItemRowProps>(
+  ({ item, onUpdateQuantity, onRemove, removeLabel }) => (
+    <motion.div
+      layout
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, scale: 0.9 }}
+      className="flex gap-4 p-4 bg-white dark:bg-coffee-800 rounded-3xl shadow-sm border border-coffee-50 dark:border-coffee-700"
+    >
+      <img
+        src={item.image}
+        alt={item.name}
+        className="h-24 w-24 object-cover rounded-2xl bg-coffee-100 dark:bg-coffee-900"
+        loading="lazy"
+      />
+      <div className="flex-1 flex flex-col justify-between">
+        <div>
+          <h3 className="font-serif font-bold text-coffee-900 dark:text-white text-lg">
+            {item.name}
+          </h3>
+          <p className="text-coffee-500 dark:text-coffee-400">
+            {CURRENCY}
+            {item.price.toFixed(2)}
+          </p>
+        </div>
+
+        <div className="flex items-center justify-between mt-2">
+          <div className="flex items-center bg-coffee-50 dark:bg-coffee-900 rounded-full border border-coffee-100 dark:border-coffee-700 p-1">
+            <button
+              onClick={() => onUpdateQuantity(item.id, item.quantity - 1)}
+              className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-white dark:hover:bg-coffee-700 text-coffee-700 dark:text-coffee-300 transition-colors shadow-sm disabled:opacity-50"
+              aria-label="Decrease quantity"
+            >
+              <Minus className="h-3 w-3" />
+            </button>
+            <span className="w-8 text-center text-sm font-bold text-coffee-900 dark:text-white">
+              {item.quantity}
+            </span>
+            <button
+              onClick={() => onUpdateQuantity(item.id, item.quantity + 1)}
+              className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-white dark:hover:bg-coffee-700 text-coffee-700 dark:text-coffee-300 transition-colors shadow-sm"
+              aria-label="Increase quantity"
+            >
+              <Plus className="h-3 w-3" />
+            </button>
+          </div>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <button
+                onClick={() => onRemove(item.id)}
+                className="text-error/50 hover:text-error p-2 hover:bg-error/10 rounded-full transition-colors"
+                aria-label="Remove item"
+              >
+                <Trash2 className="h-4 w-4" />
+              </button>
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>{removeLabel}</p>
+            </TooltipContent>
+          </Tooltip>
+        </div>
+      </div>
+    </motion.div>
+  )
+);
+
+CartItemRow.displayName = "CartItemRow";
+
+export const CartDrawer: React.FC = memo(() => {
   const { isOpen, toggleCart, items, updateQuantity, removeFromCart, total } =
     useCartStore();
   const navigate = useNavigate();
   const { t } = useLanguage();
 
-  const handleCheckout = () => {
+  const handleCheckout = useCallback(() => {
     toggleCart();
     navigate("/cart");
-  };
+  }, [toggleCart, navigate]);
+
+  const handleUpdateQuantity = useCallback(
+    (id: string, quantity: number) => {
+      updateQuantity(id, quantity);
+    },
+    [updateQuantity]
+  );
+
+  const handleRemoveFromCart = useCallback(
+    (id: string) => {
+      removeFromCart(id);
+    },
+    [removeFromCart]
+  );
 
   return (
     <AnimatePresence>
@@ -83,68 +174,13 @@ export const CartDrawer: React.FC = () => {
                 </div>
               ) : (
                 items.map((item) => (
-                  <motion.div
-                    layout
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, scale: 0.9 }}
+                  <CartItemRow
                     key={item.id}
-                    className="flex gap-4 p-4 bg-white dark:bg-coffee-800 rounded-3xl shadow-sm border border-coffee-50 dark:border-coffee-700"
-                  >
-                    <img
-                      src={item.image}
-                      alt={item.name}
-                      className="h-24 w-24 object-cover rounded-2xl bg-coffee-100 dark:bg-coffee-900"
-                    />
-                    <div className="flex-1 flex flex-col justify-between">
-                      <div>
-                        <h3 className="font-serif font-bold text-coffee-900 dark:text-white text-lg">
-                          {item.name}
-                        </h3>
-                        <p className="text-coffee-500 dark:text-coffee-400">
-                          {CURRENCY}
-                          {item.price.toFixed(2)}
-                        </p>
-                      </div>
-
-                      <div className="flex items-center justify-between mt-2">
-                        <div className="flex items-center bg-coffee-50 dark:bg-coffee-900 rounded-full border border-coffee-100 dark:border-coffee-700 p-1">
-                          <button
-                            onClick={() =>
-                              updateQuantity(item.id, item.quantity - 1)
-                            }
-                            className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-white dark:hover:bg-coffee-700 text-coffee-700 dark:text-coffee-300 transition-colors shadow-sm disabled:opacity-50"
-                          >
-                            <Minus className="h-3 w-3" />
-                          </button>
-                          <span className="w-8 text-center text-sm font-bold text-coffee-900 dark:text-white">
-                            {item.quantity}
-                          </span>
-                          <button
-                            onClick={() =>
-                              updateQuantity(item.id, item.quantity + 1)
-                            }
-                            className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-white dark:hover:bg-coffee-700 text-coffee-700 dark:text-coffee-300 transition-colors shadow-sm"
-                          >
-                            <Plus className="h-3 w-3" />
-                          </button>
-                        </div>
-                        <Tooltip>
-                          <TooltipTrigger asChild>
-                            <button
-                              onClick={() => removeFromCart(item.id)}
-                              className="text-error/50 hover:text-error p-2 hover:bg-error/10 rounded-full transition-colors"
-                            >
-                              <Trash2 className="h-4 w-4" />
-                            </button>
-                          </TooltipTrigger>
-                          <TooltipContent>
-                            <p>{t("cart.removeItem")}</p>
-                          </TooltipContent>
-                        </Tooltip>
-                      </div>
-                    </div>
-                  </motion.div>
+                    item={item}
+                    onUpdateQuantity={handleUpdateQuantity}
+                    onRemove={handleRemoveFromCart}
+                    removeLabel={t("cart.removeItem")}
+                  />
                 ))
               )}
             </div>
@@ -181,4 +217,6 @@ export const CartDrawer: React.FC = () => {
       )}
     </AnimatePresence>
   );
-};
+});
+
+CartDrawer.displayName = "CartDrawer";

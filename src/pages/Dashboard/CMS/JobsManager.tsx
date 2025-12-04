@@ -138,12 +138,14 @@ export const JobsManager: React.FC = () => {
                           })
                         }
                         className="p-2 text-coffee-400 dark:text-coffee-500 hover:text-coffee-900 dark:hover:text-white hover:bg-coffee-100 dark:hover:bg-coffee-800 rounded-lg"
+                        aria-label="Edit job"
                       >
                         <Edit2 className="w-4 h-4" />
                       </button>
                       <button
                         onClick={() => handleDelete(job.id)}
                         className="p-2 text-coffee-400 dark:text-coffee-500 hover:text-error hover:bg-error/10 dark:hover:bg-error/20 rounded-lg"
+                        aria-label="Delete job"
                       >
                         <Trash2 className="w-4 h-4" />
                       </button>

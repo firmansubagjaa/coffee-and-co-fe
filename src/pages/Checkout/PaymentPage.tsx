@@ -312,6 +312,7 @@ export const PaymentPage: React.FC = () => {
               <button
                 onClick={() => navigate("/cart")}
                 className="p-2 hover:bg-coffee-100 dark:hover:bg-coffee-800 rounded-full transition-colors"
+                aria-label="Go back to cart"
               >
                 <ArrowLeft className="w-6 h-6 text-coffee-900 dark:text-white" />
               </button>
