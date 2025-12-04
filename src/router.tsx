@@ -126,6 +126,11 @@ const LocationForm = lazy(() =>
     default: module.LocationForm,
   }))
 );
+const ApplicantsPage = lazy(() =>
+  import("@/pages/Dashboard/Applicants/ApplicantsPage").then((module) => ({
+    default: module.ApplicantsPage,
+  }))
+);
 
 // User pages - lazy loaded
 const RewardsPage = lazy(() =>
@@ -185,6 +190,11 @@ const CareersPage = lazy(() =>
 const LocationsPage = lazy(() =>
   import("@/pages/About/LocationsPage").then((module) => ({
     default: module.LocationsPage,
+  }))
+);
+const JobApplicationPage = lazy(() =>
+  import("@/pages/About/JobApplicationPage").then((module) => ({
+    default: module.JobApplicationPage,
   }))
 );
 
@@ -266,6 +276,14 @@ export const router = createBrowserRouter([
         element: (
           <LazyPage>
             <CareersPage />
+          </LazyPage>
+        ),
+      },
+      {
+        path: "about/careers/:jobId/apply",
+        element: (
+          <LazyPage>
+            <JobApplicationPage />
           </LazyPage>
         ),
       },
@@ -532,6 +550,14 @@ export const router = createBrowserRouter([
                 element: (
                   <Suspense fallback={<LoadingScreen />}>
                     <FinancePage />
+                  </Suspense>
+                ),
+              },
+              {
+                path: "applicants",
+                element: (
+                  <Suspense fallback={<LoadingScreen />}>
+                    <ApplicantsPage />
                   </Suspense>
                 ),
               },

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Coffee, Heart, Zap, ChevronDown, MapPin, Clock } from "lucide-react";
 import { Button } from "../../components/common/Button";
+import { useNavigate } from "react-router-dom";
 import { useLanguage } from "../../contexts/LanguageContext";
 
 interface JobPosition {
@@ -46,6 +47,16 @@ const JOBS: JobPosition[] = [
 const JobAccordion: React.FC<{ job: JobPosition }> = ({ job }) => {
   const [isOpen, setIsOpen] = useState(false);
   const { t } = useLanguage();
+  const navigate = useNavigate();
+
+  const handleApply = () => {
+    navigate(`/about/careers/${job.id}/apply`, {
+      state: {
+        jobId: job.id,
+        jobTitle: t(job.titleKey as any),
+      },
+    });
+  };
 
   return (
     <div className="border border-coffee-100 dark:border-coffee-800 rounded-[2rem] bg-white dark:bg-coffee-900 overflow-hidden hover:border-coffee-300 dark:hover:border-coffee-600 hover:shadow-xl transition-all duration-500 group">
@@ -87,7 +98,7 @@ const JobAccordion: React.FC<{ job: JobPosition }> = ({ job }) => {
               <p className="mb-8 leading-relaxed text-lg">
                 {t(job.descKey as any)}
               </p>
-              <Button size="lg" className="shadow-lg hover:shadow-xl">
+              <Button size="lg" className="shadow-lg hover:shadow-xl" onClick={handleApply}>
                 {t("about.careers.openings.apply")}
               </Button>
             </div>

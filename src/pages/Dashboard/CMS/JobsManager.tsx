@@ -8,6 +8,7 @@ import {
   Trash2,
   CheckCircle,
   XCircle,
+  Users,
 } from "lucide-react";
 import { Button } from "../../../components/common/Button";
 import { Input } from "../../../components/ui/input";
@@ -46,12 +47,23 @@ export const JobsManager: React.FC = () => {
             {t("dashboard.jobs.subtitle")}
           </p>
         </div>
-        <Button
-          onClick={() => navigate("/dashboard/cms/jobs/new")}
-          className="gap-2 shadow-lg bg-coffee-600 hover:bg-coffee-700 text-white"
-        >
-          <Plus className="w-4 h-4" /> {t("dashboard.jobs.postJob")}
-        </Button>
+        <div className="flex gap-3">
+          <Button
+            onClick={() => navigate("/dashboard/applicants")}
+            variant="outline"
+            className="gap-2"
+          >
+            <Users className="w-4 h-4" />
+            {t("dashboard.jobs.viewApplicants")}
+          </Button>
+          <Button
+            onClick={() => navigate("/dashboard/cms/jobs/new")}
+            variant="primary"
+            className="gap-2"
+          >
+            <Plus className="w-4 h-4" /> {t("dashboard.jobs.postJob")}
+          </Button>
+        </div>
       </div>
 
       <div className="bg-white dark:bg-coffee-900 rounded-[2rem] border border-coffee-100 dark:border-coffee-800 shadow-sm overflow-hidden">
