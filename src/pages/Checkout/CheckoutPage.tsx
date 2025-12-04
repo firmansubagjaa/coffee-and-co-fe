@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCartStore } from "../../features/cart/store";
 import { useOrderStore } from "../../features/orders/store";
@@ -11,6 +11,7 @@ import { useLanguage } from "../../contexts/LanguageContext";
 import { PaymentMethod, Order } from "@/types";
 import { CheckCircle } from "lucide-react";
 import { cn } from "../../utils/cn";
+import { toast } from "sonner";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -38,6 +39,14 @@ export const CheckoutPage: React.FC = () => {
     null
   );
   const [isProcessing, setIsProcessing] = useState(false);
+
+  // Guard: Redirect to menu if cart is empty
+  useEffect(() => {
+    if (items.length === 0 && currentStep === 0) {
+      toast.error(t("checkout.cartEmpty") || "Your cart is empty");
+      navigate("/menu");
+    }
+  }, [items.length, currentStep, navigate, t]);
 
   const handleNext = () => {
     setCurrentStep((prev) => Math.min(prev + 1, STEPS.length - 1));

@@ -297,15 +297,10 @@ export const router = createBrowserRouter([
           </ProtectedRoute>
         ),
       },
+      // Redirect /wishlist to /favorites for backward compatibility
       {
         path: "wishlist",
-        element: (
-          <ProtectedRoute>
-            <LazyPage>
-              <WishlistPage />
-            </LazyPage>
-          </ProtectedRoute>
-        ),
+        element: <Navigate to="/favorites" replace />,
       },
       {
         path: "settings",

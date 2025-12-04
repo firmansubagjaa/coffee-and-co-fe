@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, Navigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import {
   CheckCircle,
@@ -21,14 +21,12 @@ export const ThankYouPage: React.FC = () => {
   const location = useLocation();
   const { t } = useLanguage();
 
-  // Get order details from navigation state or use mock if missing (for dev/preview)
-  const order = location.state?.order || {
-    id: `#ORD-${Math.floor(Math.random() * 1000000)}`,
-    total: 0,
-    items: [],
-    date: new Date().toISOString(),
-    location: "Unknown",
-  };
+  // Guard: Redirect to home if accessed directly without order
+  if (!location.state?.order) {
+    return <Navigate to="/" replace />;
+  }
+
+  const order = location.state.order;
 
   useEffect(() => {
     // Trigger confetti on mount

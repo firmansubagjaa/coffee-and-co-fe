@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { AuthLayout } from "./components/AuthLayout";
 import { Button } from "../../components/common/Button";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useAuthStore } from "./store";
 import {
   Eye,
@@ -21,7 +21,11 @@ import { SEO } from "@/components/common/SEO";
 
 export const LoginPage: React.FC = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const login = useAuthStore((state) => state.login);
+
+  // Get the intended destination from ProtectedRoute or default to home
+  const from = location.state?.from?.pathname || "/";
   const isLoading = useAuthStore((state) => state.isLoading);
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -45,7 +49,7 @@ export const LoginPage: React.FC = () => {
 
     try {
       await login(data.email);
-      navigate("/");
+      navigate(from, { replace: true });
     } catch (error) {
       console.error("Login failed", error);
       setError(t("auth.login.error.generic"));

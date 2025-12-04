@@ -357,14 +357,6 @@ export const Header: React.FC = () => {
                                 </NavigationMenuLink>
                               </li>
                               <li>
-                                <NavigationMenuLink to="/wishlist">
-                                  <div className="flex items-center gap-2">
-                                    <Bookmark className="h-4 w-4 text-coffee-500" />
-                                    {t("nav.wishlist")}
-                                  </div>
-                                </NavigationMenuLink>
-                              </li>
-                              <li>
                                 <NavigationMenuLink to="/settings">
                                   <div className="flex items-center gap-2">
                                     <Settings className="h-4 w-4 text-coffee-500" />
@@ -644,13 +636,6 @@ export const Header: React.FC = () => {
                                 className="block py-1 text-coffee-600 dark:text-coffee-400"
                               >
                                 {t("common.favorites")}
-                              </NavLink>
-                              <NavLink
-                                to="/wishlist"
-                                onClick={() => setIsMobileMenuOpen(false)}
-                                className="block py-1 text-coffee-600 dark:text-coffee-400"
-                              >
-                                {t("nav.wishlist")}
                               </NavLink>
                               <NavLink
                                 to="/settings"
