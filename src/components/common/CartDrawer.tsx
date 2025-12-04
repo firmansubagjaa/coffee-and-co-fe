@@ -7,11 +7,13 @@ import { CURRENCY } from "../../utils/constants";
 import { useNavigate } from "react-router-dom";
 import { TRANSITIONS } from "../../utils/animations";
 import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/Tooltip";
+import { useLanguage } from "../../contexts/LanguageContext";
 
 export const CartDrawer: React.FC = () => {
   const { isOpen, toggleCart, items, updateQuantity, removeFromCart, total } =
     useCartStore();
   const navigate = useNavigate();
+  const { t } = useLanguage();
 
   const handleCheckout = () => {
     toggleCart();
@@ -43,7 +45,7 @@ export const CartDrawer: React.FC = () => {
             {/* Header */}
             <div className="flex items-center justify-between p-8 border-b border-coffee-200 dark:border-coffee-800">
               <h2 className="text-2xl font-serif font-bold text-coffee-900 dark:text-white">
-                Your Order
+                {t("cart.drawerTitle")}
               </h2>
               <Tooltip>
                 <TooltipTrigger asChild>
@@ -57,7 +59,7 @@ export const CartDrawer: React.FC = () => {
                   </motion.button>
                 </TooltipTrigger>
                 <TooltipContent>
-                  <p>Close Cart</p>
+                  <p>{t("cart.closeCart")}</p>
                 </TooltipContent>
               </Tooltip>
             </div>
@@ -74,9 +76,9 @@ export const CartDrawer: React.FC = () => {
                   >
                     ☕
                   </motion.span>
-                  <p className="text-lg">Your cart is empty.</p>
+                  <p className="text-lg">{t("cart.empty")}</p>
                   <Button variant="outline" onClick={toggleCart}>
-                    Browse Menu
+                    {t("cart.browseMenu")}
                   </Button>
                 </div>
               ) : (
@@ -137,7 +139,7 @@ export const CartDrawer: React.FC = () => {
                             </button>
                           </TooltipTrigger>
                           <TooltipContent>
-                            <p>Remove Item</p>
+                            <p>{t("cart.removeItem")}</p>
                           </TooltipContent>
                         </Tooltip>
                       </div>
@@ -152,7 +154,7 @@ export const CartDrawer: React.FC = () => {
               <div className="p-8 border-t border-coffee-200 dark:border-coffee-800 bg-white dark:bg-coffee-900 shadow-[0_-5px_15px_rgba(0,0,0,0.02)]">
                 <div className="flex justify-between items-center mb-6">
                   <span className="text-coffee-600 dark:text-coffee-400 font-medium">
-                    Subtotal
+                    {t("cart.subtotal")}
                   </span>
                   <motion.span
                     key={total()}
@@ -170,7 +172,7 @@ export const CartDrawer: React.FC = () => {
                   onClick={handleCheckout}
                   className="shadow-lg hover:shadow-xl hover:shadow-coffee-900/20"
                 >
-                  Checkout
+                  {t("cart.checkoutBtn")}
                 </Button>
               </div>
             )}

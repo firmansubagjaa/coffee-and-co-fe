@@ -46,6 +46,7 @@ import {
   DialogFooter,
   DialogDescription,
 } from "../../components/ui/dialog";
+import { useLanguage } from "../../contexts/LanguageContext";
 
 // ============ Schemas ============
 const profileSchema = z.object({
@@ -186,6 +187,7 @@ const SettingsItem: React.FC<{
 // ============ Main Component ============
 export const SettingsPage: React.FC = () => {
   const { user, updateProfile, isLoading, logout } = useAuthStore();
+  const { t, language, setLanguage } = useLanguage();
 
   // Modal states
   const [showEditProfile, setShowEditProfile] = useState(false);
@@ -206,7 +208,9 @@ export const SettingsPage: React.FC = () => {
   });
 
   // Language setting
-  const [selectedLanguage, setSelectedLanguage] = useState("en");
+  const [selectedLanguage, setSelectedLanguage] = useState<"en" | "id">(
+    language
+  );
 
   // Forms
   const profileForm = useForm<ProfileFormValues>({
@@ -248,10 +252,10 @@ export const SettingsPage: React.FC = () => {
         ...data,
         name: `${data.firstName} ${data.lastName}`,
       });
-      toast.success("Profile updated successfully");
+      toast.success(t("settings.profileUpdated"));
       setShowEditProfile(false);
     } catch {
-      toast.error("Failed to update profile");
+      toast.error(t("settings.profileUpdateFailed"));
     }
   };
 
@@ -259,11 +263,11 @@ export const SettingsPage: React.FC = () => {
     try {
       // Simulate password change (frontend only)
       await new Promise((resolve) => setTimeout(resolve, 1000));
-      toast.success("Password changed successfully");
+      toast.success(t("settings.passwordChanged"));
       setShowChangePassword(false);
       passwordForm.reset();
     } catch {
-      toast.error("Failed to change password");
+      toast.error(t("settings.passwordChangeFailed"));
     }
   };
 
@@ -271,20 +275,18 @@ export const SettingsPage: React.FC = () => {
     try {
       // Simulate delete (frontend only)
       await new Promise((resolve) => setTimeout(resolve, 1000));
-      toast.success("Account deleted");
+      toast.success(t("settings.accountDeleted"));
       logout();
     } catch {
-      toast.error("Failed to delete account");
+      toast.error(t("settings.accountDeleteFailed"));
     }
   };
 
   if (!user) return null;
 
-  const languages = [
+  const languages: Array<{ code: "en" | "id"; name: string; flag: string }> = [
     { code: "en", name: "English", flag: "🇺🇸" },
     { code: "id", name: "Bahasa Indonesia", flag: "🇮🇩" },
-    { code: "zh", name: "中文", flag: "🇨🇳" },
-    { code: "ja", name: "日本語", flag: "🇯🇵" },
   ];
 
   // Use local avatar if set, otherwise fall back to default
@@ -296,7 +298,7 @@ export const SettingsPage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-cream-50 dark:bg-coffee-950 pt-6 pb-20">
-      <SEO title="Settings" description="Manage your account settings." />
+      <SEO title={t("settings.title")} description={t("settings.subtitle")} />
 
       <div className="container mx-auto px-4 md:px-8 max-w-3xl">
         {/* Breadcrumbs */}
@@ -304,11 +306,11 @@ export const SettingsPage: React.FC = () => {
           <Breadcrumb>
             <BreadcrumbList>
               <BreadcrumbItem>
-                <BreadcrumbLink to="/">Home</BreadcrumbLink>
+                <BreadcrumbLink to="/">{t("nav.home")}</BreadcrumbLink>
               </BreadcrumbItem>
               <BreadcrumbSeparator />
               <BreadcrumbItem>
-                <BreadcrumbPage>Settings</BreadcrumbPage>
+                <BreadcrumbPage>{t("settings.title")}</BreadcrumbPage>
               </BreadcrumbItem>
             </BreadcrumbList>
           </Breadcrumb>
@@ -318,16 +320,18 @@ export const SettingsPage: React.FC = () => {
         <div className="mb-8 flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
             <h1 className="text-3xl md:text-4xl font-serif font-bold text-coffee-900 dark:text-white mb-2">
-              Settings
+              {t("settings.title")}
             </h1>
             <p className="text-coffee-500 dark:text-white/60">
-              Manage your account preferences and security.
+              {t("settings.subtitle")}
             </p>
           </div>
           <div className="flex items-center gap-2 bg-white dark:bg-coffee-800 px-4 py-2 rounded-full shadow-sm border border-coffee-100 dark:border-white/10 self-start md:self-auto">
             <Settings className="w-5 h-5 text-coffee-600 dark:text-white" />
             <span className="font-medium text-sm text-coffee-900 dark:text-white">
-              {user?.role === "admin" ? "Admin" : "Member"}
+              {user?.role === "admin"
+                ? t("settings.admin")
+                : t("settings.member")}
             </span>
           </div>
         </div>
@@ -364,112 +368,116 @@ export const SettingsPage: React.FC = () => {
 
           {/* Profile Details */}
           <SettingsSection
-            title="Profile"
+            title={t("settings.profile")}
             icon={<User className="w-5 h-5" />}
             index={1}
           >
             <SettingsItem
               icon={<User className="w-5 h-5" />}
-              label="Edit Profile"
+              label={t("settings.editProfile")}
               value={`${user.firstName} ${user.lastName}`}
               onClick={() => setShowEditProfile(true)}
             />
             <SettingsItem
               icon={<Mail className="w-5 h-5" />}
-              label="Email"
+              label={t("settings.email")}
               value={user.email}
               showArrow={false}
             />
             <SettingsItem
               icon={<Phone className="w-5 h-5" />}
-              label="Phone"
-              value={user.mobile || "Not set"}
+              label={t("settings.phone")}
+              value={user.mobile || t("settings.notSet")}
               onClick={() => setShowEditProfile(true)}
             />
             <SettingsItem
               icon={<MapPin className="w-5 h-5" />}
-              label="Address"
-              value={user.address || "Not set"}
+              label={t("settings.address")}
+              value={user.address || t("settings.notSet")}
               onClick={() => setShowEditProfile(true)}
             />
           </SettingsSection>
 
           {/* Preferences */}
           <SettingsSection
-            title="Preferences"
+            title={t("settings.preferences")}
             icon={<Palette className="w-5 h-5" />}
             index={2}
           >
             <SettingsItem
               icon={<Palette className="w-5 h-5" />}
-              label="Appearance"
+              label={t("settings.appearance")}
               showArrow={false}
             >
               <ThemeToggle />
             </SettingsItem>
             <SettingsItem
               icon={<Languages className="w-5 h-5" />}
-              label="Language"
+              label={t("settings.language")}
               value={languages.find((l) => l.code === selectedLanguage)?.name}
               onClick={() => setShowLanguage(true)}
             />
             <SettingsItem
               icon={<Bell className="w-5 h-5" />}
-              label="Notifications"
-              value={notifications.pushNotifications ? "On" : "Off"}
+              label={t("settings.notifications")}
+              value={
+                notifications.pushNotifications
+                  ? t("settings.on")
+                  : t("settings.off")
+              }
               onClick={() => setShowNotifications(true)}
             />
           </SettingsSection>
 
           {/* Security */}
           <SettingsSection
-            title="Security"
+            title={t("settings.security")}
             icon={<Shield className="w-5 h-5" />}
             index={3}
           >
             <SettingsItem
               icon={<Lock className="w-5 h-5" />}
-              label="Change Password"
+              label={t("settings.changePassword")}
               onClick={() => setShowChangePassword(true)}
             />
             <SettingsItem
               icon={<Smartphone className="w-5 h-5" />}
-              label="Two-Factor Authentication"
-              value="Off"
-              onClick={() => toast.info("Coming soon!")}
+              label={t("settings.twoFactorAuth")}
+              value={t("settings.off")}
+              onClick={() => toast.info(t("settings.comingSoon"))}
             />
             <SettingsItem
               icon={<Shield className="w-5 h-5" />}
-              label="Login Activity"
-              onClick={() => toast.info("Coming soon!")}
+              label={t("settings.loginActivity")}
+              onClick={() => toast.info(t("settings.comingSoon"))}
             />
           </SettingsSection>
 
           {/* Payment */}
           <SettingsSection
-            title="Payment"
+            title={t("settings.payment")}
             icon={<CreditCard className="w-5 h-5" />}
             index={4}
           >
             <SettingsItem
               icon={<CreditCard className="w-5 h-5" />}
-              label="Payment Methods"
-              value="2 cards"
-              onClick={() => toast.info("Coming soon!")}
+              label={t("settings.paymentMethods")}
+              value={`2 ${t("settings.cards")}`}
+              onClick={() => toast.info(t("settings.comingSoon"))}
             />
           </SettingsSection>
 
           {/* Danger Zone */}
           <SettingsSection
-            title="Danger Zone"
+            title={t("settings.dangerZone")}
             icon={<Trash2 className="w-5 h-5" />}
-            description="Irreversible actions"
+            description={t("settings.dangerZoneDesc")}
             danger
             index={5}
           >
             <SettingsItem
               icon={<Trash2 className="w-5 h-5" />}
-              label="Delete Account"
+              label={t("settings.deleteAccount")}
               onClick={() => setShowDeleteAccount(true)}
               danger
             />
@@ -485,10 +493,10 @@ export const SettingsPage: React.FC = () => {
           <div className="bg-gradient-to-r from-coffee-600 to-coffee-800 p-6 text-white">
             <DialogHeader>
               <DialogTitle className="text-xl font-serif text-white">
-                Edit Profile
+                {t("settings.editProfile")}
               </DialogTitle>
               <DialogDescription className="text-white/70">
-                Update your personal information
+                {t("settings.updatePersonalInfo")}
               </DialogDescription>
             </DialogHeader>
           </div>
@@ -498,7 +506,7 @@ export const SettingsPage: React.FC = () => {
           >
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="firstName">First Name</Label>
+                <Label htmlFor="firstName">{t("settings.firstName")}</Label>
                 <Input
                   id="firstName"
                   {...profileForm.register("firstName")}
@@ -511,7 +519,7 @@ export const SettingsPage: React.FC = () => {
                 )}
               </div>
               <div className="space-y-2">
-                <Label htmlFor="lastName">Last Name</Label>
+                <Label htmlFor="lastName">{t("settings.lastName")}</Label>
                 <Input
                   id="lastName"
                   {...profileForm.register("lastName")}
@@ -525,30 +533,30 @@ export const SettingsPage: React.FC = () => {
               </div>
             </div>
             <div className="space-y-2">
-              <Label htmlFor="mobile">Phone Number</Label>
+              <Label htmlFor="mobile">{t("settings.phoneNumber")}</Label>
               <Input
                 id="mobile"
                 type="tel"
                 {...profileForm.register("mobile")}
-                placeholder="+62 xxx xxxx xxxx"
+                placeholder={t("settings.placeholders.phone")}
                 className="h-12 rounded-xl"
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="address">Address</Label>
+              <Label htmlFor="address">{t("settings.address")}</Label>
               <Input
                 id="address"
                 {...profileForm.register("address")}
-                placeholder="Enter your address"
+                placeholder={t("settings.placeholders.address")}
                 className="h-12 rounded-xl"
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="deliveryNote">Delivery Note</Label>
+              <Label htmlFor="deliveryNote">{t("settings.deliveryNote")}</Label>
               <Input
                 id="deliveryNote"
                 {...profileForm.register("deliveryNote")}
-                placeholder="e.g., Leave at front door"
+                placeholder={t("settings.placeholders.deliveryNote")}
                 className="h-12 rounded-xl"
               />
             </div>
@@ -559,10 +567,10 @@ export const SettingsPage: React.FC = () => {
                 onClick={() => setShowEditProfile(false)}
                 className="rounded-xl"
               >
-                Cancel
+                {t("settings.cancel")}
               </Button>
               <Button type="submit" disabled={isLoading} className="rounded-xl">
-                {isLoading ? "Saving..." : "Save Changes"}
+                {isLoading ? t("settings.saving") : t("settings.save")}
               </Button>
             </DialogFooter>
           </form>
@@ -575,10 +583,10 @@ export const SettingsPage: React.FC = () => {
           <div className="bg-gradient-to-r from-coffee-600 to-coffee-800 p-6 text-white">
             <DialogHeader>
               <DialogTitle className="text-xl font-serif text-white">
-                Change Password
+                {t("settings.changePassword")}
               </DialogTitle>
               <DialogDescription className="text-white/70">
-                Enter your current password and choose a new one.
+                {t("settings.changePasswordDesc")}
               </DialogDescription>
             </DialogHeader>
           </div>
@@ -587,7 +595,9 @@ export const SettingsPage: React.FC = () => {
             className="p-6 space-y-4"
           >
             <div className="space-y-2">
-              <Label htmlFor="currentPassword">Current Password</Label>
+              <Label htmlFor="currentPassword">
+                {t("settings.currentPassword")}
+              </Label>
               <Input
                 id="currentPassword"
                 type="password"
@@ -596,7 +606,7 @@ export const SettingsPage: React.FC = () => {
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="newPassword">New Password</Label>
+              <Label htmlFor="newPassword">{t("settings.newPassword")}</Label>
               <Input
                 id="newPassword"
                 type="password"
@@ -610,7 +620,9 @@ export const SettingsPage: React.FC = () => {
               )}
             </div>
             <div className="space-y-2">
-              <Label htmlFor="confirmPassword">Confirm New Password</Label>
+              <Label htmlFor="confirmPassword">
+                {t("settings.confirmNewPassword")}
+              </Label>
               <Input
                 id="confirmPassword"
                 type="password"
@@ -630,10 +642,12 @@ export const SettingsPage: React.FC = () => {
                 onClick={() => setShowChangePassword(false)}
                 className="rounded-xl"
               >
-                Cancel
+                {t("settings.cancel")}
               </Button>
               <Button type="submit" disabled={isLoading} className="rounded-xl">
-                {isLoading ? "Changing..." : "Change Password"}
+                {isLoading
+                  ? t("settings.changing")
+                  : t("settings.changePassword")}
               </Button>
             </DialogFooter>
           </form>
@@ -646,10 +660,10 @@ export const SettingsPage: React.FC = () => {
           <div className="bg-gradient-to-r from-coffee-600 to-coffee-800 p-6 text-white">
             <DialogHeader>
               <DialogTitle className="text-xl font-serif text-white">
-                Notification Settings
+                {t("settings.notificationSettings")}
               </DialogTitle>
               <DialogDescription className="text-white/70">
-                Choose what updates you want to receive
+                {t("settings.notificationSettingsDesc")}
               </DialogDescription>
             </DialogHeader>
           </div>
@@ -657,23 +671,23 @@ export const SettingsPage: React.FC = () => {
             {[
               {
                 key: "orderUpdates",
-                label: "Order Updates",
-                desc: "Get notified about your order status",
+                label: t("settings.orderUpdates"),
+                desc: t("settings.orderUpdatesDesc"),
               },
               {
                 key: "promotions",
-                label: "Promotions",
-                desc: "Receive special offers and discounts",
+                label: t("settings.promotions"),
+                desc: t("settings.promotionsDesc"),
               },
               {
                 key: "newsletter",
-                label: "Newsletter",
-                desc: "Weekly updates about new products",
+                label: t("settings.newsletter"),
+                desc: t("settings.newsletterDesc"),
               },
               {
                 key: "pushNotifications",
-                label: "Push Notifications",
-                desc: "Allow notifications on this device",
+                label: t("settings.pushNotifications"),
+                desc: t("settings.pushNotificationsDesc"),
               },
             ].map((item) => (
               <div
@@ -717,11 +731,11 @@ export const SettingsPage: React.FC = () => {
             <Button
               onClick={() => {
                 setShowNotifications(false);
-                toast.success("Notifications updated");
+                toast.success(t("settings.notificationsUpdated"));
               }}
               className="w-full rounded-xl"
             >
-              Done
+              {t("settings.done")}
             </Button>
           </DialogFooter>
         </DialogContent>
@@ -733,10 +747,10 @@ export const SettingsPage: React.FC = () => {
           <div className="bg-gradient-to-r from-coffee-600 to-coffee-800 p-6 text-white">
             <DialogHeader>
               <DialogTitle className="text-xl font-serif text-white">
-                Select Language
+                {t("settings.selectLanguage")}
               </DialogTitle>
               <DialogDescription className="text-white/70">
-                Choose your preferred language
+                {t("settings.selectLanguageDesc")}
               </DialogDescription>
             </DialogHeader>
           </div>
@@ -752,8 +766,11 @@ export const SettingsPage: React.FC = () => {
                 )}
                 onClick={() => {
                   setSelectedLanguage(lang.code);
+                  setLanguage(lang.code);
                   setShowLanguage(false);
-                  toast.success(`Language changed to ${lang.name}`);
+                  toast.success(
+                    `${t("settings.languageChanged")} ${lang.name}`
+                  );
                 }}
               >
                 <div className="flex items-center gap-3">
@@ -777,34 +794,33 @@ export const SettingsPage: React.FC = () => {
           <div className="bg-gradient-to-r from-error to-error/80 p-6 text-white">
             <DialogHeader>
               <DialogTitle className="text-xl font-serif text-white">
-                Delete Account
+                {t("settings.deleteAccount")}
               </DialogTitle>
               <DialogDescription className="text-error-foreground/90">
-                This action cannot be undone. All your data will be permanently
-                deleted.
+                {t("settings.deleteAccountDesc")}
               </DialogDescription>
             </DialogHeader>
           </div>
           <div className="p-6">
             <p className="text-sm text-coffee-600 dark:text-white/70">
-              You will lose:
+              {t("settings.youWillLose")}
             </p>
             <ul className="mt-2 space-y-2 text-sm text-coffee-500 dark:text-white/50">
               <li className="flex items-center gap-2">
                 <div className="w-1.5 h-1.5 rounded-full bg-error" />
-                All order history
+                {t("settings.loseOrderHistory")}
               </li>
               <li className="flex items-center gap-2">
                 <div className="w-1.5 h-1.5 rounded-full bg-error" />
-                Saved payment methods
+                {t("settings.losePaymentMethods")}
               </li>
               <li className="flex items-center gap-2">
                 <div className="w-1.5 h-1.5 rounded-full bg-error" />
-                Rewards points
+                {t("settings.loseRewardsPoints")}
               </li>
               <li className="flex items-center gap-2">
                 <div className="w-1.5 h-1.5 rounded-full bg-error" />
-                Favorite products
+                {t("settings.loseFavorites")}
               </li>
             </ul>
           </div>
@@ -814,13 +830,13 @@ export const SettingsPage: React.FC = () => {
               onClick={() => setShowDeleteAccount(false)}
               className="rounded-xl border-coffee-300 dark:border-white/20 text-coffee-900 dark:text-white hover:bg-coffee-100 dark:hover:bg-white/10"
             >
-              Cancel
+              {t("settings.cancel")}
             </Button>
             <Button
               onClick={handleDeleteAccount}
               className="bg-error hover:bg-error/90 text-error-foreground rounded-xl border-0"
             >
-              Delete My Account
+              {t("settings.deleteConfirm")}
             </Button>
           </DialogFooter>
         </DialogContent>

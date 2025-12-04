@@ -33,18 +33,18 @@ export const id = {
       ready: "Siap",
       completed: "Selesai",
       cancelled: "Dibatalkan",
-      all: "Semua"
+      all: "Semua",
     },
     userStatus: {
       active: "Aktif",
       inactive: "Tidak Aktif",
-      suspended: "Ditangguhkan"
+      suspended: "Ditangguhkan",
     },
     categories: {
       coffee: "Kopi",
       pastry: "Kue",
       merch: "Merchandise",
-      drinks: "Minuman Siap Saji"
+      drinks: "Minuman Siap Saji",
     },
     months: {
       jan: "Jan",
@@ -58,13 +58,13 @@ export const id = {
       sep: "Sep",
       oct: "Okt",
       nov: "Nov",
-      dec: "Des"
+      dec: "Des",
     },
     roastLevels: {
       light: "Ringan",
       medium: "Sedang",
       mediumDark: "Sedang-Gelap",
-      dark: "Gelap"
+      dark: "Gelap",
     },
     favorites: "Favorit",
 
@@ -74,12 +74,13 @@ export const id = {
       barista: "Barista",
       admin: "Admin",
       superadmin: "Super Admin",
-      data_analyst: "Analis Data"
-    }
+      data_analyst: "Analis Data",
+    },
   },
 
   footer: {
-    brandDesc: "Nikmati seni kopi dengan racikan buatan tangan kami. Dari perkebunan berkelanjutan langsung ke cangkir pagi Anda.",
+    brandDesc:
+      "Nikmati seni kopi dengan racikan buatan tangan kami. Dari perkebunan berkelanjutan langsung ke cangkir pagi Anda.",
     explore: "Jelajahi",
     menu: "Menu",
     offers: "Penawaran",
@@ -91,7 +92,7 @@ export const id = {
     privacy: "Kebijakan Privasi",
     contact: "Hubungi Kami",
     stayConnected: "Tetap Terhubung",
-    rights: "Hak cipta dilindungi."
+    rights: "Hak cipta dilindungi.",
   },
 
   nav: {
@@ -116,51 +117,56 @@ export const id = {
     logoutConfirmTitle: "Keluar?",
     logoutConfirmDesc: "Apakah Anda yakin ingin keluar dari akun Anda?",
     cancel: "Batal",
-    confirmLogout: "Keluar"
+    confirmLogout: "Keluar",
   },
   home: {
     hero: {
       badge: "Roaster Premium",
       title: "Racikan Sempurna,\nHangatkan Suasana",
-      subtitle: "Nikmati seni kopi dari tangan ahli kami. Dari kebun lestari, langsung ke cangkir pagi Anda.",
+      subtitle:
+        "Nikmati seni kopi dari tangan ahli kami. Dari kebun lestari, langsung ke cangkir pagi Anda.",
       cta: "Pesan Sekarang",
       secondaryCta: "Lihat Menu",
-      storyCta: "Cerita Kami"
+      storyCta: "Cerita Kami",
     },
     featured: {
       title: "Favorit Minggu Ini",
-      subtitle: "Pilihan terbaik dari master roaster kami, dikurasi khusus untuk Anda."
+      subtitle:
+        "Pilihan terbaik dari master roaster kami, dikurasi khusus untuk Anda.",
     },
     philosophy: {
       badge: "Filosofi Kami",
       title: "Bukan Sekadar Kopi,\nIni Gaya Hidup.",
-      description: "Kami percaya secangkir kopi mampu menyatukan cerita. Biji kopi pilihan, disangrai dengan hati, dan diseduh penuh dedikasi di ruang yang nyaman.",
+      description:
+        "Kami percaya secangkir kopi mampu menyatukan cerita. Biji kopi pilihan, disangrai dengan hati, dan diseduh penuh dedikasi di ruang yang nyaman.",
       stat1: "Biji Organik",
       stat2: "Petani Lokal",
-      cta: "Baca Cerita Kami"
+      cta: "Baca Cerita Kami",
     },
     freshness: {
       title: "Kesegaran Harian",
       subtitle: "Dijamin",
-      description: "Kami menyangrai biji kopi dalam batch kecil setiap pagi untuk memastikan rasa terbaik."
-    }
+      description:
+        "Kami menyangrai biji kopi dalam batch kecil setiap pagi untuk memastikan rasa terbaik.",
+    },
   },
   menu: {
     title: "Sajian Istimewa",
-    subtitle: "Temukan ragam kopi premium, teh menyegarkan, dan pastry lezat untuk menemani harimu.",
+    subtitle:
+      "Temukan ragam kopi premium, teh menyegarkan, dan pastry lezat untuk menemani harimu.",
     categories: {
       all: "Semua",
       coffee: "Kopi",
       nonCoffee: "Non-Kopi",
       food: "Makanan",
       pastry: "Kue & Roti",
-      merch: "Merchandise"
+      merch: "Merchandise",
     },
     sort: {
       featured: "Unggulan",
       newest: "Terbaru",
       priceLow: "Harga: Rendah ke Tinggi",
-      priceHigh: "Harga: Tinggi ke Rendah"
+      priceHigh: "Harga: Tinggi ke Rendah",
     },
     filters: {
       category: "Kategori",
@@ -174,11 +180,11 @@ export const id = {
       dark: "Sangrai Gelap",
       vegan: "Vegan",
       glutenFree: "Bebas Gluten",
-      dairyFree: "Bebas Susu"
+      dairyFree: "Bebas Susu",
     },
     empty: "Tidak ada produk yang cocok dengan filter Anda.",
     clearFilters: "Hapus semua filter",
-    showResults: "Tampilkan Hasil"
+    showResults: "Tampilkan Hasil",
   },
   product: {
     size: "Ukuran",
@@ -205,11 +211,12 @@ export const id = {
     origin: "Asal:",
     roastLevel: "Tingkat Sangrai:",
     notes: "Catatan:",
-    reviews: "ulasan"
+    reviews: "ulasan",
   },
   rewards: {
     title: "Loyalty Rewards",
-    subtitle: "Kumpulkan poin, buka tingkatan baru, dan nikmati keuntungan eksklusif.",
+    subtitle:
+      "Kumpulkan poin, buka tingkatan baru, dan nikmati keuntungan eksklusif.",
     currentStreak: "Streak Saat Ini",
     keepStreak: "Pertahankan semangatmu!",
     nextReward: "Hadiah Berikutnya",
@@ -228,123 +235,134 @@ export const id = {
       title: "Hadiah Misteri Harian",
       subtitle: "Putar untuk menangkan poin bonus atau diskon eksklusif!",
       cta: "Buka Hadiah",
-      won: "Anda memenangkan {reward}!"
+      won: "Anda memenangkan {reward}!",
     },
     tiers: {
       bronze: "Bean Starter",
       silver: "Brew Master",
       gold: "Coffee Legend",
       nextTier: "Tingkat Berikutnya: {tier}",
-      pointsToGo: "{points} poin lagi"
+      pointsToGo: "{points} poin lagi",
     },
-    popular: "Populer"
+    popular: "Populer",
   },
   about: {
     story: {
       est: "Est. 2015",
       title: "Kesempurnaan dalam\nSetiap Tegukan.",
-      subtitle: "Dari dataran tinggi Jawa hingga hiruk pikuk Jakarta, perjalanan kami adalah tentang dedikasi tanpa henti pada kualitas.",
+      subtitle:
+        "Dari dataran tinggi Jawa hingga hiruk pikuk Jakarta, perjalanan kami adalah tentang dedikasi tanpa henti pada kualitas.",
       introTitle: "Berawal dari satu biji kopi.",
-      introText1: "Coffee & Co. lahir dari keresahan sederhana: kopi seharusnya bukan sekadar bahan bakar; ia harus menjadi sebuah pengalaman. Pada tahun 2015, pendiri kami menjelajahi nusantara, menemui petani di Aceh, Toraja, dan Bali. Mereka menemukan bahwa kopi terbaik bukan hanya soal tanah—tapi soal tangan yang merawatnya.",
-      introText2: "Kami membawa biji-biji itu kembali ke sebuah garasi kecil di Jakarta Selatan. Dengan mesin sangrai bekas dan semangat membara, kami mulai bereksperimen. Kami menghanguskan beberapa batch, belajar banyak hal, namun akhirnya, kami menemukan profil sangrai khas kami: berani, halus, dan sangat Indonesia.",
+      introText1:
+        "Coffee & Co. lahir dari keresahan sederhana: kopi seharusnya bukan sekadar bahan bakar; ia harus menjadi sebuah pengalaman. Pada tahun 2015, pendiri kami menjelajahi nusantara, menemui petani di Aceh, Toraja, dan Bali. Mereka menemukan bahwa kopi terbaik bukan hanya soal tanah—tapi soal tangan yang merawatnya.",
+      introText2:
+        "Kami membawa biji-biji itu kembali ke sebuah garasi kecil di Jakarta Selatan. Dengan mesin sangrai bekas dan semangat membara, kami mulai bereksperimen. Kami menghanguskan beberapa batch, belajar banyak hal, namun akhirnya, kami menemukan profil sangrai khas kami: berani, halus, dan sangat Indonesia.",
       values: {
         ethicallySourced: {
           title: "Bersumber Etis",
-          desc: "Kami bekerja langsung dengan petani lokal, memastikan upah yang adil dan praktik pertanian berkelanjutan demi masa depan lingkungan kita."
+          desc: "Kami bekerja langsung dengan petani lokal, memastikan upah yang adil dan praktik pertanian berkelanjutan demi masa depan lingkungan kita.",
         },
         communityFirst: {
           title: "Komunitas Utama",
-          desc: "Kafe kami lebih dari sekadar toko; ini adalah tempat berkumpul. Kami percaya pada kekuatan percakapan ditemani secangkir kopi hangat untuk menjembatani perbedaan."
+          desc: "Kafe kami lebih dari sekadar toko; ini adalah tempat berkumpul. Kami percaya pada kekuatan percakapan ditemani secangkir kopi hangat untuk menjembatani perbedaan.",
         },
         masterRoasted: {
           title: "Sangrai Ahli",
-          desc: "Proses sangrai kami adalah perpaduan seni dan sains. Batch kecil, suhu presisi, dan pencicipan konstan memastikan konsistensi rasa."
-        }
+          desc: "Proses sangrai kami adalah perpaduan seni dan sains. Batch kecil, suhu presisi, dan pencicipan konstan memastikan konsistensi rasa.",
+        },
       },
       future: {
         title: "Masa Depan Kopi",
         desc: "Kami terus berinovasi. Dari mengembangkan pod ramah lingkungan hingga mengeksplorasi metode fermentasi baru bersama mitra tani kami, Coffee & Co. berkomitmen untuk mendobrak batasan dunia kopi.",
-        cta: "Rasakan Bedanya"
-      }
+        cta: "Rasakan Bedanya",
+      },
     },
     careers: {
       title: "Bergabung dengan Brew Crew",
-      subtitle: "Kami selalu mencari orang-orang penuh semangat untuk membantu kami membangun komunitas kopi terbaik di dunia.",
+      subtitle:
+        "Kami selalu mencari orang-orang penuh semangat untuk membantu kami membangun komunitas kopi terbaik di dunia.",
       whyUs: {
         title: "Kenapa bekerja bersama kami?",
-        subtitle: "Lebih dari sekadar gaji. Kami menjaga keluarga kami sendiri.",
+        subtitle:
+          "Lebih dari sekadar gaji. Kami menjaga keluarga kami sendiri.",
         health: {
           title: "Kesehatan & Kesejahteraan",
-          desc: "Asuransi kesehatan komprehensif untuk Anda dan keluarga, plus hari cuti untuk kesehatan mental."
+          desc: "Asuransi kesehatan komprehensif untuk Anda dan keluarga, plus hari cuti untuk kesehatan mental.",
         },
         growth: {
           title: "Peluang Tumbuh",
-          desc: "Pelatihan berbayar, sertifikasi SCA, dan jalur karier yang jelas menuju manajemen atau peran spesialis."
+          desc: "Pelatihan berbayar, sertifikasi SCA, dan jalur karier yang jelas menuju manajemen atau peran spesialis.",
         },
         coffee: {
           title: "Kopi Gratis",
-          desc: "Kopi sepuasnya saat shift, dan jatah biji kopi mingguan untuk dibawa pulang. Tunjangan terbaik dari semuanya."
-        }
+          desc: "Kopi sepuasnya saat shift, dan jatah biji kopi mingguan untuk dibawa pulang. Tunjangan terbaik dari semuanya.",
+        },
       },
       openings: {
         title: "Posisi Terbuka",
         subtitle: "Temukan tempatmu di tim kami yang terus berkembang.",
         apply: "Lamar Sekarang",
         empty: "Tidak menemukan peran yang pas?",
-        email: "Kirim CV Anda ke careers@coffeeandco.id dan ceritakan mengapa Anda cocok di sini."
+        email:
+          "Kirim CV Anda ke careers@coffeeandco.id dan ceritakan mengapa Anda cocok di sini.",
       },
       jobs: {
         barista: {
           title: "Senior Barista",
-          desc: "Kami mencari barista berpengalaman dengan hasrat pada latte art dan layanan pelanggan. Anda akan memimpin shift, melatih staf junior, dan menjaga standar seduhan kami."
+          desc: "Kami mencari barista berpengalaman dengan hasrat pada latte art dan layanan pelanggan. Anda akan memimpin shift, melatih staf junior, dan menjaga standar seduhan kami.",
         },
         manager: {
           title: "Manajer Toko",
-          desc: "Kelola operasional harian, inventaris, dan jadwal staf. Kandidat ideal memiliki 3+ tahun pengalaman manajemen ritel dan cinta pada gaya hidup pantai."
+          desc: "Kelola operasional harian, inventaris, dan jadwal staf. Kandidat ideal memiliki 3+ tahun pengalaman manajemen ritel dan cinta pada gaya hidup pantai.",
         },
         roaster: {
           title: "Kepala Roaster",
-          desc: "Awasi fasilitas sangrai kami. Membutuhkan pengetahuan mendalam tentang sourcing biji hijau, profil sangrai, dan sesi cupping kontrol kualitas."
+          desc: "Awasi fasilitas sangrai kami. Membutuhkan pengetahuan mendalam tentang sourcing biji hijau, profil sangrai, dan sesi cupping kontrol kualitas.",
         },
         marketing: {
           title: "Spesialis Pemasaran",
-          desc: "Bantu kami menceritakan kisah kami. Anda akan mengelola media sosial, mengatur acara komunitas, dan berkolaborasi dengan influencer."
-        }
+          desc: "Bantu kami menceritakan kisah kami. Anda akan mengelola media sosial, mengatur acara komunitas, dan berkolaborasi dengan influencer.",
+        },
       },
       types: {
         fullTime: "Penuh Waktu",
-        partTime: "Paruh Waktu"
-      }
+        partTime: "Paruh Waktu",
+      },
     },
     locations: {
       title: "Temukan Kami",
-      subtitle: "Baik Anda mencari sudut tenang untuk bekerja atau tempat seru untuk nongkrong bareng teman, kami punya tempat untuk Anda.",
+      subtitle:
+        "Baik Anda mencari sudut tenang untuk bekerja atau tempat seru untuk nongkrong bareng teman, kami punya tempat untuk Anda.",
       getDirections: "Petunjuk Arah",
       list: {
         senopati: {
           name: "Senopati Flagship",
           city: "Jakarta",
-          address: "Jl. Senopati No. 10, Kebayoran Baru, Jakarta Selatan, 12190"
+          address:
+            "Jl. Senopati No. 10, Kebayoran Baru, Jakarta Selatan, 12190",
         },
         canggu: {
           name: "Canggu Beach House",
           city: "Bali",
-          address: "Jl. Pantai Berawa No. 99, Tibubeneng, Kuta Utara, Badung, Bali 80361"
+          address:
+            "Jl. Pantai Berawa No. 99, Tibubeneng, Kuta Utara, Badung, Bali 80361",
         },
         braga: {
           name: "Braga Heritage",
           city: "Bandung",
-          address: "Jl. Braga No. 50, Sumur Bandung, Kota Bandung, Jawa Barat 40111"
-        }
-      }
-    }
+          address:
+            "Jl. Braga No. 50, Sumur Bandung, Kota Bandung, Jawa Barat 40111",
+        },
+      },
+    },
   },
   auth: {
     layout: {
       title: "Dapatkan akses ke\nDaily Brew & Keuntungan Eksklusif.",
-      subtitle: "Bergabunglah dengan klub untuk isi ulang gratis, streak loyalitas, dan akses awal ke racikan musiman kami.",
+      subtitle:
+        "Bergabunglah dengan klub untuk isi ulang gratis, streak loyalitas, dan akses awal ke racikan musiman kami.",
       est: "Est. 2024 • {{appName}}",
-      dailyBrew: "Daily Brew"
+      dailyBrew: "Daily Brew",
     },
     login: {
       title: "Selamat Datang Kembali!",
@@ -359,8 +377,8 @@ export const id = {
       or: "Atau masuk dengan",
       error: {
         missingFields: "Mohon masukkan email dan kata sandi Anda untuk masuk.",
-        generic: "Terjadi kesalahan yang tidak terduga. Silakan coba lagi."
-      }
+        generic: "Terjadi kesalahan yang tidak terduga. Silakan coba lagi.",
+      },
     },
     register: {
       title: "Buat Akun",
@@ -381,8 +399,8 @@ export const id = {
         passwordMin: "Kata sandi minimal 8 karakter",
         passwordUppercase: "Harus mengandung setidaknya satu huruf besar",
         passwordNumber: "Harus mengandung setidaknya satu angka",
-        passwordMatch: "Kata sandi tidak cocok"
-      }
+        passwordMatch: "Kata sandi tidak cocok",
+      },
     },
     forgotPassword: {
       title: "Lupa Kata Sandi?",
@@ -394,9 +412,9 @@ export const id = {
       backToLogin: "Kembali ke Masuk",
       success: {
         title: "Tautan reset terkirim!",
-        desc: "Jika akun dengan email ini ada, kami telah mengirimkan kode verifikasi."
+        desc: "Jika akun dengan email ini ada, kami telah mengirimkan kode verifikasi.",
       },
-      error: "Terjadi kesalahan"
+      error: "Terjadi kesalahan",
     },
     verifyOtp: {
       title: "Cek email Anda",
@@ -413,8 +431,8 @@ export const id = {
       validation: {
         required: "Kode wajib diisi",
         length: "Kode harus 6 digit",
-        invalid: "Kode tidak valid. Coba \"123456\""
-      }
+        invalid: 'Kode tidak valid. Coba "123456"',
+      },
     },
     resetPassword: {
       title: "Atur kata sandi baru",
@@ -425,9 +443,9 @@ export const id = {
       submitting: "Mereset Kata Sandi...",
       success: {
         title: "Reset kata sandi berhasil!",
-        desc: "Anda sekarang dapat masuk dengan kata sandi baru Anda."
-      }
-    }
+        desc: "Anda sekarang dapat masuk dengan kata sandi baru Anda.",
+      },
+    },
   },
   dashboard: {
     nav: {
@@ -446,7 +464,7 @@ export const id = {
       jobs: "Pekerjaan & Karir",
       locations: "Lokasi Toko",
       analytics: "Analitik",
-      intelligence: "Intelijen (ML)"
+      intelligence: "Intelijen (ML)",
     },
     header: {
       adminPortal: "Portal Admin",
@@ -455,14 +473,16 @@ export const id = {
       systemOperational: "Sistem Operasional",
       signOutDialog: {
         title: "Konfirmasi Keluar",
-        description: "Apakah Anda yakin ingin keluar dari sesi ini? Anda harus masuk kembali untuk mengakses dasbor.",
+        description:
+          "Apakah Anda yakin ingin keluar dari sesi ini? Anda harus masuk kembali untuk mengakses dasbor.",
         confirm: "Ya, Keluar",
-        cancel: "Batal"
-      }
+        cancel: "Batal",
+      },
     },
     analytics: {
       title: "Analitik Bisnis",
-      subtitle: "Analisis mendalam tentang kinerja historis dan metrik pertumbuhan.",
+      subtitle:
+        "Analisis mendalam tentang kinerja historis dan metrik pertumbuhan.",
       netSales: "Penjualan Bersih",
       avgOrderValue: "Rata-rata Nilai Pesanan",
       refundRate: "Tingkat Pengembalian",
@@ -472,7 +492,7 @@ export const id = {
       cohort: "Kohort",
       month: "Bulan",
       exportSuccess: "Analitik diekspor sebagai {format}",
-      export: "Ekspor"
+      export: "Ekspor",
     },
     finance: {
       title: "Keuangan & Audit",
@@ -504,19 +524,21 @@ export const id = {
       exportAuditSuccess: "Log audit diekspor dengan aman.",
       exportLogs: "Ekspor Log",
       auditSubtitle: "Melacak tindakan penting untuk keamanan dan kepatuhan.",
-      valuationSubtitle: "Menggunakan Metode Pendapatan Diskresioner Penjual (SDE).",
+      valuationSubtitle:
+        "Menggunakan Metode Pendapatan Diskresioner Penjual (SDE).",
       addBacksHelper: "Gaji Pemilik, Depresiasi, Pengeluaran satu kali",
       multipliers: {
         distressed: "1.0x (Tertekan)",
         healthy: "3.0x (Sehat)",
-        premium: "5.0x (Merek Premium)"
+        premium: "5.0x (Merek Premium)",
       },
-      valuationDisclaimer: "Valuasi ini adalah perkiraan berdasarkan SDE x pengali {multiplier}. Nilai pasar sebenarnya dapat bervariasi berdasarkan aset, lokasi, dan ekuitas merek.",
+      valuationDisclaimer:
+        "Valuasi ini adalah perkiraan berdasarkan SDE x pengali {multiplier}. Nilai pasar sebenarnya dapat bervariasi berdasarkan aset, lokasi, dan ekuitas merek.",
       severityLevels: {
         critical: "Kritis",
         warning: "Peringatan",
-        info: "Info"
-      }
+        info: "Info",
+      },
     },
     inventory: {
       title: "Kesehatan Inventaris",
@@ -540,22 +562,22 @@ export const id = {
       exportSuccess: "Laporan inventaris diunduh",
       toast: {
         orderInitiated: "Pesanan dimulai untuk {itemName}",
-        addedSuccess: "Item inventaris berhasil ditambahkan"
+        addedSuccess: "Item inventaris berhasil ditambahkan",
       },
       filters: {
         all: "Semua",
         lowStock: "Stok Rendah",
-        critical: "Kritis"
+        critical: "Kritis",
       },
       actions: {
         viewHistory: "Lihat Riwayat",
-        editItem: "Edit Item"
+        editItem: "Edit Item",
       },
       parLevel: "(Par: {level})",
       statusLevels: {
         optimal: "Optimal",
         low: "Rendah",
-        critical: "Kritis"
+        critical: "Kritis",
       },
       form: {
         title: "Tambah Item Inventaris",
@@ -569,17 +591,17 @@ export const id = {
           currentStock: "Stok Saat Ini",
           unit: "Unit",
           parLevel: "Level Par",
-          unitCost: "Biaya per Unit ($)"
+          unitCost: "Biaya per Unit ($)",
         },
         placeholders: {
           name: "cth. Biji Arabika",
           sku: "cth. ING-001",
           category: "Pilih kategori",
           supplier: "cth. Global Origins",
-          unit: "cth. kg, pcs, L"
+          unit: "cth. kg, pcs, L",
         },
         helper: {
-          parLevel: "Stok minimum sebelum peringatan restock."
+          parLevel: "Stok minimum sebelum peringatan restock.",
         },
         validation: {
           nameRequired: "Nama wajib diisi",
@@ -588,19 +610,19 @@ export const id = {
           unitRequired: "Unit wajib diisi",
           parLevelNegative: "Level par tidak boleh negatif",
           unitCostNegative: "Biaya unit tidak boleh negatif",
-          supplierRequired: "Pemasok wajib diisi"
+          supplierRequired: "Pemasok wajib diisi",
         },
         buttons: {
           cancel: "Batal",
-          save: "Simpan Item"
+          save: "Simpan Item",
         },
         options: {
           ingredient: "Bahan",
           retail: "Ritel",
           packaging: "Kemasan",
-          equipment: "Peralatan"
-        }
-      }
+          equipment: "Peralatan",
+        },
+      },
     },
     transactions: {
       title: "Transaksi",
@@ -623,13 +645,13 @@ export const id = {
         completed: "Selesai",
         pending: "Menunggu",
         failed: "Gagal",
-        refunded: "Dikembalikan"
+        refunded: "Dikembalikan",
       },
       method: {
         creditCard: "Kartu Kredit",
         cash: "Tunai",
-        digitalWallet: "Dompet Digital"
-      }
+        digitalWallet: "Dompet Digital",
+      },
     },
     users: {
       title: "Manajemen Pengguna",
@@ -657,7 +679,7 @@ export const id = {
         location: "Lokasi",
         lastActive: "Terakhir Aktif",
         actions: "Tindakan",
-        editRole: "Ubah Peran"
+        editRole: "Ubah Peran",
       },
       showing: "Menampilkan {count} pengguna",
       dialog: {
@@ -667,12 +689,12 @@ export const id = {
         selectPlaceholder: "Pilih peran",
         note: "Catatan: Mengubah peran akan segera memperbarui izin akses dasbor pengguna.",
         cancel: "Batal",
-        save: "Simpan Perubahan"
+        save: "Simpan Perubahan",
       },
       toast: {
         updated: "Peran diperbarui untuk {name}",
-        desc: "Peran baru: {role}"
-      }
+        desc: "Peran baru: {role}",
+      },
     },
     products: {
       title: "Produk",
@@ -687,19 +709,19 @@ export const id = {
         category: "Kategori",
         price: "Harga",
         status: "Status",
-        actions: "Tindakan"
+        actions: "Tindakan",
       },
       toast: {
         deleted: "Produk berhasil dihapus",
         deleteFailed: "Gagal menghapus produk",
         noExport: "Tidak ada produk untuk diekspor",
-        exported: "Produk diekspor sebagai {format}"
+        exported: "Produk diekspor sebagai {format}",
       },
       deleteDialog: {
         title: "Hapus Produk",
         desc: "Apakah Anda yakin ingin menghapus {name}? Tindakan ini tidak dapat dibatalkan.",
         cancel: "Batal",
-        delete: "Hapus"
+        delete: "Hapus",
       },
       form: {
         newTitle: "Produk Baru",
@@ -720,7 +742,7 @@ export const id = {
           variants: "Varian",
           sizes: "Ukuran Tersedia",
           grind: "Opsi Gilingan",
-          highlights: "Sorotan"
+          highlights: "Sorotan",
         },
         placeholders: {
           name: "cth. Signature Blend",
@@ -728,19 +750,19 @@ export const id = {
           roast: "Pilih tingkat sangrai",
           tastingNotes: "cth. Buah, Cokelat, Kacang",
           image: "https://...",
-          highlight: "cth. Organik"
+          highlight: "cth. Organik",
         },
         helpers: {
           tastingNotes: "Nilai dipisahkan koma",
           image: "Biarkan kosong untuk menggunakan gambar galeri pertama",
           upload: "Klik atau seret gambar untuk mengunggah",
           uploadFormat: "JPG, PNG, WebP hingga 2MB",
-          noHighlights: "Belum ada sorotan ditambahkan."
+          noHighlights: "Belum ada sorotan ditambahkan.",
         },
         buttons: {
           add: "Tambah Sorotan",
           cancel: "Batal",
-          save: "Simpan Produk"
+          save: "Simpan Produk",
         },
         toast: {
           created: "Produk berhasil dibuat",
@@ -748,32 +770,34 @@ export const id = {
           noImage: "Harap sediakan setidaknya satu gambar",
           fileTooLarge: "{name} terlalu besar (maks 2MB)",
           formatNotSupported: "Format {name} tidak didukung",
-          processed: "{count} gambar diproses"
-        }
+          processed: "{count} gambar diproses",
+        },
       },
       recipe: {
         title: "Resep & Biaya",
         subtitle: "Kelola bahan dan hitung biaya.",
         estimatedCost: "Est. Biaya",
         selectVariant: "Pilih Varian",
-        noVariants: "Harap pilih ukuran terlebih dahulu untuk mengonfigurasi resep.",
+        noVariants:
+          "Harap pilih ukuran terlebih dahulu untuk mengonfigurasi resep.",
         table: {
           ingredient: "Bahan",
           quantity: "Jumlah",
           unit: "Unit",
-          action: "Tindakan"
+          action: "Tindakan",
         },
         placeholders: {
-          selectItem: "Pilih bahan"
+          selectItem: "Pilih bahan",
         },
         noIngredients: "Tidak ada bahan didefinisikan untuk {variant}.",
         addFirst: "Tambah Bahan Pertama",
         addAnother: "Tambah Bahan Lain",
         info: {
           title: "Tentang Biaya Resep",
-          content: "Biaya dihitung berdasarkan biaya unit inventaris saat ini. Pembaruan harga inventaris akan secara otomatis tercermin di sini."
-        }
-      }
+          content:
+            "Biaya dihitung berdasarkan biaya unit inventaris saat ini. Pembaruan harga inventaris akan secara otomatis tercermin di sini.",
+        },
+      },
     },
     orders: {
       detail: {
@@ -785,14 +809,14 @@ export const id = {
           title: "Konfirmasi Refund",
           desc: "Apakah Anda yakin ingin me-refund {amount}? Tindakan ini tidak dapat dibatalkan.",
           cancel: "Batal",
-          confirm: "Refund"
+          confirm: "Refund",
         },
         sections: {
           items: "Item Pesanan",
           timeline: "Timeline Pesanan",
           customer: "Detail Pelanggan",
           shipping: "Detail Pengiriman",
-          payment: "Informasi Pembayaran"
+          payment: "Informasi Pembayaran",
         },
         labels: {
           shipment: "Pengiriman #{number}",
@@ -805,19 +829,19 @@ export const id = {
           registered: "Pelanggan Terdaftar",
           method: "Metode Pengiriman",
           tracking: "ID Pelacakan",
-          paymentSuccess: "Pembayaran Berhasil"
+          paymentSuccess: "Pembayaran Berhasil",
         },
         timeline: {
           placed: "Pesanan Dibuat",
           confirmed: "Pembayaran Dikonfirmasi",
           processing: "Diproses",
           shipped: "Dikirim",
-          delivered: "Diterima"
+          delivered: "Diterima",
         },
         toast: {
-          refunded: "Pesanan #{id} berhasil di-refund"
-        }
-      }
+          refunded: "Pesanan #{id} berhasil di-refund",
+        },
+      },
     },
     jobs: {
       title: "Karir & Pekerjaan",
@@ -830,7 +854,7 @@ export const id = {
         type: "Tipe",
         location: "Lokasi",
         status: "Status",
-        actions: "Tindakan"
+        actions: "Tindakan",
       },
       dialog: {
         editTitle: "Edit Posisi",
@@ -840,35 +864,35 @@ export const id = {
           department: "Departemen",
           type: "Tipe",
           location: "Lokasi",
-          status: "Status"
+          status: "Status",
         },
         placeholders: {
           title: "cth. Head Roaster",
           department: "cth. Operasional",
           location: "cth. Jakarta, ID",
           type: "Pilih tipe",
-          status: "Pilih status"
+          status: "Pilih status",
         },
         buttons: {
           cancel: "Batal",
-          save: "Simpan Pekerjaan"
-        }
+          save: "Simpan Pekerjaan",
+        },
       },
       toast: {
         required: "Harap isi kolom yang wajib",
         updated: "Lowongan diperbarui",
         posted: "Lowongan dipasang",
-        deleted: "Lowongan dihapus"
+        deleted: "Lowongan dihapus",
       },
       types: {
         fullTime: "Penuh Waktu",
         partTime: "Paruh Waktu",
-        contract: "Kontrak"
+        contract: "Kontrak",
       },
       status: {
         active: "Aktif",
-        closed: "Tutup"
-      }
+        closed: "Tutup",
+      },
     },
     locations: {
       title: "Lokasi Toko",
@@ -880,7 +904,7 @@ export const id = {
         address: "Alamat",
         contact: "Kontak",
         status: "Status",
-        actions: "Tindakan"
+        actions: "Tindakan",
       },
       dialog: {
         editTitle: "Edit Lokasi",
@@ -890,63 +914,64 @@ export const id = {
           address: "Alamat",
           phone: "Telepon",
           hours: "Jam Buka",
-          status: "Status"
+          status: "Status",
         },
         placeholders: {
           storeName: "cth. Pusat Kota",
           address: "Alamat Lengkap",
           phone: "+62...",
           hours: "08:00 - 22:00",
-          status: "Pilih status"
+          status: "Pilih status",
         },
         buttons: {
           cancel: "Batal",
-          save: "Simpan Lokasi"
-        }
+          save: "Simpan Lokasi",
+        },
       },
       toast: {
         required: "Nama dan Alamat wajib diisi",
         updated: "Lokasi diperbarui",
         added: "Lokasi baru ditambahkan",
-        removed: "Lokasi dihapus"
+        removed: "Lokasi dihapus",
       },
       status: {
         open: "Buka",
         renovation: "Renovasi",
-        comingSoon: "Segera Hadir"
-      }
+        comingSoon: "Segera Hadir",
+      },
     },
     customers: {
       title: "Segmentasi Pelanggan",
-      subtitle: "Analisis RFM mengelompokkan pelanggan Anda untuk pemasaran yang ditargetkan.",
+      subtitle:
+        "Analisis RFM mengelompokkan pelanggan Anda untuk pemasaran yang ditargetkan.",
       all: "Semua",
       totalDatabase: "Total Database",
       segments: {
         champion: {
           name: "Juara",
           desc: "Pengeluaran besar, pengunjung sering.",
-          action: "Tawarkan Fasilitas VIP"
+          action: "Tawarkan Fasilitas VIP",
         },
         loyalist: {
           name: "Loyalis",
           desc: "Pelanggan tetap.",
-          action: "Upsell / Poin Loyalitas"
+          action: "Upsell / Poin Loyalitas",
         },
         atRisk: {
           name: "Berisiko",
           desc: "Bernilai tinggi, belum berkunjung akhir-akhir ini.",
-          action: "Kampanye Win-back"
+          action: "Kampanye Win-back",
         },
         new: {
           name: "Baru",
           desc: "Pembelian pertama baru-baru ini.",
-          action: "Seri Selamat Datang"
+          action: "Seri Selamat Datang",
         },
         hibernating: {
           name: "Hibernasi",
           desc: "Frekuensi rendah, resensi rendah.",
-          action: "Keterlibatan Kembali"
-        }
+          action: "Keterlibatan Kembali",
+        },
       },
       table: {
         customer: "Pelanggan",
@@ -954,17 +979,18 @@ export const id = {
         totalSpent: "Total Belanja",
         orders: "Pesanan",
         lastVisit: "Kunjungan Terakhir",
-        actions: "Tindakan"
+        actions: "Tindakan",
       },
       searchPlaceholder: "Cari pelanggan...",
       noCustomers: "Tidak ada pelanggan ditemukan di segmen ini.",
       toast: {
-        campaignDrafted: "Kampanye Disiapkan untuk {segment}"
-      }
+        campaignDrafted: "Kampanye Disiapkan untuk {segment}",
+      },
     },
     logistics: {
       title: "Logistik Stasiun",
-      subtitle: "Pantau tingkat inventaris, kesehatan peralatan, dan standar keamanan.",
+      subtitle:
+        "Pantau tingkat inventaris, kesehatan peralatan, dan standar keamanan.",
       lastCheck: "Pemeriksaan Terakhir",
       justNow: "Baru saja",
       equipmentHealth: "Kesehatan Peralatan",
@@ -980,12 +1006,12 @@ export const id = {
       levels: {
         high: "Tinggi",
         low: "Rendah",
-        out: "Habis"
+        out: "Habis",
       },
       toast: {
         criticalTitle: "Item ditandai Kritis!",
-        criticalDesc: "Beritahu bagian dapur untuk restock."
-      }
+        criticalDesc: "Beritahu bagian dapur untuk restock.",
+      },
     },
     bi: {
       title: "Intelijen Bisnis",
@@ -1002,8 +1028,8 @@ export const id = {
           riskScore: "Skor Risiko",
           action: "Tindakan",
           sendOffer: "Kirim Penawaran",
-          view: "Lihat"
-        }
+          view: "Lihat",
+        },
       },
       forecast: {
         title: "Perkiraan Permintaan",
@@ -1013,20 +1039,20 @@ export const id = {
         recommended: "Pesanan Disarankan: {amount} Unit",
         alert: {
           title: "Peringatan Cuaca Hujan",
-          desc: "Prakiraan memprediksi hujan lebat Selasa depan. Permintaan minuman panas diperkirakan naik ~22%."
-        }
+          desc: "Prakiraan memprediksi hujan lebat Selasa depan. Permintaan minuman panas diperkirakan naik ~22%.",
+        },
       },
       query: {
         console: "query_console.sql",
-        executed: "Query dieksekusi dalam {time}d"
+        executed: "Query dieksekusi dalam {time}d",
       },
       products: {
         wholeMilk: "Susu Segar (L)",
-        espressoBeans: "Biji Espresso (kg)"
+        espressoBeans: "Biji Espresso (kg)",
       },
       categories: {
-        service: "Layanan"
-      }
+        service: "Layanan",
+      },
     },
     admin: {
       executiveView: "Tampilan Eksekutif",
@@ -1067,8 +1093,8 @@ export const id = {
       staffStatus: {
         topPerformer: "Performa Terbaik",
         onTrack: "Sesuai Target",
-        coachingNeeded: "Perlu Bimbingan"
-      }
+        coachingNeeded: "Perlu Bimbingan",
+      },
     },
     barista: {
       kds: "Sistem Tampilan Dapur",
@@ -1080,34 +1106,107 @@ export const id = {
       noOrders: "Tidak ada pesanan {status}",
       greatJob: "Kerja bagus! Semua pesanan telah diproses.",
       orderCompleted: "Pesanan #{id} selesai!",
-      note: "Catatan: \"{note}\""
-    }
+      note: 'Catatan: "{note}"',
+    },
   },
   settings: {
     title: "Pengaturan",
-    profile: "Pengaturan Profil",
+    subtitle: "Kelola preferensi dan keamanan akun Anda.",
+    profile: "Profil",
+    profileSettings: "Pengaturan Profil",
     notifications: "Notifikasi",
     appearance: "Tampilan",
     language: "Bahasa",
     save: "Simpan Perubahan",
+    saving: "Menyimpan...",
+    cancel: "Batal",
     fullName: "Nama Lengkap",
+    firstName: "Nama Depan",
+    lastName: "Nama Belakang",
     email: "Email",
     phone: "Telepon",
+    phoneNumber: "Nomor Telepon",
     address: "Alamat",
     theme: {
       light: "Mode Terang",
       dark: "Mode Gelap",
-      system: "Default Sistem"
+      system: "Default Sistem",
     },
     contact: "Informasi Kontak",
     role: "Peran Akun",
     mobile: "Ponsel",
-    deliveryNote: "Catatan Pengiriman (Opsional)",
+    deliveryNote: "Catatan Pengiriman",
     noChanges: "Tidak ada perubahan",
+    preferences: "Preferensi",
+    security: "Keamanan",
+    payment: "Pembayaran",
+    dangerZone: "Zona Bahaya",
+    dangerZoneDesc: "Tindakan tidak dapat dibatalkan",
+    editProfile: "Edit Profil",
+    updatePersonalInfo: "Perbarui informasi pribadi Anda",
+    changePassword: "Ubah Kata Sandi",
+    changePasswordDesc: "Masukkan kata sandi saat ini dan pilih yang baru.",
+    currentPassword: "Kata Sandi Saat Ini",
+    newPassword: "Kata Sandi Baru",
+    confirmNewPassword: "Konfirmasi Kata Sandi Baru",
+    changing: "Mengubah...",
+    twoFactorAuth: "Autentikasi Dua Faktor",
+    loginActivity: "Aktivitas Login",
+    paymentMethods: "Metode Pembayaran",
+    cards: "kartu",
+    deleteAccount: "Hapus Akun",
+    deleteAccountDesc:
+      "Tindakan ini tidak dapat dibatalkan. Semua data Anda akan dihapus secara permanen.",
+    deleteConfirm: "Hapus Akun Saya",
+    youWillLose: "Anda akan kehilangan:",
+    loseOrderHistory: "Semua riwayat pesanan",
+    losePaymentMethods: "Metode pembayaran tersimpan",
+    loseRewardsPoints: "Poin rewards",
+    loseFavorites: "Produk favorit",
+    notSet: "Belum diatur",
+    on: "Aktif",
+    off: "Nonaktif",
+    comingSoon: "Segera hadir!",
+    member: "Member",
+    admin: "Admin",
+    notificationSettings: "Pengaturan Notifikasi",
+    notificationSettingsDesc: "Pilih pembaruan yang ingin Anda terima",
+    orderUpdates: "Pembaruan Pesanan",
+    orderUpdatesDesc: "Dapatkan notifikasi tentang status pesanan Anda",
+    promotions: "Promosi",
+    promotionsDesc: "Terima penawaran dan diskon spesial",
+    newsletter: "Newsletter",
+    newsletterDesc: "Pembaruan mingguan tentang produk baru",
+    pushNotifications: "Notifikasi Push",
+    pushNotificationsDesc: "Izinkan notifikasi di perangkat ini",
+    done: "Selesai",
+    selectLanguage: "Pilih Bahasa",
+    selectLanguageDesc: "Pilih bahasa yang Anda inginkan",
+    languageChanged: "Bahasa diubah ke",
+    profileUpdated: "Profil berhasil diperbarui",
+    profileUpdateFailed: "Gagal memperbarui profil",
+    passwordChanged: "Kata sandi berhasil diubah",
+    passwordChangeFailed: "Gagal mengubah kata sandi",
+    accountDeleted: "Akun dihapus",
+    accountDeleteFailed: "Gagal menghapus akun",
+    notificationsUpdated: "Notifikasi diperbarui",
+    validation: {
+      firstNameRequired: "Nama depan wajib diisi",
+      lastNameRequired: "Nama belakang wajib diisi",
+      currentPasswordRequired: "Kata sandi saat ini wajib diisi",
+      passwordMin: "Kata sandi minimal 8 karakter",
+      passwordsNoMatch: "Kata sandi tidak cocok",
+    },
+    placeholders: {
+      phone: "+62 xxx xxxx xxxx",
+      address: "Masukkan alamat Anda",
+      deliveryNote: "cth. Tinggalkan di depan pintu",
+    },
   },
   cart: {
     label: "Keranjang",
     total: "Total",
+    drawerTitle: "Pesanan Anda",
     selectPayment: "Pilih Pembayaran",
     notePlaceholder: "Tambahkan catatan...",
     removeTitle: "Hapus Item?",
@@ -1119,7 +1218,11 @@ export const id = {
     empty: "Keranjang Anda kosong.",
     emptyDesc: "Ayo isi dengan sesuatu yang lezat.",
     summary: "Ringkasan Pesanan",
-    browseMenu: "Lihat Menu"
+    browseMenu: "Lihat Menu",
+    checkout: "Lanjut ke Checkout",
+    checkoutBtn: "Checkout",
+    closeCart: "Tutup Keranjang",
+    removeItem: "Hapus Item",
   },
   languageDialog: {
     title: "Pilih Bahasa",
@@ -1127,12 +1230,13 @@ export const id = {
     indonesian: "Bahasa Indonesia",
     mainLanguage: "Bahasa Utama",
     english: "Inggris",
-    international: "Internasional"
+    international: "Internasional",
   },
   addToCart: "Tambahkan ke Keranjang",
   thankYou: {
     title: "Terima Kasih!",
-    subtitle: "Pesanan Anda berhasil dibuat. Kami sedang menyiapkannya dengan hati-hati.",
+    subtitle:
+      "Pesanan Anda berhasil dibuat. Kami sedang menyiapkannya dengan hati-hati.",
     orderNumber: "Nomor Pesanan",
     estimatedDelivery: "Perkiraan Pengiriman",
     items: "Item Dipesan",
@@ -1172,10 +1276,12 @@ export const id = {
       mockCard: "Pembayaran Kartu Mock",
       copied: "Disalin ke papan klip",
       instruction: {
-        transfer: "Silakan transfer jumlah yang tepat ke nomor Virtual Account di atas.",
+        transfer:
+          "Silakan transfer jumlah yang tepat ke nomor Virtual Account di atas.",
         scan: "Pindai QR untuk Membayar",
-        card: "Klik \"Simulasi Pembayaran\" di bawah untuk melewati entri kartu.",
-        simulation: "Ini adalah simulasi. Tidak ada uang sungguhan yang akan dipotong.",
+        card: 'Klik "Simulasi Pembayaran" di bawah untuk melewati entri kartu.',
+        simulation:
+          "Ini adalah simulasi. Tidak ada uang sungguhan yang akan dipotong.",
       },
       expiresIn: "Berakhir Dalam",
       simulate: "Simulasi Pembayaran",
@@ -1186,10 +1292,11 @@ export const id = {
       cart: "Keranjang",
       details: "Detail",
       payment: "Pembayaran",
-      review: "Tinjauan"
+      review: "Tinjauan",
     },
     footer: {
-      brandDesc: "Menciptakan momen kebahagiaan, satu cangkir setiap waktu. Bergabunglah dengan kami dalam perjalanan rasa dan komunitas.",
+      brandDesc:
+        "Menciptakan momen kebahagiaan, satu cangkir setiap waktu. Bergabunglah dengan kami dalam perjalanan rasa dan komunitas.",
       explore: "Jelajahi",
       menu: "Menu Kami",
       offers: "Penawaran Spesial",
@@ -1202,67 +1309,68 @@ export const id = {
       contact: "Kontak",
       stayConnected: "Tetap Terhubung",
       rights: "Hak cipta dilindungi.",
-    }
+    },
   },
   favorites: {
-    title: 'Favorit',
-    yourFavorites: 'Favorit Anda',
-    emptyTitle: 'Daftar favorit Anda kosong',
-    emptyDesc: 'Jelajahi menu kami dan sukai item yang Anda cintai untuk menyimpannya di sini.',
-    startBrowsing: 'Mulai Menjelajah',
-    noMatchTitle: 'Tidak ada favorit yang cocok dengan filter',
-    noMatchDesc: 'Coba sesuaikan filter Anda untuk melihat item yang disimpan.'
+    title: "Favorit",
+    yourFavorites: "Favorit Anda",
+    emptyTitle: "Daftar favorit Anda kosong",
+    emptyDesc:
+      "Jelajahi menu kami dan sukai item yang Anda cintai untuk menyimpannya di sini.",
+    startBrowsing: "Mulai Menjelajah",
+    noMatchTitle: "Tidak ada favorit yang cocok dengan filter",
+    noMatchDesc: "Coba sesuaikan filter Anda untuk melihat item yang disimpan.",
   },
   orders: {
-    title: 'Detail Pesanan',
-    subtitle: 'Lihat dan kelola informasi pesanan',
-    status: 'Status',
-    items: 'Item',
-    customer: 'Pelanggan',
-    timeline: 'Linimasa Pesanan',
-    total: 'Total Jumlah',
-    payment: 'Metode Pembayaran',
-    date: 'Tanggal Pesanan',
-    notes: 'Catatan',
+    title: "Detail Pesanan",
+    subtitle: "Lihat dan kelola informasi pesanan",
+    status: "Status",
+    items: "Item",
+    customer: "Pelanggan",
+    timeline: "Linimasa Pesanan",
+    total: "Total Jumlah",
+    payment: "Metode Pembayaran",
+    date: "Tanggal Pesanan",
+    notes: "Catatan",
     actions: {
-      accept: 'Terima Pesanan',
-      ready: 'Tandai Siap',
-      complete: 'Selesaikan Pesanan',
-      cancel: 'Batalkan Pesanan',
-      print: 'Cetak Struk'
+      accept: "Terima Pesanan",
+      ready: "Tandai Siap",
+      complete: "Selesaikan Pesanan",
+      cancel: "Batalkan Pesanan",
+      print: "Cetak Struk",
     },
     statusLabels: {
-      pending: 'Menunggu',
-      preparing: 'Menyiapkan',
-      ready: 'Siap',
-      completed: 'Selesai',
-      cancelled: 'Dibatalkan'
+      pending: "Menunggu",
+      preparing: "Menyiapkan",
+      ready: "Siap",
+      completed: "Selesai",
+      cancelled: "Dibatalkan",
     },
     toast: {
-      statusUpdated: 'Status pesanan berhasil diperbarui'
-    }
+      statusUpdated: "Status pesanan berhasil diperbarui",
+    },
   },
   history: {
-    title: 'Riwayat Pesanan',
-    subtitle: 'Kelola pesanan dan preferensi Anda.',
+    title: "Riwayat Pesanan",
+    subtitle: "Kelola pesanan dan preferensi Anda.",
     filters: {
-      title: 'Filter',
-      status: 'Status Pesanan',
-      all: 'Semua Pesanan',
-      active: 'Aktif',
-      completed: 'Selesai',
-      cancelled: 'Dibatalkan'
+      title: "Filter",
+      status: "Status Pesanan",
+      all: "Semua Pesanan",
+      active: "Aktif",
+      completed: "Selesai",
+      cancelled: "Dibatalkan",
     },
     empty: {
-      title: 'Belum ada pesanan',
+      title: "Belum ada pesanan",
       desc: "Sepertinya Anda belum memesan kopi lezat kami.",
-      browse: 'Jelajahi Menu'
+      browse: "Jelajahi Menu",
     },
     tabs: {
-      history: 'Riwayat',
-      liked: 'Disukai',
-      faq: 'FAQ',
-      exit: 'Keluar'
-    }
+      history: "Riwayat",
+      liked: "Disukai",
+      faq: "FAQ",
+      exit: "Keluar",
+    },
   },
 };

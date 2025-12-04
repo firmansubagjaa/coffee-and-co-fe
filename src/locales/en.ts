@@ -35,23 +35,22 @@ export const en = {
       sep: "Sep",
       oct: "Oct",
       nov: "Nov",
-      dec: "Dec"
+      dec: "Dec",
     },
     roastLevels: {
       light: "Light",
       medium: "Medium",
       mediumDark: "Medium-Dark",
-      dark: "Dark"
+      dark: "Dark",
     },
     dashboard: "Dashboard",
     favorites: "Favorites",
-
 
     categories: {
       coffee: "Coffee",
       pastry: "Pastry",
       merch: "Merchandise",
-      drinks: "Prepared Drinks"
+      drinks: "Prepared Drinks",
     },
     startTyping: "Start typing to search...",
     noResults: "No results for",
@@ -64,12 +63,12 @@ export const en = {
       ready: "Ready",
       completed: "Completed",
       cancelled: "Cancelled",
-      all: "All"
+      all: "All",
     },
     userStatus: {
       active: "Active",
       inactive: "Inactive",
-      suspended: "Suspended"
+      suspended: "Suspended",
     },
     daysShort: ["S", "M", "T", "W", "T", "F", "S"],
     roles: {
@@ -77,12 +76,13 @@ export const en = {
       barista: "Barista",
       admin: "Admin",
       superadmin: "Super Admin",
-      data_analyst: "Data Analyst"
-    }
+      data_analyst: "Data Analyst",
+    },
   },
 
   footer: {
-    brandDesc: "Experience the art of coffee with our handcrafted blends. From sustainable farms directly to your morning cup.",
+    brandDesc:
+      "Experience the art of coffee with our handcrafted blends. From sustainable farms directly to your morning cup.",
     explore: "Explore",
     menu: "Menu",
     offers: "Offers",
@@ -94,7 +94,7 @@ export const en = {
     privacy: "Privacy Policy",
     contact: "Contact Us",
     stayConnected: "Stay Connected",
-    rights: "All rights reserved."
+    rights: "All rights reserved.",
   },
   nav: {
     home: "Home",
@@ -118,51 +118,56 @@ export const en = {
     logoutConfirmTitle: "Sign out?",
     logoutConfirmDesc: "Are you sure you want to sign out of your account?",
     cancel: "Cancel",
-    confirmLogout: "Sign Out"
+    confirmLogout: "Sign Out",
   },
   home: {
     hero: {
       badge: "Premium Roasters",
       title: "Brewed Fresh,\nServed Warm",
-      subtitle: "Experience the art of coffee with our handcrafted blends. From sustainable farms directly to your morning cup.",
+      subtitle:
+        "Experience the art of coffee with our handcrafted blends. From sustainable farms directly to your morning cup.",
       cta: "Order Now",
       secondaryCta: "View Menu",
-      storyCta: "Our Story"
+      storyCta: "Our Story",
     },
     featured: {
       title: "Weekly Favorites",
-      subtitle: "Curated picks from our master roasters, chosen for their exceptional flavor profiles."
+      subtitle:
+        "Curated picks from our master roasters, chosen for their exceptional flavor profiles.",
     },
     philosophy: {
       badge: "Our Philosophy",
       title: "Beyond Coffee.\nIt's a Lifestyle.",
-      description: "We believe in the power of a good cup of coffee to bring people together. Our beans are ethically sourced, meticulously roasted, and brewed with passion in a space designed for comfort.",
+      description:
+        "We believe in the power of a good cup of coffee to bring people together. Our beans are ethically sourced, meticulously roasted, and brewed with passion in a space designed for comfort.",
       stat1: "Organic Beans",
       stat2: "Local Farms",
-      cta: "Read Our Story"
+      cta: "Read Our Story",
     },
     freshness: {
       title: "Daily Freshness",
       subtitle: "Guaranteed",
-      description: "We roast our beans in small batches every morning to ensure peak flavor."
-    }
+      description:
+        "We roast our beans in small batches every morning to ensure peak flavor.",
+    },
   },
   menu: {
     title: "Signature Collection",
-    subtitle: "Explore our wide range of premium coffees, refreshing teas, and delicious pastries.",
+    subtitle:
+      "Explore our wide range of premium coffees, refreshing teas, and delicious pastries.",
     categories: {
       all: "All",
       coffee: "Coffee",
       nonCoffee: "Non-Coffee",
       food: "Food",
       pastry: "Pastry",
-      merch: "Merchandise"
+      merch: "Merchandise",
     },
     sort: {
       featured: "Featured",
       newest: "Newest",
       priceLow: "Price: Low to High",
-      priceHigh: "Price: High to Low"
+      priceHigh: "Price: High to Low",
     },
     filters: {
       category: "Category",
@@ -176,11 +181,11 @@ export const en = {
       dark: "Dark Roast",
       vegan: "Vegan",
       glutenFree: "Gluten Free",
-      dairyFree: "Dairy Free"
+      dairyFree: "Dairy Free",
     },
     empty: "No products found matching your filters.",
     clearFilters: "Clear all filters",
-    showResults: "Show Results"
+    showResults: "Show Results",
   },
   product: {
     size: "Size",
@@ -207,7 +212,7 @@ export const en = {
     origin: "Origin:",
     roastLevel: "Roast Level:",
     notes: "Notes:",
-    reviews: "reviews"
+    reviews: "reviews",
   },
   rewards: {
     title: "Loyalty Rewards",
@@ -230,123 +235,133 @@ export const en = {
       title: "Daily Mystery Reward",
       subtitle: "Spin to win bonus points or exclusive discounts!",
       cta: "Reveal Reward",
-      won: "You won {reward}!"
+      won: "You won {reward}!",
     },
     tiers: {
       bronze: "Bean Starter",
       silver: "Brew Master",
       gold: "Coffee Legend",
       nextTier: "Next Tier: {tier}",
-      pointsToGo: "{points} pts to go"
+      pointsToGo: "{points} pts to go",
     },
-    popular: "Popular"
+    popular: "Popular",
   },
   about: {
     story: {
       est: "Est. 2015",
       title: "Crafting the Perfect\nCup, Every Time.",
-      subtitle: "From the misty highlands of Java to the bustling streets of Jakarta, our journey is defined by a relentless pursuit of quality.",
+      subtitle:
+        "From the misty highlands of Java to the bustling streets of Jakarta, our journey is defined by a relentless pursuit of quality.",
       introTitle: "It started with a single bean.",
-      introText1: "Coffee & Co. was born out of a simple frustration: coffee shouldn't just be fuel; it should be an experience. In 2015, our founders traveled across the Indonesian archipelago, meeting farmers in Aceh, Toraja, and Bali. They discovered that the best coffee wasn't just about the soil—it was about the hands that tended to it.",
-      introText2: "We brought those beans back to a small garage roastery in South Jakarta. With a second-hand roaster and a lot of passion, we began experimenting. We burned a few batches, learned a lot of lessons, but eventually, we found our signature roast profile: bold, smooth, and distinctively Indonesian.",
+      introText1:
+        "Coffee & Co. was born out of a simple frustration: coffee shouldn't just be fuel; it should be an experience. In 2015, our founders traveled across the Indonesian archipelago, meeting farmers in Aceh, Toraja, and Bali. They discovered that the best coffee wasn't just about the soil—it was about the hands that tended to it.",
+      introText2:
+        "We brought those beans back to a small garage roastery in South Jakarta. With a second-hand roaster and a lot of passion, we began experimenting. We burned a few batches, learned a lot of lessons, but eventually, we found our signature roast profile: bold, smooth, and distinctively Indonesian.",
       values: {
         ethicallySourced: {
           title: "Ethically Sourced",
-          desc: "We work directly with local farmers, ensuring fair wages and sustainable farming practices that protect our environment for future generations."
+          desc: "We work directly with local farmers, ensuring fair wages and sustainable farming practices that protect our environment for future generations.",
         },
         communityFirst: {
           title: "Community First",
-          desc: "Our cafes are more than shops; they are gathering places. We believe in the power of conversation over a warm cup to bridge divides."
+          desc: "Our cafes are more than shops; they are gathering places. We believe in the power of conversation over a warm cup to bridge divides.",
         },
         masterRoasted: {
           title: "Master Roasted",
-          desc: "Our roasting process is a blend of art and science. Small batches, precise temperatures, and constant tasting ensure consistency."
-        }
+          desc: "Our roasting process is a blend of art and science. Small batches, precise temperatures, and constant tasting ensure consistency.",
+        },
       },
       future: {
         title: "The Future of Coffee",
         desc: "We are constantly innovating. From developing biodegradable pods to exploring new fermentation methods with our partner farms, Coffee & Co. is committed to pushing the boundaries of what coffee can be.",
-        cta: "Taste the Difference"
-      }
+        cta: "Taste the Difference",
+      },
     },
     careers: {
       title: "Join the Brew Crew",
-      subtitle: "We're always looking for passionate people to help us build the best coffee community in the world.",
+      subtitle:
+        "We're always looking for passionate people to help us build the best coffee community in the world.",
       whyUs: {
         title: "Why work with us?",
         subtitle: "More than just a paycheck. We take care of our own.",
         health: {
           title: "Health & Wellness",
-          desc: "Comprehensive health insurance for you and your family, plus mental health support days."
+          desc: "Comprehensive health insurance for you and your family, plus mental health support days.",
         },
         growth: {
           title: "Growth Opportunities",
-          desc: "Paid training, SCA certifications, and a clear path to management or specialized roles."
+          desc: "Paid training, SCA certifications, and a clear path to management or specialized roles.",
         },
         coffee: {
           title: "Free Coffee",
-          desc: "Unlimited coffee while on shift, and a weekly bag of beans to take home. The best perk of all."
-        }
+          desc: "Unlimited coffee while on shift, and a weekly bag of beans to take home. The best perk of all.",
+        },
       },
       openings: {
         title: "Open Positions",
         subtitle: "Find your place in our growing team.",
         apply: "Apply Now",
         empty: "Don't see the right role?",
-        email: "Send your CV to careers@coffeeandco.id and tell us why you belong here."
+        email:
+          "Send your CV to careers@coffeeandco.id and tell us why you belong here.",
       },
       jobs: {
         barista: {
           title: "Senior Barista",
-          desc: "We are looking for an experienced barista with a passion for latte art and customer service. You will lead the shift, train junior staff, and maintain our high standards of brewing."
+          desc: "We are looking for an experienced barista with a passion for latte art and customer service. You will lead the shift, train junior staff, and maintain our high standards of brewing.",
         },
         manager: {
           title: "Store Manager",
-          desc: "Manage daily operations, inventory, and staff scheduling. The ideal candidate has 3+ years of retail management experience and a love for the beach lifestyle."
+          desc: "Manage daily operations, inventory, and staff scheduling. The ideal candidate has 3+ years of retail management experience and a love for the beach lifestyle.",
         },
         roaster: {
           title: "Head Roaster",
-          desc: "Oversee our roasting facility. Requires deep knowledge of green bean sourcing, profile roasting, and quality control cupping sessions."
+          desc: "Oversee our roasting facility. Requires deep knowledge of green bean sourcing, profile roasting, and quality control cupping sessions.",
         },
         marketing: {
           title: "Marketing Specialist",
-          desc: "Help us tell our story. You will manage social media, organize community events, and collaborate with influencers."
-        }
+          desc: "Help us tell our story. You will manage social media, organize community events, and collaborate with influencers.",
+        },
       },
       types: {
         fullTime: "Full-time",
-        partTime: "Part-time"
-      }
+        partTime: "Part-time",
+      },
     },
     locations: {
       title: "Find Us",
-      subtitle: "Whether you're looking for a quiet corner to work or a lively spot to catch up with friends, we have a space for you.",
+      subtitle:
+        "Whether you're looking for a quiet corner to work or a lively spot to catch up with friends, we have a space for you.",
       getDirections: "Get Directions",
       list: {
         senopati: {
           name: "Senopati Flagship",
           city: "Jakarta",
-          address: "Jl. Senopati No. 10, Kebayoran Baru, Jakarta Selatan, 12190"
+          address:
+            "Jl. Senopati No. 10, Kebayoran Baru, Jakarta Selatan, 12190",
         },
         canggu: {
           name: "Canggu Beach House",
           city: "Bali",
-          address: "Jl. Pantai Berawa No. 99, Tibubeneng, Kuta Utara, Badung, Bali 80361"
+          address:
+            "Jl. Pantai Berawa No. 99, Tibubeneng, Kuta Utara, Badung, Bali 80361",
         },
         braga: {
           name: "Braga Heritage",
           city: "Bandung",
-          address: "Jl. Braga No. 50, Sumur Bandung, Kota Bandung, Jawa Barat 40111"
-        }
-      }
-    }
+          address:
+            "Jl. Braga No. 50, Sumur Bandung, Kota Bandung, Jawa Barat 40111",
+        },
+      },
+    },
   },
   auth: {
     layout: {
       title: "Get access to your\nDaily Brew & Exclusive Perks.",
-      subtitle: "Join the club for free refills, loyalty streaks, and early access to our seasonal blends.",
+      subtitle:
+        "Join the club for free refills, loyalty streaks, and early access to our seasonal blends.",
       est: "Est. 2024 • {{appName}}",
-      dailyBrew: "Daily Brew"
+      dailyBrew: "Daily Brew",
     },
     login: {
       title: "Welcome Back!",
@@ -361,8 +376,8 @@ export const en = {
       or: "Or sign in with",
       error: {
         missingFields: "Please enter both your email and password to sign in.",
-        generic: "An unexpected error occurred. Please try again."
-      }
+        generic: "An unexpected error occurred. Please try again.",
+      },
     },
     register: {
       title: "Create an account",
@@ -383,8 +398,8 @@ export const en = {
         passwordMin: "Password must be at least 8 characters",
         passwordUppercase: "Must contain at least one uppercase letter",
         passwordNumber: "Must contain at least one number",
-        passwordMatch: "Passwords don't match"
-      }
+        passwordMatch: "Passwords don't match",
+      },
     },
     forgotPassword: {
       title: "Forgot Password?",
@@ -396,9 +411,9 @@ export const en = {
       backToLogin: "Back to Login",
       success: {
         title: "Reset link sent!",
-        desc: "If an account exists for this email, we've sent a verification code."
+        desc: "If an account exists for this email, we've sent a verification code.",
       },
-      error: "Something went wrong"
+      error: "Something went wrong",
     },
     verifyOtp: {
       title: "Check your email",
@@ -415,8 +430,8 @@ export const en = {
       validation: {
         required: "Code is required",
         length: "Code must be 6 digits",
-        invalid: "Invalid code. Try \"123456\""
-      }
+        invalid: 'Invalid code. Try "123456"',
+      },
     },
     resetPassword: {
       title: "Set new password",
@@ -427,9 +442,9 @@ export const en = {
       submitting: "Resetting Password...",
       success: {
         title: "Password reset successful!",
-        desc: "You can now log in with your new password."
-      }
-    }
+        desc: "You can now log in with your new password.",
+      },
+    },
   },
   dashboard: {
     nav: {
@@ -448,7 +463,7 @@ export const en = {
       jobs: "Jobs & Careers",
       locations: "Store Locations",
       analytics: "Analytics",
-      intelligence: "Intelligence (ML)"
+      intelligence: "Intelligence (ML)",
     },
     header: {
       adminPortal: "Admin Portal",
@@ -457,10 +472,11 @@ export const en = {
       systemOperational: "System Operational",
       signOutDialog: {
         title: "Sign Out",
-        description: "Are you sure you want to sign out? You will need to sign in again to access the dashboard.",
+        description:
+          "Are you sure you want to sign out? You will need to sign in again to access the dashboard.",
         confirm: "Sign Out",
-        cancel: "Cancel"
-      }
+        cancel: "Cancel",
+      },
     },
     analytics: {
       title: "Business Analytics",
@@ -474,11 +490,12 @@ export const en = {
       cohort: "Cohort",
       month: "Month",
       exportSuccess: "Analytics exported as {format}",
-      export: "Export"
+      export: "Export",
     },
     finance: {
       title: "Finance & Audit",
-      subtitle: "Financial performance tracking, business valuation, and security logs.",
+      subtitle:
+        "Financial performance tracking, business valuation, and security logs.",
       pnl: "P&L Statement",
       valuation: "Valuation",
       auditLogs: "Audit Logs",
@@ -511,14 +528,15 @@ export const en = {
       multipliers: {
         distressed: "1.0x (Distressed)",
         healthy: "3.0x (Healthy)",
-        premium: "5.0x (Premium Brand)"
+        premium: "5.0x (Premium Brand)",
       },
-      valuationDisclaimer: "This valuation is an estimate based on SDE x {multiplier} multiplier. Actual market value may vary based on assets, location, and brand equity.",
+      valuationDisclaimer:
+        "This valuation is an estimate based on SDE x {multiplier} multiplier. Actual market value may vary based on assets, location, and brand equity.",
       severityLevels: {
         critical: "Critical",
         warning: "Warning",
-        info: "Info"
-      }
+        info: "Info",
+      },
     },
     inventory: {
       title: "Inventory Health",
@@ -542,22 +560,22 @@ export const en = {
       exportSuccess: "Inventory report downloaded",
       toast: {
         orderInitiated: "Order initiated for {itemName}",
-        addedSuccess: "Inventory item added successfully"
+        addedSuccess: "Inventory item added successfully",
       },
       filters: {
         all: "All",
         lowStock: "Low Stock",
-        critical: "Critical"
+        critical: "Critical",
       },
       actions: {
         viewHistory: "View History",
-        editItem: "Edit Item"
+        editItem: "Edit Item",
       },
       parLevel: "(Par: {level})",
       statusLevels: {
         optimal: "Optimal",
         low: "Low",
-        critical: "Critical"
+        critical: "Critical",
       },
       form: {
         title: "Add Inventory Item",
@@ -571,17 +589,17 @@ export const en = {
           currentStock: "Current Stock",
           unit: "Unit",
           parLevel: "Par Level",
-          unitCost: "Unit Cost ($)"
+          unitCost: "Unit Cost ($)",
         },
         placeholders: {
           name: "e.g. Arabica Beans",
           sku: "e.g. ING-001",
           category: "Select category",
           supplier: "e.g. Global Origins",
-          unit: "e.g. kg, pcs, L"
+          unit: "e.g. kg, pcs, L",
         },
         helper: {
-          parLevel: "Minimum stock before restock alert."
+          parLevel: "Minimum stock before restock alert.",
         },
         validation: {
           nameRequired: "Name is required",
@@ -590,19 +608,19 @@ export const en = {
           unitRequired: "Unit is required",
           parLevelNegative: "Par level cannot be negative",
           unitCostNegative: "Unit cost cannot be negative",
-          supplierRequired: "Supplier is required"
+          supplierRequired: "Supplier is required",
         },
         buttons: {
           cancel: "Cancel",
-          save: "Save Item"
+          save: "Save Item",
         },
         options: {
           ingredient: "Ingredient",
           retail: "Retail",
           packaging: "Packaging",
-          equipment: "Equipment"
-        }
-      }
+          equipment: "Equipment",
+        },
+      },
     },
     transactions: {
       title: "Transactions",
@@ -625,13 +643,13 @@ export const en = {
         completed: "Completed",
         pending: "Pending",
         failed: "Failed",
-        refunded: "Refunded"
+        refunded: "Refunded",
       },
       method: {
         creditCard: "Credit Card",
         cash: "Cash",
-        digitalWallet: "Digital Wallet"
-      }
+        digitalWallet: "Digital Wallet",
+      },
     },
     users: {
       title: "User Management",
@@ -647,7 +665,7 @@ export const en = {
         location: "Location",
         lastActive: "Last Active",
         actions: "Actions",
-        editRole: "Edit Role"
+        editRole: "Edit Role",
       },
       noUsers: "No users found matching your filters.",
       showing: "Showing {count} users",
@@ -658,12 +676,12 @@ export const en = {
         selectPlaceholder: "Select role",
         note: "Note: Changing roles will immediately update the user's dashboard access permissions.",
         cancel: "Cancel",
-        save: "Save Changes"
+        save: "Save Changes",
       },
       toast: {
         updated: "Role updated for {name}",
-        desc: "Changed to {role}"
-      }
+        desc: "Changed to {role}",
+      },
     },
     products: {
       title: "Products",
@@ -677,20 +695,20 @@ export const en = {
         category: "Category",
         price: "Price",
         status: "Status",
-        actions: "Actions"
+        actions: "Actions",
       },
       noProducts: "No products found",
       deleteDialog: {
         title: "Delete Product?",
         desc: "Are you sure you want to delete {name}? This action cannot be undone.",
         cancel: "Cancel",
-        delete: "Delete"
+        delete: "Delete",
       },
       toast: {
         deleted: "Product deleted successfully",
         deleteFailed: "Failed to delete product",
         noExport: "No products to export",
-        exported: "Inventory exported as {format}"
+        exported: "Inventory exported as {format}",
       },
       form: {
         editTitle: "Edit Product",
@@ -711,44 +729,46 @@ export const en = {
           variants: "Variants",
           sizes: "Available Sizes",
           grind: "Grind Options",
-          highlights: "Product Highlights"
+          highlights: "Product Highlights",
         },
         placeholders: {
           name: "e.g. Espresso Romano",
           category: "Select category",
           roast: "Select roast",
           origin: "e.g. Ethiopia & Colombia Blend",
-          tastingNotes: "e.g. Dark Chocolate, Caramel, Dried Fruit (Comma separated)",
+          tastingNotes:
+            "e.g. Dark Chocolate, Caramel, Dried Fruit (Comma separated)",
           image: "https://...",
-          highlight: "e.g. 100% Organic"
+          highlight: "e.g. 100% Organic",
         },
         helpers: {
           tastingNotes: "Separate multiple notes with commas.",
           image: "Optional: Paste a direct URL or use uploader below.",
           upload: "Click to upload or drag & drop",
           uploadFormat: "SVG, PNG, JPG or WebP (max 2MB)",
-          noHighlights: "No highlights added yet."
+          noHighlights: "No highlights added yet.",
         },
         buttons: {
           add: "Add",
           cancel: "Cancel",
-          save: "Save Product"
+          save: "Save Product",
         },
         toast: {
           created: "Product created successfully",
           updated: "Product updated successfully",
           noImage: "Please provide at least one image (URL or Upload)",
           fileTooLarge: "File {name} is too large. Max 2MB.",
-          formatNotSupported: "File {name} format not supported. Use JPG, PNG, or WebP.",
-          processed: "{count} image(s) processed."
+          formatNotSupported:
+            "File {name} format not supported. Use JPG, PNG, or WebP.",
+          processed: "{count} image(s) processed.",
         },
         validation: {
           nameRequired: "Name is required",
           categoryRequired: "Category is required",
           pricePositive: "Price must be greater than 0",
           descShort: "Description is too short",
-          highlightEmpty: "Description highlight cannot be empty"
-        }
+          highlightEmpty: "Description highlight cannot be empty",
+        },
       },
       recipe: {
         title: "Recipe & Costing Engine",
@@ -760,19 +780,20 @@ export const en = {
           ingredient: "Ingredient",
           quantity: "Quantity",
           unit: "Unit",
-          action: "Action"
+          action: "Action",
         },
         placeholders: {
-          selectItem: "Select item..."
+          selectItem: "Select item...",
         },
         noIngredients: "No ingredients linked to {variant} yet.",
         addFirst: "Add First Ingredient",
         addAnother: "Add Another Ingredient",
         info: {
           title: "Why map ingredients?",
-          content: "By linking raw materials (e.g. 18g Beans) to this variant, the system will automatically deduct from your Inventory Stock whenever a sale is made."
-        }
-      }
+          content:
+            "By linking raw materials (e.g. 18g Beans) to this variant, the system will automatically deduct from your Inventory Stock whenever a sale is made.",
+        },
+      },
     },
     orders: {
       title: "Order Details",
@@ -790,17 +811,17 @@ export const en = {
         ready: "Mark as Ready",
         complete: "Complete Order",
         cancel: "Cancel Order",
-        print: "Print Receipt"
+        print: "Print Receipt",
       },
       statusLabels: {
         pending: "Pending",
         preparing: "Preparing",
         ready: "Ready",
         completed: "Completed",
-        cancelled: "Cancelled"
+        cancelled: "Cancelled",
       },
       toast: {
-        statusUpdated: "Order status updated successfully"
+        statusUpdated: "Order status updated successfully",
       },
       detail: {
         title: "Order {id}",
@@ -811,17 +832,17 @@ export const en = {
           title: "Refund Order?",
           desc: "This will refund the total amount of {amount} to the customer's original payment method. This action cannot be undone.",
           cancel: "Cancel",
-          confirm: "Confirm Refund"
+          confirm: "Confirm Refund",
         },
         toast: {
-          refunded: "Refund processed for {id}"
+          refunded: "Refund processed for {id}",
         },
         sections: {
           items: "Order Items",
           timeline: "Order Timeline",
           customer: "Customer Details",
           shipping: "Shipping Address",
-          payment: "Payment"
+          payment: "Payment",
         },
         labels: {
           shipment: "Shipment #{number}",
@@ -834,16 +855,16 @@ export const en = {
           registered: "Registered Customer",
           method: "Method",
           tracking: "Tracking",
-          paymentSuccess: "Payment Successful"
+          paymentSuccess: "Payment Successful",
         },
         timeline: {
           placed: "Order Placed",
           confirmed: "Payment Confirmed",
           processing: "Processing",
           shipped: "Shipped",
-          delivered: "Delivered"
-        }
-      }
+          delivered: "Delivered",
+        },
+      },
     },
     jobs: {
       title: "Careers & Jobs",
@@ -856,7 +877,7 @@ export const en = {
         type: "Type",
         location: "Location",
         status: "Status",
-        actions: "Actions"
+        actions: "Actions",
       },
       dialog: {
         editTitle: "Edit Position",
@@ -866,35 +887,35 @@ export const en = {
           department: "Department",
           type: "Type",
           location: "Location",
-          status: "Status"
+          status: "Status",
         },
         placeholders: {
           title: "e.g. Head Roaster",
           department: "e.g. Operations",
           location: "e.g. Jakarta, ID",
           type: "Select type",
-          status: "Select status"
+          status: "Select status",
         },
         buttons: {
           cancel: "Cancel",
-          save: "Save Job"
-        }
+          save: "Save Job",
+        },
       },
       toast: {
         required: "Please fill in required fields",
         updated: "Job updated",
         posted: "Job posted",
-        deleted: "Job deleted"
+        deleted: "Job deleted",
       },
       types: {
         fullTime: "Full-time",
         partTime: "Part-time",
-        contract: "Contract"
+        contract: "Contract",
       },
       status: {
         active: "Active",
-        closed: "Closed"
-      }
+        closed: "Closed",
+      },
     },
     locations: {
       title: "Store Locations",
@@ -906,7 +927,7 @@ export const en = {
         address: "Address",
         contact: "Contact",
         status: "Status",
-        actions: "Actions"
+        actions: "Actions",
       },
       dialog: {
         editTitle: "Edit Location",
@@ -916,31 +937,31 @@ export const en = {
           address: "Address",
           phone: "Phone",
           hours: "Hours",
-          status: "Status"
+          status: "Status",
         },
         placeholders: {
           storeName: "e.g. Downtown Hub",
           address: "Full address",
           phone: "+62...",
           hours: "08:00 - 22:00",
-          status: "Select status"
+          status: "Select status",
         },
         buttons: {
           cancel: "Cancel",
-          save: "Save Location"
-        }
+          save: "Save Location",
+        },
       },
       toast: {
         required: "Name and Address are required",
         updated: "Location updated",
         added: "New location added",
-        removed: "Location removed"
+        removed: "Location removed",
       },
       status: {
         open: "Open",
         renovation: "Renovation",
-        comingSoon: "Coming Soon"
-      }
+        comingSoon: "Coming Soon",
+      },
     },
     customers: {
       title: "Customer Segmentation",
@@ -951,28 +972,28 @@ export const en = {
         champion: {
           name: "Champion",
           desc: "Big spenders, frequent visitors.",
-          action: "Offer VIP Perks"
+          action: "Offer VIP Perks",
         },
         loyalist: {
           name: "Loyalist",
           desc: "Steady regulars.",
-          action: "Upsell / Loyalty Points"
+          action: "Upsell / Loyalty Points",
         },
         atRisk: {
           name: "At Risk",
           desc: "High value, hasn't visited lately.",
-          action: "Win-back Campaign"
+          action: "Win-back Campaign",
         },
         new: {
           name: "New",
           desc: "Recent first purchase.",
-          action: "Welcome Series"
+          action: "Welcome Series",
         },
         hibernating: {
           name: "Hibernating",
           desc: "Low frequency, low recency.",
-          action: "Re-engagement"
-        }
+          action: "Re-engagement",
+        },
       },
       table: {
         customer: "Customer",
@@ -980,17 +1001,18 @@ export const en = {
         totalSpent: "Total Spent",
         orders: "Orders",
         lastVisit: "Last Visit",
-        actions: "Actions"
+        actions: "Actions",
       },
       searchPlaceholder: "Search customers...",
       noCustomers: "No customers found in this segment.",
       toast: {
-        campaignDrafted: "Campaign Drafted for {segment}"
-      }
+        campaignDrafted: "Campaign Drafted for {segment}",
+      },
     },
     logistics: {
       title: "Station Logistics",
-      subtitle: "Monitor inventory levels, equipment health, and safety standards.",
+      subtitle:
+        "Monitor inventory levels, equipment health, and safety standards.",
       lastCheck: "Last Check",
       justNow: "Just now",
       equipmentHealth: "Equipment Health",
@@ -1006,12 +1028,12 @@ export const en = {
       levels: {
         high: "High",
         low: "Low",
-        out: "Out"
+        out: "Out",
       },
       toast: {
         criticalTitle: "Item marked as Critical!",
-        criticalDesc: "Notify back-of-house for restock."
-      }
+        criticalDesc: "Notify back-of-house for restock.",
+      },
     },
     bi: {
       title: "Business Intelligence",
@@ -1028,8 +1050,8 @@ export const en = {
           riskScore: "Risk Score",
           action: "Action",
           sendOffer: "Send Offer",
-          view: "View"
-        }
+          view: "View",
+        },
       },
       forecast: {
         title: "Demand Forecast",
@@ -1039,20 +1061,20 @@ export const en = {
         recommended: "Recommended Order: {amount} Units",
         alert: {
           title: "Rainy Weather Alert",
-          desc: "Forecast predicts heavy rain next Tuesday. Hot drink demand expected to rise by ~22%."
-        }
+          desc: "Forecast predicts heavy rain next Tuesday. Hot drink demand expected to rise by ~22%.",
+        },
       },
       query: {
         console: "query_console.sql",
-        executed: "Query executed in {time}s"
+        executed: "Query executed in {time}s",
       },
       products: {
         wholeMilk: "Whole Milk (L)",
-        espressoBeans: "Espresso Beans (kg)"
+        espressoBeans: "Espresso Beans (kg)",
       },
       categories: {
-        service: "Service"
-      }
+        service: "Service",
+      },
     },
     admin: {
       executiveView: "Executive View",
@@ -1093,8 +1115,8 @@ export const en = {
       staffStatus: {
         topPerformer: "Top Performer",
         onTrack: "On Track",
-        coachingNeeded: "Coaching Needed"
-      }
+        coachingNeeded: "Coaching Needed",
+      },
     },
     barista: {
       kds: "Kitchen Display System",
@@ -1106,34 +1128,107 @@ export const en = {
       noOrders: "No {status} orders",
       greatJob: "Great job! All orders cleared.",
       orderCompleted: "Order #{id} completed!",
-      note: "Note: \"{note}\""
-    }
+      note: 'Note: "{note}"',
+    },
   },
   settings: {
     title: "Settings",
-    profile: "Profile Settings",
+    subtitle: "Manage your account preferences and security.",
+    profile: "Profile",
+    profileSettings: "Profile Settings",
     notifications: "Notifications",
     appearance: "Appearance",
     language: "Language",
     save: "Save Changes",
+    saving: "Saving...",
+    cancel: "Cancel",
     fullName: "Full Name",
+    firstName: "First Name",
+    lastName: "Last Name",
     email: "Email",
     phone: "Phone",
+    phoneNumber: "Phone Number",
     address: "Address",
     theme: {
       light: "Light Mode",
       dark: "Dark Mode",
-      system: "System Default"
+      system: "System Default",
     },
     contact: "Contact Information",
     role: "Account Role",
     mobile: "Mobile",
-    deliveryNote: "Delivery Note (Optional)",
+    deliveryNote: "Delivery Note",
     noChanges: "No changes made",
+    preferences: "Preferences",
+    security: "Security",
+    payment: "Payment",
+    dangerZone: "Danger Zone",
+    dangerZoneDesc: "Irreversible actions",
+    editProfile: "Edit Profile",
+    updatePersonalInfo: "Update your personal information",
+    changePassword: "Change Password",
+    changePasswordDesc: "Enter your current password and choose a new one.",
+    currentPassword: "Current Password",
+    newPassword: "New Password",
+    confirmNewPassword: "Confirm New Password",
+    changing: "Changing...",
+    twoFactorAuth: "Two-Factor Authentication",
+    loginActivity: "Login Activity",
+    paymentMethods: "Payment Methods",
+    cards: "cards",
+    deleteAccount: "Delete Account",
+    deleteAccountDesc:
+      "This action cannot be undone. All your data will be permanently deleted.",
+    deleteConfirm: "Delete My Account",
+    youWillLose: "You will lose:",
+    loseOrderHistory: "All order history",
+    losePaymentMethods: "Saved payment methods",
+    loseRewardsPoints: "Rewards points",
+    loseFavorites: "Favorite products",
+    notSet: "Not set",
+    on: "On",
+    off: "Off",
+    comingSoon: "Coming soon!",
+    member: "Member",
+    admin: "Admin",
+    notificationSettings: "Notification Settings",
+    notificationSettingsDesc: "Choose what updates you want to receive",
+    orderUpdates: "Order Updates",
+    orderUpdatesDesc: "Get notified about your order status",
+    promotions: "Promotions",
+    promotionsDesc: "Receive special offers and discounts",
+    newsletter: "Newsletter",
+    newsletterDesc: "Weekly updates about new products",
+    pushNotifications: "Push Notifications",
+    pushNotificationsDesc: "Allow notifications on this device",
+    done: "Done",
+    selectLanguage: "Select Language",
+    selectLanguageDesc: "Choose your preferred language",
+    languageChanged: "Language changed to",
+    profileUpdated: "Profile updated successfully",
+    profileUpdateFailed: "Failed to update profile",
+    passwordChanged: "Password changed successfully",
+    passwordChangeFailed: "Failed to change password",
+    accountDeleted: "Account deleted",
+    accountDeleteFailed: "Failed to delete account",
+    notificationsUpdated: "Notifications updated",
+    validation: {
+      firstNameRequired: "First name is required",
+      lastNameRequired: "Last name is required",
+      currentPasswordRequired: "Current password is required",
+      passwordMin: "Password must be at least 8 characters",
+      passwordsNoMatch: "Passwords don't match",
+    },
+    placeholders: {
+      phone: "+62 xxx xxxx xxxx",
+      address: "Enter your address",
+      deliveryNote: "e.g., Leave at front door",
+    },
   },
   cart: {
     label: "Cart",
     title: "Your Selection",
+    drawerTitle: "Your Order",
     empty: "Your cart is empty.",
     emptyDesc: "Let's fill it with something delicious.",
     summary: "Order Summary",
@@ -1143,13 +1238,17 @@ export const en = {
     free: "Free",
     total: "Total Amount",
     checkout: "Proceed to Checkout",
+    checkoutBtn: "Checkout",
     selectPayment: "Select Payment Method",
     notePlaceholder: "Add a note for the barista (optional)...",
     promoCode: "Promo Code",
     apply: "Apply",
     removeTitle: "Remove Item?",
-    removeDesc: "Are you sure you want to remove this item from your cart? You can always add it back from the menu.",
-    browseMenu: "Browse Menu"
+    removeDesc:
+      "Are you sure you want to remove this item from your cart? You can always add it back from the menu.",
+    browseMenu: "Browse Menu",
+    closeCart: "Close Cart",
+    removeItem: "Remove Item",
   },
   languageDialog: {
     title: "Select Language",
@@ -1157,12 +1256,13 @@ export const en = {
     indonesian: "Bahasa Indonesia",
     mainLanguage: "Main Language",
     english: "English",
-    international: "International"
+    international: "International",
   },
   addToCart: "Add to Order",
   thankYou: {
     title: "Thank You!",
-    subtitle: "Your order has been placed successfully. We are preparing it with care.",
+    subtitle:
+      "Your order has been placed successfully. We are preparing it with care.",
     orderNumber: "Order Number",
     estimatedDelivery: "Estimated Delivery",
     items: "Items Ordered",
@@ -1186,13 +1286,13 @@ export const en = {
       cart: "Cart",
       details: "Details",
       payment: "Payment",
-      review: "Review"
+      review: "Review",
     },
     validation: {
       nameShort: "Name must be at least 2 characters",
       mobileInvalid: "Mobile number must be at least 10 digits",
       emailInvalid: "Please enter a valid email address",
-      addressShort: "Address must be at least 5 characters"
+      addressShort: "Address must be at least 5 characters",
     },
     payment: {
       title: "Secure Payment",
@@ -1222,14 +1322,16 @@ export const en = {
       mockCard: "Mock Card Payment",
       copied: "Copied to clipboard",
       instruction: {
-        transfer: "Please transfer the exact amount to the Virtual Account number above.",
+        transfer:
+          "Please transfer the exact amount to the Virtual Account number above.",
         scan: "Scan QR to Pay",
-        card: "Click \"Simulate Payment\" below to bypass card entry.",
+        card: 'Click "Simulate Payment" below to bypass card entry.',
         simulation: "This is a simulation. No real money will be deducted.",
-      }
+      },
     },
     footer: {
-      brandDesc: "Crafting moments of joy, one cup at a time. Join us on our journey of flavor and community.",
+      brandDesc:
+        "Crafting moments of joy, one cup at a time. Join us on our journey of flavor and community.",
       explore: "Explore",
       menu: "Our Menu",
       offers: "Special Offers",
@@ -1242,42 +1344,41 @@ export const en = {
       contact: "Contact",
       stayConnected: "Stay Connected",
       rights: "All rights reserved.",
-    }
+    },
   },
 
-
   favorites: {
-    title: 'Favorites',
-    yourFavorites: 'Your Favorites',
-    emptyTitle: 'Your favorites list is empty',
-    emptyDesc: 'Browse our menu and heart the items you love to save them here for later.',
-    startBrowsing: 'Start Browsing',
-    noMatchTitle: 'No favorites match filters',
-    noMatchDesc: 'Try adjusting your filters to see your saved items.'
+    title: "Favorites",
+    yourFavorites: "Your Favorites",
+    emptyTitle: "Your favorites list is empty",
+    emptyDesc:
+      "Browse our menu and heart the items you love to save them here for later.",
+    startBrowsing: "Start Browsing",
+    noMatchTitle: "No favorites match filters",
+    noMatchDesc: "Try adjusting your filters to see your saved items.",
   },
 
   history: {
-    title: 'Order History',
-    subtitle: 'Manage your orders and preferences.',
+    title: "Order History",
+    subtitle: "Manage your orders and preferences.",
     filters: {
-      title: 'Filters',
-      status: 'Order Status',
-      all: 'All Orders',
-      active: 'Active',
-      completed: 'Completed',
-      cancelled: 'Cancelled'
+      title: "Filters",
+      status: "Order Status",
+      all: "All Orders",
+      active: "Active",
+      completed: "Completed",
+      cancelled: "Cancelled",
     },
     empty: {
-      title: 'No past orders',
+      title: "No past orders",
       desc: "Looks like you haven't ordered any delicious coffee yet.",
-      browse: 'Browse Menu'
+      browse: "Browse Menu",
     },
     tabs: {
-      history: 'History',
-      liked: 'Liked',
-      faq: 'FAQ',
-      exit: 'Exit'
-    }
+      history: "History",
+      liked: "Liked",
+      faq: "FAQ",
+      exit: "Exit",
+    },
   },
-
 };

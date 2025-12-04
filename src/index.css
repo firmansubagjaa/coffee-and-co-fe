@@ -2,6 +2,33 @@
 @tailwind components;
 @tailwind utilities;
 
+/* NProgress Loading Bar Styles */
+#nprogress {
+  pointer-events: none;
+}
+
+#nprogress .bar {
+  background: linear-gradient(90deg, #eab308, #facc15);
+  position: fixed;
+  z-index: 9999;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  box-shadow: 0 0 10px #eab308, 0 0 5px #eab308;
+}
+
+#nprogress .peg {
+  display: block;
+  position: absolute;
+  right: 0;
+  width: 100px;
+  height: 100%;
+  box-shadow: 0 0 10px #eab308, 0 0 5px #eab308;
+  opacity: 1;
+  transform: rotate(3deg) translate(0px, -4px);
+}
+
 /* Skip Link for Accessibility */
 .skip-link {
   position: absolute;
