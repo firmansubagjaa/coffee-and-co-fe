@@ -3,12 +3,39 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="theme-color"
+      content="#3E2723"
+      media="(prefers-color-scheme: dark)"
+    />
+    <meta
+      name="theme-color"
+      content="#FAF9F6"
+      media="(prefers-color-scheme: light)"
+    />
     <title>Coffee & Co.</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <!-- Preconnect to Google Fonts for faster loading -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- Font loading with display=swap for better LCP -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+      media="print"
+      onload="this.media='all'"
+    />
+    <noscript>
+      <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet"
+      />
+    </noscript>
     <style>
       body {
-        background-color: #FAF9F6;
-        color: #3E2723;
+        background-color: #faf9f6;
+        color: #3e2723;
       }
       /* Tiptap Basic Styles */
       .ProseMirror {
@@ -35,10 +62,11 @@
         padding-left: 1rem;
       }
     </style>
-
-</head>
+  </head>
   <body>
+    <!-- Skip to main content link for accessibility -->
+    <a href="#main-content" class="skip-link"> Skip to main content </a>
     <div id="root"></div>
     <script type="module" src="/src/index.tsx"></script>
-</body>
+  </body>
 </html>

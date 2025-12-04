@@ -1,7 +1,7 @@
-import React from "react"
-import { Toaster as Sonner } from "sonner"
+import React from "react";
+import { Toaster as Sonner } from "sonner";
 
-type ToasterProps = React.ComponentProps<typeof Sonner>
+type ToasterProps = React.ComponentProps<typeof Sonner>;
 
 const Toaster = ({ ...props }: ToasterProps) => {
   return (
@@ -17,13 +17,14 @@ const Toaster = ({ ...props }: ToasterProps) => {
             "group-[.toast]:bg-coffee-900 group-[.toast]:text-white",
           cancelButton:
             "group-[.toast]:bg-coffee-100 group-[.toast]:text-coffee-600",
-          error: "group-[.toaster]:text-red-600 group-[.toaster]:border-red-100",
-          success: "group-[.toaster]:text-green-700 group-[.toaster]:border-green-100",
+          error: "group-[.toaster]:text-error group-[.toaster]:border-error/20",
+          success:
+            "group-[.toaster]:text-success group-[.toaster]:border-success/20",
         },
       }}
       {...props}
     />
-  )
-}
+  );
+};
 
-export { Toaster }
+export { Toaster };

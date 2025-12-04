@@ -1,8 +1,7 @@
-
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { TRANSITIONS } from '../../utils/animations';
+import React, { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { TRANSITIONS } from "../../utils/animations";
 
 interface CarouselProps {
   images: string[];
@@ -10,13 +9,17 @@ interface CarouselProps {
   className?: string;
 }
 
-export const Carousel: React.FC<CarouselProps> = ({ images, alt, className = "" }) => {
+export const Carousel: React.FC<CarouselProps> = ({
+  images,
+  alt,
+  className = "",
+}) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [direction, setDirection] = useState(0);
 
   const slideVariants = {
     enter: (direction: number) => ({
-      x: direction > 0 ? '100%' : '-100%',
+      x: direction > 0 ? "100%" : "-100%",
       opacity: 0,
       scale: 0.95,
     }),
@@ -28,10 +31,10 @@ export const Carousel: React.FC<CarouselProps> = ({ images, alt, className = "" 
     },
     exit: (direction: number) => ({
       zIndex: 0,
-      x: direction < 0 ? '100%' : '-100%',
+      x: direction < 0 ? "100%" : "-100%",
       opacity: 0,
       scale: 0.95,
-    })
+    }),
   };
 
   const swipePower = (offset: number, velocity: number) => {
@@ -49,46 +52,53 @@ export const Carousel: React.FC<CarouselProps> = ({ images, alt, className = "" 
   if (images.length <= 1) {
     return (
       <div className={`relative overflow-hidden ${className}`}>
-        <img 
-            src={images[0]} 
-            alt={alt} 
-            className="w-full h-full object-cover rounded-2xl"
+        <img
+          src={images[0]}
+          alt={alt}
+          className="w-full h-full object-cover rounded-2xl"
+          loading="lazy"
+          decoding="async"
         />
       </div>
     );
   }
 
   return (
-    <div 
+    <div
       className={`relative overflow-hidden group/carousel ${className}`}
-      role="region"
+      role="group"
       aria-roledescription="carousel"
+      aria-label={`${alt} image carousel, showing image ${
+        currentIndex + 1
+      } of ${images.length}`}
     >
-      <div className="absolute inset-0 w-full h-full">
+      <div className="absolute inset-0 w-full h-full" aria-live="polite">
         <AnimatePresence initial={false} custom={direction} mode="popLayout">
-            <motion.img
-              key={currentIndex}
-              src={images[currentIndex]}
-              custom={direction}
-              variants={slideVariants}
-              initial="enter"
-              animate="center"
-              exit="exit"
-              transition={TRANSITIONS.spring}
-              drag="x"
-              dragConstraints={{ left: 0, right: 0 }}
-              dragElastic={0.8}
-              onDragEnd={(e, { offset, velocity }) => {
-                  const swipe = swipePower(offset.x, velocity.x);
-                  if (swipe < -10000) {
-                    paginate(1);
-                  } else if (swipe > 10000) {
-                    paginate(-1);
-                  }
-              }}
-              alt={`${alt} - ${currentIndex + 1}`}
-              className="absolute inset-0 w-full h-full object-cover rounded-2xl cursor-grab active:cursor-grabbing"
-            />
+          <motion.img
+            key={currentIndex}
+            src={images[currentIndex]}
+            custom={direction}
+            variants={slideVariants}
+            initial="enter"
+            animate="center"
+            exit="exit"
+            transition={TRANSITIONS.spring}
+            drag="x"
+            dragConstraints={{ left: 0, right: 0 }}
+            dragElastic={0.8}
+            onDragEnd={(e, { offset, velocity }) => {
+              const swipe = swipePower(offset.x, velocity.x);
+              if (swipe < -10000) {
+                paginate(1);
+              } else if (swipe > 10000) {
+                paginate(-1);
+              }
+            }}
+            alt={`${alt} - Image ${currentIndex + 1} of ${images.length}`}
+            className="absolute inset-0 w-full h-full object-cover rounded-2xl cursor-grab active:cursor-grabbing"
+            loading="lazy"
+            decoding="async"
+          />
         </AnimatePresence>
       </div>
 
@@ -97,33 +107,50 @@ export const Carousel: React.FC<CarouselProps> = ({ images, alt, className = "" 
         <motion.button
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
-          onClick={(e) => { e.preventDefault(); e.stopPropagation(); paginate(-1); }}
-          className="pointer-events-auto h-8 w-8 rounded-full bg-white/90 backdrop-blur-sm text-coffee-900 shadow-lg flex items-center justify-center"
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            paginate(-1);
+          }}
+          className="pointer-events-auto h-8 w-8 rounded-full bg-white/90 backdrop-blur-sm text-coffee-900 shadow-lg flex items-center justify-center focus:outline-none focus-visible:ring-2 focus-visible:ring-coffee-600 focus-visible:ring-offset-2"
+          aria-label="Previous image"
         >
-          <ChevronLeft className="h-4 w-4" />
+          <ChevronLeft className="h-4 w-4" aria-hidden="true" />
         </motion.button>
         <motion.button
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
-          onClick={(e) => { e.preventDefault(); e.stopPropagation(); paginate(1); }}
-          className="pointer-events-auto h-8 w-8 rounded-full bg-white/90 backdrop-blur-sm text-coffee-900 shadow-lg flex items-center justify-center"
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            paginate(1);
+          }}
+          className="pointer-events-auto h-8 w-8 rounded-full bg-white/90 backdrop-blur-sm text-coffee-900 shadow-lg flex items-center justify-center focus:outline-none focus-visible:ring-2 focus-visible:ring-coffee-600 focus-visible:ring-offset-2"
+          aria-label="Next image"
         >
-          <ChevronRight className="h-4 w-4" />
+          <ChevronRight className="h-4 w-4" aria-hidden="true" />
         </motion.button>
       </div>
 
       {/* Dots */}
-      <div className="absolute bottom-3 left-0 right-0 z-20 flex justify-center gap-2 pointer-events-none">
+      <div
+        className="absolute bottom-3 left-0 right-0 z-20 flex justify-center gap-2 pointer-events-none"
+        role="tablist"
+        aria-label="Image indicators"
+      >
         {images.map((_, idx) => (
-          <motion.div 
+          <motion.div
             key={idx}
             layout
             initial={false}
-            animate={{ 
+            animate={{
               width: idx === currentIndex ? 24 : 6,
-              opacity: idx === currentIndex ? 1 : 0.6 
+              opacity: idx === currentIndex ? 1 : 0.6,
             }}
             transition={TRANSITIONS.softSpring}
+            role="tab"
+            aria-selected={idx === currentIndex}
+            aria-label={`Image ${idx + 1}`}
             className={`h-1.5 rounded-full bg-white shadow-sm backdrop-blur-[1px]`}
           />
         ))}

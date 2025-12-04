@@ -1,22 +1,27 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { Coffee } from 'lucide-react';
+import React from "react";
+import { motion } from "framer-motion";
+import { Coffee } from "lucide-react";
 
 interface LoadingScreenProps {
   fullScreen?: boolean;
   text?: string;
 }
 
-export const LoadingScreen: React.FC<LoadingScreenProps> = ({ 
+export const LoadingScreen: React.FC<LoadingScreenProps> = ({
   fullScreen = true,
-  text = "Brewing something special..."
+  text = "Brewing something special...",
 }) => {
-  const containerClasses = fullScreen 
+  const containerClasses = fullScreen
     ? "fixed inset-0 z-50 flex flex-col items-center justify-center bg-cream-50 dark:bg-coffee-950"
     : "w-full h-full min-h-[200px] flex flex-col items-center justify-center bg-transparent";
 
   return (
-    <div className={containerClasses}>
+    <div
+      className={containerClasses}
+      role="status"
+      aria-live="polite"
+      aria-label="Loading content"
+    >
       <div className="relative">
         {/* Outer Ring */}
         <motion.div
@@ -31,7 +36,7 @@ export const LoadingScreen: React.FC<LoadingScreenProps> = ({
             ease: "easeInOut",
           }}
         />
-        
+
         {/* Middle Ring */}
         <motion.div
           className="absolute -inset-2 rounded-full border border-coffee-400 dark:border-coffee-600 opacity-40"
@@ -59,8 +64,11 @@ export const LoadingScreen: React.FC<LoadingScreenProps> = ({
             ease: "easeInOut",
           }}
         >
-          <Coffee className="w-8 h-8 text-coffee-600 dark:text-coffee-400" />
-          
+          <Coffee
+            className="w-8 h-8 text-coffee-600 dark:text-coffee-400"
+            aria-hidden="true"
+          />
+
           {/* Steam Animation */}
           <motion.div
             className="absolute -top-4 left-1/2 -translate-x-1/2 w-1 h-4 bg-coffee-300 dark:bg-coffee-500 rounded-full blur-[1px]"
