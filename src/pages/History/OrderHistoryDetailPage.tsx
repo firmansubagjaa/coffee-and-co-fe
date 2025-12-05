@@ -14,12 +14,13 @@ import {
   Download,
   FileText
 } from 'lucide-react';
-import { useOrderStore } from '../../features/orders/store';
+import { useOrder } from '@/api';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { Button } from '../../components/common/Button';
 import { Badge } from '../../components/ui/badge';
 import { CURRENCY } from '../../utils/constants';
 import { SEO } from '@/components/common/SEO';
+import { generateInvoice } from '../../utils/InvoiceGenerator';
 import { 
   Breadcrumb, 
   BreadcrumbItem, 
@@ -33,11 +34,19 @@ import { toast } from 'sonner';
 export const OrderHistoryDetailPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const { orders } = useOrderStore();
+  const { data: order, isLoading, error } = useOrder(id);  // ID from URL is already without #
   const { t } = useLanguage();
 
-  // Normalize ID comparison to handle potential hash prefixes in stored data
-  const order = orders.find(o => o.id.replace('#', '') === id);
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-cream-50 dark:bg-coffee-950 flex items-center justify-center">
+        <div className="text-center space-y-4">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-coffee-900 dark:border-white mx-auto"></div>
+          <p className="text-coffee-500 dark:text-white/60">Loading order details...</p>
+        </div>
+      </div>
+    );
+  }
 
   if (!order) {
     return (
@@ -55,11 +64,13 @@ export const OrderHistoryDetailPage: React.FC = () => {
   const isDelivered = order.status === 'Delivered';
 
   const handleDownloadInvoice = () => {
-    toast.promise(new Promise((resolve) => setTimeout(resolve, 1500)), {
-        loading: 'Generating invoice...',
-        success: 'Invoice downloaded successfully!',
-        error: 'Failed to download invoice',
-    });
+    try {
+      generateInvoice(order);
+      toast.success('Invoice downloaded successfully!');
+    } catch (error: any) {
+      console.error('Invoice generation failed:', error);
+      toast.error('Failed to generate invoice. Please try again.');
+    }
   };
 
   return (
@@ -107,10 +118,13 @@ export const OrderHistoryDetailPage: React.FC = () => {
                     </h1>
                     <div className="flex items-center gap-2 text-sm text-coffee-500 dark:text-white/60">
                         <Calendar className="w-3.5 h-3.5" />
-                        <span>{new Date(order.date).toLocaleDateString()}</span>
+                        <span>{new Date(order.createdAt).toLocaleDateString('en-GB')}</span>
                         <span>•</span>
                         <Clock className="w-3.5 h-3.5" />
-                        <span>{new Date(order.date).toLocaleTimeString()}</span>
+                        <span>{new Date(order.createdAt).toLocaleTimeString('en-GB', {
+                          hour: '2-digit',
+                          minute: '2-digit'
+                        })}</span>
                     </div>
                 </div>
             </div>

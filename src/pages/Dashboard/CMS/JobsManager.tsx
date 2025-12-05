@@ -9,6 +9,7 @@ import {
   CheckCircle,
   XCircle,
   Users,
+  AlertTriangle,
 } from "lucide-react";
 import { Button } from "../../../components/common/Button";
 import { Input } from "../../../components/ui/input";
@@ -16,13 +17,17 @@ import { Badge } from "../../../components/ui/badge";
 import { toast } from "sonner";
 import { useLanguage } from "../../../contexts/LanguageContext";
 import { useNavigate } from "react-router-dom";
-import { MOCK_JOBS, Job } from "../../../data/mockJobs";
+import { useJobs, useDeleteJob } from "../../../api/cms.hooks";
 
 export const JobsManager: React.FC = () => {
   const { t } = useLanguage();
   const navigate = useNavigate();
-  const [jobs, setJobs] = useState<Job[]>(MOCK_JOBS);
   const [search, setSearch] = useState("");
+
+  // Fetch jobs from API
+  const { data: jobsData, isLoading, error } = useJobs();
+  const { mutate: deleteJob } = useDeleteJob();
+  const jobs = jobsData?.jobs || [];
 
   const filteredJobs = jobs.filter(
     (j) =>
@@ -31,9 +36,47 @@ export const JobsManager: React.FC = () => {
   );
 
   const handleDelete = (id: string) => {
-    setJobs((prev) => prev.filter((j) => j.id !== id));
-    toast.success(t("dashboard.jobs.toast.deleted"));
+    if (
+      confirm(
+        "Are you sure you want to delete this job posting? This action cannot be undone."
+      )
+    ) {
+      deleteJob(id, {
+        onSuccess: () => {
+          toast.success(t("dashboard.jobs.toast.deleted"));
+        },
+        onError: (error: any) => {
+          toast.error(error?.message || t("common.error.deleteFailed"));
+        },
+      });
+    }
   };
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-coffee-600 mx-auto mb-4"></div>
+          <p className="text-coffee-600 dark:text-coffee-400">
+            {t("common.loading")}
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <div className="text-center">
+          <AlertTriangle className="w-12 h-12 text-error mx-auto mb-4" />
+          <p className="text-coffee-600 dark:text-coffee-400">
+            {t("common.error.loadFailed")}
+          </p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
@@ -128,9 +171,9 @@ export const JobsManager: React.FC = () => {
                   </td>
                   <td className="px-6 py-4">
                     <Badge
-                      variant={job.status === "Active" ? "success" : "neutral"}
+                      variant={job.status === "active" ? "success" : "neutral"}
                     >
-                      {job.status === "Active" ? (
+                      {job.status === "active" ? (
                         <span className="flex items-center gap-1">
                           <CheckCircle className="w-3 h-3" /> Active
                         </span>

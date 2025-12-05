@@ -1,146 +1,131 @@
+/**
+ * Auth Store - Zustand store for authentication state
+ * 
+ * This store is now simplified to only manage STATE.
+ * All API calls are handled by React Query hooks in auth.hooks.ts
+ */
 
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import { User, Role } from '@/types';
+import { User } from '@/types';
 
 interface AuthState {
+  // State
   user: User | null;
+  accessToken: string | null;
   isAuthenticated: boolean;
-  isLoading: boolean;
-  resetEmail: string | null; // Track email during reset flow
-  tempRegistrationEmail: string | null; // Track email during registration OTP flow
-  login: (email: string) => Promise<void>;
-  register: (name: string, email: string) => Promise<void>;
+  isLoading: boolean; // Backward compatibility
+  resetEmail: string | null;
+  tempRegistrationEmail: string | null;
+
+  // Actions (called by React Query hooks)
+  setUser: (user: User, accessToken: string) => void;
+  updateUser: (data: Partial<User>) => void;
   logout: () => void;
+  setResetEmail: (email: string) => void;
+  clearResetEmail: () => void;
+  setTempRegistrationEmail: (email: string) => void;
+  clearTempEmail: () => void;
+  setLoading: (loading: boolean) => void;
+  
+  // Backward compatibility - async method for components not yet migrated
   updateProfile: (data: Partial<User>) => Promise<void>;
-  requestPasswordReset: (email: string) => Promise<void>;
-  verifyOTP: (code: string) => Promise<boolean>;
-  resetPassword: (password: string) => Promise<void>;
-  // OTP Registration functions
-  verifyRegistrationOTP: (email: string, code: string) => Promise<boolean>;
-  resendOTP: (email: string) => Promise<void>;
 }
 
 export const useAuthStore = create<AuthState>()(
   persist(
-    (set, get) => ({
+    (set) => ({
+      // Initial state
       user: null,
+      accessToken: null,
       isAuthenticated: false,
       isLoading: false,
       resetEmail: null,
       tempRegistrationEmail: null,
-      login: async (email) => {
-        set({ isLoading: true });
-        // Simulate API call
-        await new Promise((resolve) => setTimeout(resolve, 1000));
-        
-        // Mock Role Assignment based on email for demonstration
-        let role: Role = 'customer';
-        if (email.includes('admin')) role = 'admin';
-        if (email.includes('barista')) role = 'barista';
-        if (email.includes('super')) role = 'superadmin';
 
-        const nameParts = email.split('@')[0].split('.');
-        const firstName = nameParts[0] ? nameParts[0].charAt(0).toUpperCase() + nameParts[0].slice(1) : 'User';
-        const lastName = nameParts[1] ? nameParts[1].charAt(0).toUpperCase() + nameParts[1].slice(1) : 'Name';
-
+      // Set user after login/register
+      setUser: (user, accessToken) =>
         set({
-          isLoading: false,
+          user,
+          accessToken,
           isAuthenticated: true,
-          user: {
-            id: '1',
-            name: `${firstName} ${lastName}`,
-            firstName: firstName,
-            lastName: lastName,
-            email: email,
-            role: role,
-            streak: 3,
-            lastVisit: new Date().toISOString(),
-            mobile: '+1 234 567 890',
-            address: '123 Coffee Lane',
-            deliveryNote: 'Leave at front door',
-            avatarColor: '795548' // Default Coffee color
-          },
-        });
-      },
-      register: async (name, email) => {
-        set({ isLoading: true });
-        // Simulate API call - send OTP to email
-        await new Promise((resolve) => setTimeout(resolve, 1500));
-        
-        // Save email for OTP verification, but don't authenticate yet
+        }),
+
+      // Update user profile (sync)
+      updateUser: (data) =>
+        set((state) => {
+          if (!state.user) return state;
+
+          const updatedUser = { ...state.user, ...data };
+
+          // Reconstruct full name if first or last name changes
+          if (data.firstName || data.lastName) {
+            updatedUser.name = `${updatedUser.firstName} ${updatedUser.lastName}`;
+          }
+
+          return { user: updatedUser };
+        }),
+
+      // Logout - clear all auth state AND cart
+      logout: () => {
         set({
-          isLoading: false,
-          tempRegistrationEmail: email,
+          user: null,
+          accessToken: null,
+          isAuthenticated: false,
+          resetEmail: null,
+          tempRegistrationEmail: null,
         });
+        
+        // Cart is now managed by backend and will be cleared on logout automatically
       },
-      logout: () => set({ user: null, isAuthenticated: false, resetEmail: null, tempRegistrationEmail: null }),
+
+      // Password reset flow
+      setResetEmail: (email) => set({ resetEmail: email }),
+      clearResetEmail: () => set({ resetEmail: null }),
+
+      // Registration OTP flow
+      setTempRegistrationEmail: (email) => set({ tempRegistrationEmail: email }),
+      clearTempEmail: () => set({ tempRegistrationEmail: null }),
+      
+      // Loading state
+      setLoading: (loading) => set({ isLoading: loading }),
+      
+      // Backward compatibility - updateProfile with loading state
+      // TODO: Migrate components to use React Query useMutation
       updateProfile: async (data) => {
         set({ isLoading: true });
-        // Simulate API call
-        await new Promise((resolve) => setTimeout(resolve, 1000));
-        
-        set((state) => {
+        try {
+          // For now, just update locally
+          // When API is connected, use: await usersApi.updateProfile(data)
+          set((state) => {
             if (!state.user) return { isLoading: false };
-            const updatedUser = { ...state.user, ...data };
             
-            // Reconstruct full name if first or last name changes
+            const updatedUser = { ...state.user, ...data };
             if (data.firstName || data.lastName) {
-                updatedUser.name = `${updatedUser.firstName} ${updatedUser.lastName}`;
+              updatedUser.name = `${updatedUser.firstName} ${updatedUser.lastName}`;
             }
-
-            return {
-                isLoading: false,
-                user: updatedUser
-            };
-        });
-      },
-      // --- Password Reset Flow ---
-      requestPasswordReset: async (email) => {
-        set({ isLoading: true });
-        // Simulate API call
-        await new Promise((resolve) => setTimeout(resolve, 1500));
-        // Security best practice: Always return success to UI to prevent email enumeration
-        set({ isLoading: false, resetEmail: email });
-      },
-      verifyOTP: async (code) => {
-        set({ isLoading: true });
-        await new Promise((resolve) => setTimeout(resolve, 1000));
-        set({ isLoading: false });
-        // Mock validation: "123456" is the magic code
-        return code === "123456"; 
-      },
-      resetPassword: async (password) => {
-        set({ isLoading: true });
-        await new Promise((resolve) => setTimeout(resolve, 1500));
-        set({ isLoading: false, resetEmail: null });
-      },
-      // --- Registration OTP Functions ---
-      verifyRegistrationOTP: async (email, code) => {
-        set({ isLoading: true });
-        await new Promise((resolve) => setTimeout(resolve, 1000));
-        
-        // Mock validation: any 6-digit code is valid for demo
-        const isValid = code.length === 6 && /^\d+$/.test(code);
-        
-        if (isValid) {
-          // Clear temp email and mark as verified
-          set({ isLoading: false, tempRegistrationEmail: null });
-        } else {
+            
+            return { user: updatedUser, isLoading: false };
+          });
+        } catch {
           set({ isLoading: false });
+          throw new Error('Failed to update profile');
         }
-        
-        return isValid;
       },
-      resendOTP: async (email) => {
-        set({ isLoading: true });
-        // Simulate API call to resend OTP
-        await new Promise((resolve) => setTimeout(resolve, 1000));
-        set({ isLoading: false });
-      }
     }),
     {
       name: 'auth-storage',
+      // Only persist user info, not sensitive token
+      partialize: (state) => ({
+        user: state.user,
+        isAuthenticated: state.isAuthenticated,
+      }),
     }
   )
 );
+
+// Selectors for convenience
+export const useUser = () => useAuthStore((state) => state.user);
+export const useIsAuthenticated = () => useAuthStore((state) => state.isAuthenticated);
+export const useUserRole = () => useAuthStore((state) => state.user?.role);
+

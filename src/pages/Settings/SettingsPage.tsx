@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useAuthStore } from "../../features/auth/store";
+import { useProfile, useUpdateProfile } from "@/api";
 import { Button } from "../../components/common/Button";
 import { Input } from "../../components/ui/input";
 import { Label } from "../../components/ui/label";
@@ -50,11 +51,9 @@ import { useLanguage } from "../../contexts/LanguageContext";
 
 // ============ Schemas ============
 const profileSchema = z.object({
-  firstName: z.string().min(1, "First name is required"),
-  lastName: z.string().min(1, "Last name is required"),
+  fullName: z.string().min(2, "Full name is required"),
   mobile: z.string().optional(),
   address: z.string().optional(),
-  deliveryNote: z.string().optional(),
 });
 
 const passwordSchema = z
@@ -186,7 +185,9 @@ const SettingsItem: React.FC<{
 
 // ============ Main Component ============
 export const SettingsPage: React.FC = () => {
-  const { user, updateProfile, isLoading, logout } = useAuthStore();
+  const { user, logout } = useAuthStore();
+  const { data: userProfile, isLoading: isLoadingProfile } = useProfile();
+  const updateProfileMutation = useUpdateProfile();
   const { t, language, setLanguage } = useLanguage();
 
   // Modal states
@@ -212,15 +213,13 @@ export const SettingsPage: React.FC = () => {
     language
   );
 
-  // Forms
+  // Forms - Use profile data from API for accurate values
   const profileForm = useForm<ProfileFormValues>({
     resolver: zodResolver(profileSchema),
     defaultValues: {
-      firstName: user?.firstName || "",
-      lastName: user?.lastName || "",
-      mobile: user?.mobile || "",
-      address: user?.address || "",
-      deliveryNote: user?.deliveryNote || "",
+      fullName: userProfile?.name || user?.name || "",
+      mobile: userProfile?.mobile || user?.mobile || "",
+      address: userProfile?.address || user?.address || "",
     },
   });
 
@@ -232,6 +231,17 @@ export const SettingsPage: React.FC = () => {
       confirmPassword: "",
     },
   });
+
+  // Update form when profile data loads
+  useEffect(() => {
+    if (userProfile) {
+      profileForm.reset({
+        fullName: userProfile.name || "",
+        mobile: userProfile.mobile || "",
+        address: userProfile.address || "",
+      });
+    }
+  }, [userProfile]); // Remove profileForm from dependencies to avoid infinite loop
 
   // Handlers
   const handleAvatarChange = async (blob: Blob | null) => {
@@ -248,9 +258,10 @@ export const SettingsPage: React.FC = () => {
 
   const onProfileSubmit = async (data: ProfileFormValues) => {
     try {
-      await updateProfile({
-        ...data,
-        name: `${data.firstName} ${data.lastName}`,
+      await updateProfileMutation.mutateAsync({
+        fullName: data.fullName,
+        mobile: data.mobile,
+        address: data.address,
       });
       toast.success(t("settings.profileUpdated"));
       setShowEditProfile(false);
@@ -292,9 +303,9 @@ export const SettingsPage: React.FC = () => {
   // Use local avatar if set, otherwise fall back to default
   const displayAvatar =
     localAvatarUrl ||
-    `https://ui-avatars.com/api/?name=${user.firstName}+${
-      user.lastName
-    }&background=${user.avatarColor || "795548"}&color=fff&size=200`;
+    `https://ui-avatars.com/api/?name=${encodeURIComponent(
+      user.name
+    )}&background=${user.avatarColor || "795548"}&color=fff&size=200`;
 
   return (
     <div className="min-h-screen bg-cream-50 dark:bg-coffee-950 pt-6 pb-20">
@@ -351,13 +362,13 @@ export const SettingsPage: React.FC = () => {
             <div className="relative z-10 flex flex-col items-center text-center">
               <AvatarUpload
                 currentAvatar={displayAvatar}
-                fallbackText={user.firstName}
+                fallbackText={user.name.split(' ')[0]}
                 fallbackColor={user.avatarColor}
                 size="xl"
                 onAvatarChange={handleAvatarChange}
               />
               <h2 className="text-2xl md:text-3xl font-bold mt-4 drop-shadow-sm">
-                {user.firstName} {user.lastName}
+                {user.name}
               </h2>
               <p className="text-white/70 text-sm mt-1">{user.email}</p>
               <span className="mt-3 text-xs font-bold bg-white/20 backdrop-blur-sm px-4 py-1.5 rounded-full uppercase tracking-wider border border-white/10">
@@ -375,7 +386,7 @@ export const SettingsPage: React.FC = () => {
             <SettingsItem
               icon={<User className="w-5 h-5" />}
               label={t("settings.editProfile")}
-              value={`${user.firstName} ${user.lastName}`}
+              value={user.name}
               onClick={() => setShowEditProfile(true)}
             />
             <SettingsItem
@@ -387,13 +398,13 @@ export const SettingsPage: React.FC = () => {
             <SettingsItem
               icon={<Phone className="w-5 h-5" />}
               label={t("settings.phone")}
-              value={user.mobile || t("settings.notSet")}
+              value={userProfile?.mobile || user?.mobile || t("settings.notSet")}
               onClick={() => setShowEditProfile(true)}
             />
             <SettingsItem
               icon={<MapPin className="w-5 h-5" />}
               label={t("settings.address")}
-              value={user.address || t("settings.notSet")}
+              value={userProfile?.address || user?.address || t("settings.notSet")}
               onClick={() => setShowEditProfile(true)}
             />
           </SettingsSection>
@@ -504,33 +515,19 @@ export const SettingsPage: React.FC = () => {
             onSubmit={profileForm.handleSubmit(onProfileSubmit)}
             className="p-6 space-y-4"
           >
-            <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <Label htmlFor="firstName">{t("settings.firstName")}</Label>
-                <Input
-                  id="firstName"
-                  {...profileForm.register("firstName")}
-                  className="h-12 rounded-xl"
-                />
-                {profileForm.formState.errors.firstName && (
-                  <p className="text-error text-sm">
-                    {profileForm.formState.errors.firstName.message}
-                  </p>
-                )}
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="lastName">{t("settings.lastName")}</Label>
-                <Input
-                  id="lastName"
-                  {...profileForm.register("lastName")}
-                  className="h-12 rounded-xl"
-                />
-                {profileForm.formState.errors.lastName && (
-                  <p className="text-error text-sm">
-                    {profileForm.formState.errors.lastName.message}
-                  </p>
-                )}
-              </div>
+            <div className="space-y-2">
+              <Label htmlFor="fullName">{t("settings.fullName")}</Label>
+              <Input
+                id="fullName"
+                {...profileForm.register("fullName")}
+                className="h-12 rounded-xl"
+                placeholder={t("settings.fullName")}
+              />
+              {profileForm.formState.errors.fullName && (
+                <p className="text-error text-sm">
+                  {profileForm.formState.errors.fullName.message}
+                </p>
+              )}
             </div>
             <div className="space-y-2">
               <Label htmlFor="mobile">{t("settings.phoneNumber")}</Label>
@@ -551,15 +548,6 @@ export const SettingsPage: React.FC = () => {
                 className="h-12 rounded-xl"
               />
             </div>
-            <div className="space-y-2">
-              <Label htmlFor="deliveryNote">{t("settings.deliveryNote")}</Label>
-              <Input
-                id="deliveryNote"
-                {...profileForm.register("deliveryNote")}
-                placeholder={t("settings.placeholders.deliveryNote")}
-                className="h-12 rounded-xl"
-              />
-            </div>
             <DialogFooter className="gap-3 sm:gap-0 pt-4">
               <Button
                 type="button"
@@ -569,8 +557,8 @@ export const SettingsPage: React.FC = () => {
               >
                 {t("settings.cancel")}
               </Button>
-              <Button type="submit" disabled={isLoading} className="rounded-xl">
-                {isLoading ? t("settings.saving") : t("settings.save")}
+              <Button type="submit" disabled={updateProfileMutation.isPending} className="rounded-xl">
+                {updateProfileMutation.isPending ? t("settings.saving") : t("settings.save")}
               </Button>
             </DialogFooter>
           </form>
@@ -644,10 +632,8 @@ export const SettingsPage: React.FC = () => {
               >
                 {t("settings.cancel")}
               </Button>
-              <Button type="submit" disabled={isLoading} className="rounded-xl">
-                {isLoading
-                  ? t("settings.changing")
-                  : t("settings.changePassword")}
+              <Button type="submit" className="rounded-xl">
+                {t("settings.changePassword")}
               </Button>
             </DialogFooter>
           </form>

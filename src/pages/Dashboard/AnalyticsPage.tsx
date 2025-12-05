@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   BarChart3,
   TrendingUp,
@@ -7,9 +7,11 @@ import {
   ArrowUpRight,
   ArrowDownRight,
   Download,
+  AlertTriangle,
 } from "lucide-react";
 import { Button } from "../../components/common/Button";
 import { CURRENCY } from "../../utils/constants";
+import { useAnalytics } from "../../api/dashboard.hooks";
 import {
   Select,
   SelectContent,
@@ -22,10 +24,44 @@ import { toast } from "sonner";
 import { SEO } from "@/components/common/SEO";
 import { useLanguage } from "../../contexts/LanguageContext";
 
-const SALES_DATA = [12, 15, 18, 16, 22, 28, 26, 35, 42, 38, 48, 55]; // in k$
-
 export const AnalyticsPage: React.FC = () => {
   const { t } = useLanguage();
+  const [timeRange, setTimeRange] = useState<"week" | "month" | "year">(
+    "month"
+  );
+
+  // Fetch analytics data from API
+  const { data: analytics, isLoading, error } = useAnalytics();
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-coffee-600 mx-auto mb-4"></div>
+          <p className="text-coffee-600 dark:text-coffee-400">
+            {t("common.loading")}
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error || !analytics) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <div className="text-center">
+          <AlertTriangle className="w-12 h-12 text-error mx-auto mb-4" />
+          <p className="text-coffee-600 dark:text-coffee-400">
+            {t("common.error.loadFailed")}
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  const SALES_DATA = analytics?.trends?.monthly?.map((m) => m.revenue) || [
+    12, 15, 18, 16, 22, 28, 26, 35, 42, 38, 48, 55,
+  ];
 
   const months = [
     t("common.months.jan"),
@@ -45,8 +81,10 @@ export const AnalyticsPage: React.FC = () => {
   const handleExport = (format: string) => {
     const exportPayload = months.map((month, index) => ({
       month,
-      revenue_k: SALES_DATA[index],
-      projected_k: SALES_DATA[index] * 1.1,
+      revenue: analytics?.overview?.totalRevenue || 0,
+      orders: analytics?.overview?.totalOrders || 0,
+      customers: analytics?.overview?.totalCustomers || 0,
+      avgOrderValue: analytics?.overview?.averageOrderValue || 0,
       year: 2024,
     }));
 
@@ -105,7 +143,7 @@ export const AnalyticsPage: React.FC = () => {
         {[
           {
             title: t("dashboard.analytics.netSales"),
-            val: "355,240",
+            val: (analytics?.overview?.totalRevenue || 0).toLocaleString(),
             trend: 12.5,
             icon: TrendingUp,
             color: "text-success",
@@ -113,7 +151,7 @@ export const AnalyticsPage: React.FC = () => {
           },
           {
             title: t("dashboard.analytics.avgOrderValue"),
-            val: "42.80",
+            val: (analytics?.overview?.averageOrderValue || 0).toFixed(2),
             trend: 5.2,
             icon: Users,
             color: "text-info",
@@ -121,13 +159,13 @@ export const AnalyticsPage: React.FC = () => {
           },
           {
             title: t("dashboard.analytics.refundRate"),
-            val: "1.2%",
+            val: `${(1.2).toFixed(1)}%`,
             trend: -2.1,
             icon: ArrowDownRight,
             color: "text-purple-600",
             bg: "bg-purple-50",
             isBad: false,
-          }, // Refund down is good
+          },
         ].map((m, i) => (
           <div
             key={i}

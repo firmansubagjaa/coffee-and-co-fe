@@ -1,5 +1,5 @@
 import React from "react";
-import { useCartStore } from "../../../features/cart/store";
+import { useCart, useUpdateCartItem, useRemoveCartItem } from "@/api/cart.hooks";
 import { Button } from "../../../components/common/Button";
 import { CURRENCY } from "../../../utils/constants";
 import { Trash2, Plus, Minus, X } from "lucide-react";
@@ -21,9 +21,13 @@ interface CartStepProps {
 }
 
 export const CartStep: React.FC<CartStepProps> = ({ onNext }) => {
-  const { items, updateQuantity, removeFromCart, total } = useCartStore();
+  const { data: cart, isLoading } = useCart();
+  const updateCartItemMutation = useUpdateCartItem();
+  const removeCartItemMutation = useRemoveCartItem();
   const { t } = useLanguage();
-  const subtotal = total();
+  
+  const items = cart || [];
+  const subtotal = items.reduce((sum, item) => sum + (item.price * item.quantity), 0);
 
   if (items.length === 0) {
     return (
@@ -81,7 +85,7 @@ export const CartStep: React.FC<CartStepProps> = ({ onNext }) => {
                 <div className="flex items-center justify-between mt-4">
                   <div className="flex items-center bg-coffee-50 dark:bg-coffee-800 rounded-full h-10 px-1 border border-coffee-100 dark:border-coffee-700">
                     <button
-                      onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                      onClick={() => updateCartItemMutation.mutate({ itemId: item.cartId!, quantity: item.quantity - 1 })}
                       className="w-10 h-full flex items-center justify-center text-coffee-600 dark:text-coffee-300 hover:text-coffee-900 dark:hover:text-white transition-colors"
                       disabled={item.quantity <= 1}
                       aria-label="Decrease quantity"
@@ -92,7 +96,7 @@ export const CartStep: React.FC<CartStepProps> = ({ onNext }) => {
                       {item.quantity}
                     </span>
                     <button
-                      onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                      onClick={() => updateCartItemMutation.mutate({ itemId: item.cartId!, quantity: item.quantity + 1 })}
                       className="w-10 h-full flex items-center justify-center text-coffee-600 dark:text-coffee-300 hover:text-coffee-900 dark:hover:text-white transition-colors"
                       aria-label="Increase quantity"
                     >
@@ -123,7 +127,7 @@ export const CartStep: React.FC<CartStepProps> = ({ onNext }) => {
                           {t("common.cancel")}
                         </AlertDialogCancel>
                         <AlertDialogAction
-                          onClick={() => removeFromCart(item.id)}
+                          onClick={() => removeCartItemMutation.mutate(item.cartId!)}
                         >
                           {t("common.remove")}
                         </AlertDialogAction>

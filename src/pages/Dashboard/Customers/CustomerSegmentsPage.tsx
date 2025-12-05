@@ -8,8 +8,10 @@ import {
   Search,
   Mail,
   MoreHorizontal,
+  AlertTriangle,
 } from "lucide-react";
 import { Button } from "../../../components/common/Button";
+import { useCustomerSegments } from "../../../api/dashboard.hooks";
 import { Input } from "../../../components/ui/input";
 import { Badge } from "../../../components/ui/badge";
 import { Avatar, AvatarFallback } from "../../../components/ui/avatar";
@@ -136,10 +138,66 @@ export const CustomerSegmentsPage: React.FC = () => {
   const [selectedSegment, setSelectedSegment] = useState<string>("All");
   const [search, setSearch] = useState("");
 
+  // Fetch customer segments from API
+  const { data: segmentsData, isLoading, isError } = useCustomerSegments();
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-coffee-600 mx-auto mb-4"></div>
+          <p className="text-coffee-600 dark:text-coffee-400">
+            {t("common.loading")}
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  if (isError) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <div className="text-center">
+          <AlertTriangle className="w-12 h-12 text-error mx-auto mb-4" />
+          <p className="text-coffee-600 dark:text-coffee-400">
+            {t("common.error.loadFailed")}
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  // Flatten segments data from API or use mock
+  // API response structure: { data: { segments: { vip: {...}, regular: {...} } } }
+  const apiData = segmentsData as any;
+  const apiCustomers = apiData?.data?.segments
+    ? Object.entries(apiData.data.segments).flatMap(
+        ([segment, data]: [string, any]) =>
+          (data.customers || []).map((c: any) => ({
+            id: c.id,
+            name: c.name,
+            email: c.email || "N/A",
+            segment:
+              segment === "vip"
+                ? "Champion"
+                : segment === "regular"
+                ? "Loyalist"
+                : segment === "occasional"
+                ? "New"
+                : "Hibernating",
+            totalSpent: c.totalSpend || 0,
+            orders: c.orderCount || 0,
+            lastVisit: c.lastOrder || new Date().toISOString(),
+          }))
+      )
+    : null;
+
+  const customersList = apiCustomers || MOCK_CUSTOMERS;
+
   const getSegmentKey = (key: string) =>
     key === "At Risk" ? "atRisk" : key.toLowerCase();
 
-  const filteredCustomers = MOCK_CUSTOMERS.filter((c) => {
+  const filteredCustomers = customersList.filter((c) => {
     const matchSegment =
       selectedSegment === "All" || c.segment === selectedSegment;
     const matchSearch =

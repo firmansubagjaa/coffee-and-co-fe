@@ -13,6 +13,10 @@ import {
   Box,
 } from "lucide-react";
 import { Button } from "../../../components/common/Button";
+import {
+  useInventoryItems,
+  useLowStockItems,
+} from "../../../api/inventory.hooks";
 import { Input } from "../../../components/ui/input";
 import { CURRENCY } from "../../../utils/constants";
 import { Badge } from "../../../components/ui/badge";
@@ -120,8 +124,43 @@ export const InventoryPage: React.FC = () => {
     "all"
   );
 
+  // Fetch inventory data from API
+  const { data: inventoryData, isLoading, error } = useInventoryItems();
+  const { data: lowStockData } = useLowStockItems();
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-coffee-600 mx-auto mb-4"></div>
+          <p className="text-coffee-600 dark:text-coffee-400">
+            {t("common.loading")}
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <div className="text-center">
+          <AlertTriangle className="w-12 h-12 text-error mx-auto mb-4" />
+          <p className="text-coffee-600 dark:text-coffee-400">
+            {t("common.error.loadFailed")}
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  // Use API data or fallback to mock
+  const allItems = Array.isArray(inventoryData)
+    ? inventoryData
+    : inventoryData?.items || MOCK_INVENTORY;
+
   // Filter Logic
-  const filteredItems = MOCK_INVENTORY.filter((item) => {
+  const filteredItems = allItems.filter((item) => {
     const matchesSearch =
       item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       item.sku.toLowerCase().includes(searchQuery.toLowerCase());
@@ -131,13 +170,14 @@ export const InventoryPage: React.FC = () => {
   });
 
   // Stats
-  const totalValuation = MOCK_INVENTORY.reduce(
-    (sum, item) => sum + item.stockLevel * item.costPerUnit,
+  const totalValuation = allItems.reduce(
+    (sum, item) => sum + (item.stockLevel || 0) * (item.costPerUnit || 0),
     0
   );
-  const lowStockCount = MOCK_INVENTORY.filter(
-    (i) => i.status === "low" || i.status === "critical"
-  ).length;
+  const lowStockCount =
+    lowStockData?.length ||
+    allItems.filter((i) => i.status === "low" || i.status === "critical")
+      .length;
 
   const handleRestockRequest = (itemName: string) => {
     toast.success(t("dashboard.inventory.restockSuccess"), {
@@ -206,7 +246,7 @@ export const InventoryPage: React.FC = () => {
               {t("dashboard.inventory.totalItems")}
             </p>
             <h3 className="text-2xl font-bold text-coffee-900 dark:text-white">
-              {MOCK_INVENTORY.length}
+              {allItems.length}
             </h3>
           </div>
         </div>
@@ -363,7 +403,9 @@ export const InventoryPage: React.FC = () => {
                     </td>
                     <td className="px-6 py-4 font-mono text-coffee-600 dark:text-coffee-400">
                       {CURRENCY}
-                      {(item.stockLevel * item.costPerUnit).toFixed(2)}
+                      {(
+                        (item.stockLevel || 0) * (item.costPerUnit || 0)
+                      ).toFixed(2)}
                     </td>
                     <td className="px-6 py-4 text-coffee-600 dark:text-coffee-400">
                       {item.supplier}

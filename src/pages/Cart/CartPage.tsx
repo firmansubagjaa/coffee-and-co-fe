@@ -44,12 +44,27 @@ import {
 } from "../../components/ui/alert-dialog";
 import { CheckoutDetails } from "@/types";
 import { useLanguage } from "../../contexts/LanguageContext";
+import {
+  useCart,
+  useUpdateCartItem,
+  useRemoveCartItem,
+} from "@/api/cart.hooks";
 
 export const CartPage: React.FC = () => {
   const navigate = useNavigate();
-  const { items, updateQuantity, removeFromCart, total, setCheckoutDetails } =
-    useCartStore();
+  const { setCheckoutDetails } = useCartStore();
+  const { data: items = [], isLoading } = useCart();
+  const updateCartItem = useUpdateCartItem();
+  const removeFromCart = useRemoveCartItem();
   const { t } = useLanguage();
+
+  const total = items.reduce(
+    (sum, item) => sum + item.price * item.quantity,
+    0
+  );
+  const updateQuantity = (cartId: string, quantity: number) => {
+    updateCartItem.mutate({ itemId: cartId, quantity });
+  };
 
   // Validation Schema
   const checkoutSchema = z.object({
@@ -60,7 +75,7 @@ export const CartPage: React.FC = () => {
     deliveryNote: z.string().optional(),
   });
 
-  const subtotal = total();
+  const subtotal = total;
   const shipping = subtotal > 30 ? 0 : 5;
   const grandTotal = subtotal + shipping;
 
@@ -373,7 +388,7 @@ export const CartPage: React.FC = () => {
                                   {t("common.cancel")}
                                 </AlertDialogCancel>
                                 <AlertDialogAction
-                                  onClick={() => removeFromCart(item.id)}
+                                  onClick={() => removeFromCart.mutate(item.id)}
                                 >
                                   {t("common.remove")}
                                 </AlertDialogAction>

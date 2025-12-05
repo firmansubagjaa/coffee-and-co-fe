@@ -7,7 +7,7 @@ import { Button } from '../../components/common/Button';
 import { useNavigate, useLocation, Link } from 'react-router-dom';
 import { Badge } from '../../components/ui/badge';
 import { useAuthStore } from '../../features/auth/store';
-import { useOrderStore } from '../../features/orders/store';
+import { useMyOrders } from '@/api';  // ✅ Use customer-specific endpoint
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -135,7 +135,7 @@ const OrderCard: React.FC<{ order: Order }> = ({ order }) => {
             </div>
 
             <Link 
-                to={`/history/${order.id.replace('#', '')}`}
+                to={`/history/${order.backendId}`}
                 className="block bg-white dark:bg-[#3C2A21] rounded-[2.5rem] p-6 md:p-8 text-coffee-900 dark:text-white relative overflow-hidden group shadow-sm border border-coffee-100 dark:border-none transition-all duration-300 hover:-translate-y-1 hover:shadow-md"
             >
                 {/* Mobile: Top Row */}
@@ -201,8 +201,10 @@ export const OrderHistoryPage: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { logout } = useAuthStore();
-  const { orders } = useOrderStore();
+  const { data: ordersData, isLoading } = useMyOrders();  // ✅ Customer endpoint
   const { t } = useLanguage();
+  
+  const orders = ordersData?.orders || [];  // Extract orders array
   
   // State
   const [isMobileFiltersOpen, setIsMobileFiltersOpen] = useState(false);
@@ -316,14 +318,35 @@ export const OrderHistoryPage: React.FC = () => {
             {/* Main Content Area */}
             <main className="flex-1 min-w-0">
                 
-                <div className="space-y-4 md:space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
-                    {filteredOrders.map((order) => (
-                        <OrderCard key={order.id} order={order} />
-                    ))}
-                </div>
+                {/* Loading State */}
+                {isLoading && (
+                    <div className="space-y-6 animate-pulse">
+                        {[1, 2, 3].map((i) => (
+                            <div key={i} className="bg-white dark:bg-coffee-900 rounded-[2.5rem] p-8 border border-coffee-100 dark:border-coffee-800">
+                                <div className="flex gap-6">
+                                    <div className="w-48 h-48 bg-coffee-100 dark:bg-coffee-800 rounded-2xl" />
+                                    <div className="flex-1 space-y-4">
+                                        <div className="h-8 bg-coffee-100 dark:bg-coffee-800 rounded w-1/3" />
+                                        <div className="h-4 bg-coffee-100 dark:bg-coffee-800 rounded w-1/2" />
+                                        <div className="h-4 bg-coffee-100 dark:bg-coffee-800 rounded w-2/3" />
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                )}
+                
+                {/* Order List */}
+                {!isLoading && (
+                    <div className="space-y-4 md:space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
+                        {filteredOrders.map((order) => (
+                            <OrderCard key={order.id} order={order} />
+                        ))}
+                    </div>
+                )}
                 
                 {/* Empty State */}
-                {filteredOrders.length === 0 && (
+                {!isLoading && filteredOrders.length === 0 && (
                     <div className="text-center py-24 bg-coffee-50 dark:bg-coffee-900 rounded-[3rem] border border-coffee-100 dark:border-coffee-800 shadow-inner">
                         <div className="w-24 h-24 bg-white dark:bg-coffee-800 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg shadow-coffee-100 dark:shadow-none">
                             <ShoppingBag className="w-10 h-10 text-coffee-400 fill-coffee-100 dark:fill-coffee-900/20" />

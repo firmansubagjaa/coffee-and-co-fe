@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { AuthLayout } from "./components/AuthLayout";
 import { Button } from "../../components/common/Button";
 import { Link, useNavigate } from "react-router-dom";
-import { useAuthStore } from "./store";
+import { useRegister, getAuthError } from "@/api";
 import {
   Eye,
   EyeOff,
@@ -18,14 +18,14 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { cn } from "../../utils/cn";
 import { useLanguage } from "../../contexts/LanguageContext";
-
 import { SEO } from "@/components/common/SEO";
+import { Alert, AlertDescription, AlertTitle } from "../../components/ui/alert";
 
 export const RegisterPage: React.FC = () => {
   const navigate = useNavigate();
-  const registerAction = useAuthStore((state) => state.register);
-  const isLoading = useAuthStore((state) => state.isLoading);
+  const registerMutation = useRegister();
   const [showPassword, setShowPassword] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const { t } = useLanguage();
 
   // Validation Schema
@@ -66,13 +66,25 @@ export const RegisterPage: React.FC = () => {
   });
 
   const onSubmit = async (data: RegisterFormValues) => {
-    try {
-      await registerAction(data.name, data.email);
-      // Redirect to OTP verification page
-      navigate(`/verify-otp?email=${encodeURIComponent(data.email)}&type=register`);
-    } catch (error) {
-      console.error("Registration failed", error);
-    }
+    setError(null);
+    
+    registerMutation.mutate(
+      {
+        email: data.email,
+        password: data.password,
+        fullName: data.name,
+      },
+      {
+        onSuccess: () => {
+          // Redirect to OTP verification page
+          navigate(`/verify-otp?email=${encodeURIComponent(data.email)}&type=register`);
+        },
+        onError: (error) => {
+          console.error("Registration failed", error);
+          setError(getAuthError(error));
+        },
+      }
+    );
   };
 
   return (
@@ -85,6 +97,15 @@ export const RegisterPage: React.FC = () => {
         description="Join Coffee & Co today. Create an account to start earning rewards, saving your favorites, and enjoying a personalized coffee experience."
       />
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+        {/* API Error Alert */}
+        {error && (
+          <Alert variant="destructive" className="mb-4">
+            <AlertCircle className="h-4 w-4" />
+            <AlertTitle>{t("common.error")}</AlertTitle>
+            <AlertDescription>{error}</AlertDescription>
+          </Alert>
+        )}
+
         {/* Name Field */}
         <div className="space-y-2">
           <Label htmlFor="name" className={errors.name ? "text-error" : ""}>
@@ -192,10 +213,10 @@ export const RegisterPage: React.FC = () => {
           fullWidth
           size="lg"
           type="submit"
-          disabled={isLoading}
+          disabled={registerMutation.isPending}
           className="!rounded-xl h-12 mt-6 font-bold"
         >
-          {isLoading
+          {registerMutation.isPending
             ? t("auth.register.submitting")
             : t("auth.register.submit")}
         </Button>

@@ -4,8 +4,15 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { motion } from "framer-motion";
-import { ArrowLeft, Upload, FileText, CheckCircle2, AlertCircle } from "lucide-react";
+import {
+  ArrowLeft,
+  Upload,
+  FileText,
+  CheckCircle2,
+  AlertCircle,
+} from "lucide-react";
 import { Button } from "../../components/common/Button";
+import { useApplyForJob } from "../../api/cms.hooks";
 import { Input } from "../../components/ui/input";
 import { Label } from "../../components/ui/label";
 import { useLanguage } from "../../contexts/LanguageContext";
@@ -36,11 +43,13 @@ export const JobApplicationPage: React.FC = () => {
   const location = useLocation();
   const { t } = useLanguage();
   const [cvFile, setCvFile] = useState<File | null>(null);
-  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // Use API mutation hook
+  const { mutate: applyForJob, isPending: isSubmitting } = useApplyForJob();
 
   // Get job data from navigation state
   const jobData = location.state as { jobId: string; jobTitle: string } | null;
-  
+
   if (!jobData) {
     navigate("/about/careers");
     return null;
@@ -80,35 +89,35 @@ export const JobApplicationPage: React.FC = () => {
       return;
     }
 
-    setIsSubmitting(true);
-
-    try {
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 2000));
-
-      // Mock data for now
-      const application = {
-        ...data,
+    // Submit application via API
+    applyForJob(
+      {
         jobId: jobData.jobId,
-        jobTitle: jobData.jobTitle,
-        cv: cvFile.name,
-        appliedAt: new Date(),
-      };
-
-      console.log("Application submitted:", application);
-
-      // Navigate to success page instead of showing toast
-      navigate("/about/careers/application-success", {
-        state: {
-          jobTitle: jobData.jobTitle,
-          jobId: jobData.jobId,
+        data: {
+          fullName: data.fullName,
+          email: data.email,
+          phone: data.phone,
+          coverLetter: data.coverLetter,
+          cv: cvFile,
         },
-      });
-    } catch (error) {
-      toast.error(t("about.careers.application.error" as any));
-    } finally {
-      setIsSubmitting(false);
-    }
+      },
+      {
+        onSuccess: () => {
+          toast.success(t("about.careers.application.success" as any));
+          navigate("/about/careers/application-success", {
+            state: {
+              jobTitle: jobData.jobTitle,
+              jobId: jobData.jobId,
+            },
+          });
+        },
+        onError: (error: any) => {
+          toast.error(
+            error?.message || t("about.careers.application.error" as any)
+          );
+        },
+      }
+    );
   };
 
   return (
@@ -183,7 +192,9 @@ export const JobApplicationPage: React.FC = () => {
               {errors.fullName && (
                 <p className="text-sm text-red-500 flex items-center gap-1">
                   <AlertCircle className="w-3 h-3" />
-                  {t("about.careers.application.validation.nameRequired" as any)}
+                  {t(
+                    "about.careers.application.validation.nameRequired" as any
+                  )}
                 </p>
               )}
             </div>
@@ -205,7 +216,9 @@ export const JobApplicationPage: React.FC = () => {
               {errors.email && (
                 <p className="text-sm text-red-500 flex items-center gap-1">
                   <AlertCircle className="w-3 h-3" />
-                  {t("about.careers.application.validation.emailInvalid" as any)}
+                  {t(
+                    "about.careers.application.validation.emailInvalid" as any
+                  )}
                 </p>
               )}
             </div>
@@ -226,7 +239,9 @@ export const JobApplicationPage: React.FC = () => {
               {errors.phone && (
                 <p className="text-sm text-red-500 flex items-center gap-1">
                   <AlertCircle className="w-3 h-3" />
-                  {t("about.careers.application.validation.phoneInvalid" as any)}
+                  {t(
+                    "about.careers.application.validation.phoneInvalid" as any
+                  )}
                 </p>
               )}
             </div>

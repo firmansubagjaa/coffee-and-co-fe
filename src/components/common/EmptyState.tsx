@@ -227,3 +227,36 @@ export const NoData: React.FC<{
     size="sm"
   />
 );
+
+// NEW: Empty Products (untuk carousel/menu ketika belum ada produk)
+export const EmptyProducts: React.FC<{ 
+  className?: string;
+  size?: "sm" | "md" | "lg";
+}> = ({ className, size = "md" }) => (
+  <EmptyState
+    icon={Coffee}
+    title="Belum Ada Produk"
+    description="Produk akan segera ditambahkan. Silakan kembali lagi nanti untuk melihat menu terbaik kami!"
+    actionLabel="Refresh Halaman"
+    onAction={() => window.location.reload()}
+    className={className}
+    size={size}
+  />
+);
+
+// NEW: No Filter Match (untuk menu page ketika filter tidak cocok)
+export const NoFilterMatch: React.FC<{ 
+  onClearFilters?: () => void;
+  className?: string;
+}> = ({ onClearFilters, className }) => (
+  <EmptyState
+    icon={Search}
+    title="Tidak ada produk yang cocok dengan filter Anda"
+    description="We couldn't find any items matching your filters. Try adjusting your search or clearing filters."
+    actionLabel="Hapus semua filter"
+    onAction={onClearFilters}
+    className={className}
+    size="md"
+  />
+);
+

@@ -37,6 +37,8 @@ interface KDSOrder extends Omit<Order, "items" | "status"> {
 const MOCK_ACTIVE_ORDERS: KDSOrder[] = [
   {
     id: "1023",
+    backendId: "backend-1023",
+    createdAt: new Date().toISOString(),
     customerName: "Alice Johnson",
     items: [
       {
@@ -64,6 +66,8 @@ const MOCK_ACTIVE_ORDERS: KDSOrder[] = [
   },
   {
     id: "1024",
+    backendId: "backend-1024",
+    createdAt: new Date().toISOString(),
     customerName: "Bob Smith",
     items: [
       {
@@ -84,6 +88,8 @@ const MOCK_ACTIVE_ORDERS: KDSOrder[] = [
   },
   {
     id: "1025",
+    backendId: "backend-1025",
+    createdAt: new Date().toISOString(),
     customerName: "Charlie D.",
     items: [
       {
@@ -105,6 +111,8 @@ const MOCK_ACTIVE_ORDERS: KDSOrder[] = [
   },
   {
     id: "1022",
+    backendId: "backend-1022",
+    createdAt: new Date().toISOString(),
     customerName: "Dana Lee",
     items: [{ id: "8", name: "Matcha Latte", quantity: 1, category: "coffee" }],
     status: "ready",

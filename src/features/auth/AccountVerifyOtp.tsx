@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { AuthLayout } from "./components/AuthLayout";
 import { Button } from "../../components/common/Button";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
-import { useAuthStore } from "./store";
+import { useVerifyOtp, useResendOtp, getAuthError } from "@/api";
 import { ArrowLeft, AlertCircle } from "lucide-react";
 import { Label } from "../../components/ui/label";
 import { useForm, Controller } from "react-hook-form";
@@ -21,9 +21,8 @@ export const AccountVerifyOtp: React.FC = () => {
   const { t } = useLanguage();
  
   const email = searchParams.get("email");
-  const verifyOTP = useAuthStore((state) => state.verifyRegistrationOTP);
-  const resendOTP = useAuthStore((state) => state.resendOTP);
-  const isLoading = useAuthStore((state) => state.isLoading);
+  const verifyOtpMutation = useVerifyOtp();
+  const resendOtpMutation = useResendOtp();
 
   const {
     control,
@@ -44,33 +43,39 @@ export const AccountVerifyOtp: React.FC = () => {
   const onSubmit = async (data: { otp: string }) => {
     if (!email) return;
     
-    const isValid = await verifyOTP(email, data.otp);
-
-    if (isValid) {
-      toast.success(t("auth.verifyOtp.success"), {
-        description: t("auth.verifyOtp.redirecting"),
-      });
-      setTimeout(() => {
-        navigate("/login");
-      }, 1500);
-    } else {
-      setError("otp", {
-        type: "manual",
-        message: t("auth.verifyOtp.validation.invalid"),
-      });
-      toast.error(t("auth.verifyOtp.error"));
-    }
+    verifyOtpMutation.mutate(
+      { email, otp: data.otp },
+      {
+        onSuccess: () => {
+          toast.success(t("auth.verifyOtp.success"), {
+            description: t("auth.verifyOtp.redirecting"),
+          });
+          setTimeout(() => {
+            navigate("/login");
+          }, 1500);
+        },
+        onError: (error) => {
+          setError("otp", {
+            type: "manual",
+            message: t("auth.verifyOtp.validation.invalid"),
+          });
+          toast.error(getAuthError(error) || t("auth.verifyOtp.error"));
+        },
+      }
+    );
   };
 
   const handleResend = async () => {
     if (!email) return;
     
-    try {
-      await resendOTP(email);
-      toast.success(t("auth.verifyOtp.resent"));
-    } catch (error: any) {
-      toast.error(error.message || "Failed to resend code");
-    }
+    resendOtpMutation.mutate(email, {
+      onSuccess: () => {
+        toast.success(t("auth.verifyOtp.resent"));
+      },
+      onError: (error) => {
+        toast.error(getAuthError(error) || "Failed to resend code");
+      },
+    });
   };
 
   return (
@@ -132,10 +137,10 @@ export const AccountVerifyOtp: React.FC = () => {
           fullWidth
           size="lg"
           type="submit"
-          disabled={isLoading}
+          disabled={verifyOtpMutation.isPending}
           className="!rounded-xl h-12 mt-4 font-bold"
         >
-          {isLoading
+          {verifyOtpMutation.isPending
             ? t("auth.verifyOtp.submitting")
             : t("auth.verifyOtp.submit")}
         </Button>
@@ -146,7 +151,8 @@ export const AccountVerifyOtp: React.FC = () => {
             <button
               type="button"
               onClick={handleResend}
-              className="font-bold text-coffee-900 dark:text-white underline hover:no-underline"
+              disabled={resendOtpMutation.isPending}
+              className="font-bold text-coffee-900 dark:text-white underline hover:no-underline disabled:opacity-50"
             >
               {t("auth.verifyOtp.resendLink")}
             </button>

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCartStore } from "../../features/cart/store";
 import { useOrderStore } from "../../features/orders/store";
+import { useCart, useClearCart } from "@/api/cart.hooks";
 import { Button } from "../../components/common/Button";
 import { CURRENCY } from "../../utils/constants";
 import {
@@ -35,7 +36,13 @@ const STEPS = [
 
 export const PaymentPage: React.FC = () => {
   const navigate = useNavigate();
-  const { total, clearCart, items, checkoutDetails } = useCartStore();
+  const { checkoutDetails } = useCartStore();
+  const { data: items = [] } = useCart();
+  const { mutate: clearCart } = useClearCart();
+  const total = items.reduce(
+    (sum, item) => sum + item.price * item.quantity,
+    0
+  );
   const { addOrder } = useOrderStore();
   const { t } = useLanguage();
 
@@ -47,7 +54,7 @@ export const PaymentPage: React.FC = () => {
   );
   const [countdown, setCountdown] = useState(300); // 5 mins for payment simulation
 
-  const amount = total();
+  const amount = total;
   const shippingCost = amount > 30 ? 0 : 5;
   const grandTotal = amount + shippingCost;
 
@@ -85,11 +92,13 @@ export const PaymentPage: React.FC = () => {
       // Actually create the order in the system
       const newOrder: Order = {
         id: `#ORD-${Math.floor(Math.random() * 1000000)}`,
+        backendId: `backend-${Math.random().toString(36)}`,
         userId: "1", // Mock User ID
         items: [...items],
         total: grandTotal,
         status: "In process",
         date: new Date().toISOString(),
+        createdAt: new Date().toISOString(),
         location: checkoutDetails
           ? `${checkoutDetails.address}`
           : "Store Pickup",

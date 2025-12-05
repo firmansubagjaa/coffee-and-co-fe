@@ -27,3 +27,7 @@ package-lock.json
 backend_design.md
 system_design.md
 postman_guide.md
+
+.env.local
+.env.example
+INTEGRATION_COMPLETED.md

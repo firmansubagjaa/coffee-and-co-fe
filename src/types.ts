@@ -59,12 +59,14 @@ export interface User {
 export type OrderStatus = 'pending' | 'preparing' | 'ready' | 'completed' | 'cancelled';
 
 export interface Order {
-  id: string;
+  id: string;  // Display ID: #888AB80
+  backendId: string;  // Full backend UUID for API calls
   userId: string;
   items: CartItem[];
   total: number;
   status: 'In process' | 'Delivered' | 'Cancelled';
-  date: string;
+  date: string;  // Formatted date for display
+  createdAt: string;  // ISO timestamp from backend
   location: string;
   customerName?: string;
   timeline: {
@@ -102,13 +104,15 @@ export interface StationItem {
 
 export interface Review {
   id: string;
+  productId: string; // ✅ Added for backend compatibility
   userId: string;
   userName: string;
+  userAvatar?: string; // ✅ Added from backend user data
   avatarColor?: string;
   rating: number;
   comment: string;
-  date: string;
-  likes: number;
+  createdAt: string; // ✅ Renamed from date for backend compatibility
+  likes?: number; // Optional for future feature
 }
 
 export interface JobPosting {

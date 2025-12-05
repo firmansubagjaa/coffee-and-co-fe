@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchProductById, fetchRelatedProducts } from "../../services/api";
 import { Button } from "../../components/common/Button";
 import { useCartStore } from "../../features/cart/store";
+import { useAddToCart } from "@/api";  // ✅ Backend cart hook
 import { useFavoritesStore } from "../../features/favorites/store";
 import { useAuthStore } from "../../features/auth/store";
 import { CURRENCY } from "../../utils/constants";
@@ -86,7 +87,7 @@ const DetailAccordion: React.FC<{
 export const ProductDetailPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const addToCart = useCartStore((state) => state.addToCart);
+  const addToCartMutation = useAddToCart();  // ✅ Backend mutation
   const { isFavorite, toggleFavorite } = useFavoritesStore();
   const { isAuthenticated } = useAuthStore();
   const [quantity, setQuantity] = useState(1);
@@ -186,19 +187,29 @@ export const ProductDetailPage: React.FC = () => {
       return;
     }
 
-    // Logic to pass selected variants to cart would go here
-    // For now adding basic product
-    for (let i = 0; i < quantity; i++) {
-      addToCart(product);
-    }
+    // ✅ Use backend mutation
+    addToCartMutation.mutate(
+      {
+        productId: product.id,
+        quantity: quantity,
+      },
+      {
+        onSuccess: () => {
+          let desc = `${quantity}x ${product.name}`;
+          if (selectedSize) desc += ` (${selectedSize})`;
+          if (selectedGrind) desc += ` - ${selectedGrind}`;
 
-    let desc = `${quantity}x ${product.name}`;
-    if (selectedSize) desc += ` (${selectedSize})`;
-    if (selectedGrind) desc += ` - ${selectedGrind}`;
-
-    toast.success(t("product.addedToCart"), {
-      description: t("product.addedToCartDesc", { desc }),
-    });
+          toast.success(t("product.addedToCart"), {
+            description: t("product.addedToCartDesc", { desc }),
+          });
+        },
+        onError: (error) => {
+          toast.error("Failed to add to cart", {
+            description: error instanceof Error ? error.message : "Please try again.",
+          });
+        },
+      }
+    );
   };
 
   const handleToggleFavorite = () => {
@@ -532,7 +543,7 @@ export const ProductDetailPage: React.FC = () => {
         </div>
 
         {/* Review Section (New Integration) */}
-        <ReviewSection />
+        <ReviewSection productId={product.id} />
 
         {/* Recommendations */}
         {relatedProducts && relatedProducts.length > 0 && (

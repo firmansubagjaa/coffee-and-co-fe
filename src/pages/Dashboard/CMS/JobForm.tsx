@@ -17,14 +17,17 @@ import {
 } from "../../../components/ui/select";
 import { motion } from "framer-motion";
 import { useLanguage } from "../../../contexts/LanguageContext";
-import { Job } from "../../../data/mockJobs";
+import { Job } from "../../../api/cms.api";
+import { useCreateJob, useUpdateJob } from "../../../api/cms.hooks";
+import { Textarea } from "../../../components/ui/textarea";
 
 const jobSchema = z.object({
   title: z.string().min(2, "Title is required"),
+  description: z.string().min(10, "Description must be at least 10 characters"),
   department: z.string().min(2, "Department is required"),
   location: z.string().min(2, "Location is required"),
   type: z.enum(["Full-time", "Part-time", "Contract"]),
-  status: z.enum(["Active", "Closed"]),
+  status: z.enum(["active", "closed"]),
 });
 
 type JobFormValues = z.infer<typeof jobSchema>;
@@ -36,44 +39,69 @@ export const JobForm: React.FC = () => {
   const { t } = useLanguage();
   const isEditing = !!id;
 
+  const createJob = useCreateJob();
+  const updateJob = useUpdateJob();
+
   const {
     register,
     handleSubmit,
     control,
     setValue,
-    formState: { errors, isSubmitting },
+    formState: { errors },
   } = useForm<JobFormValues>({
     resolver: zodResolver(jobSchema),
     defaultValues: {
       title: "",
+      description: "",
       department: "",
       location: "",
       type: "Full-time",
-      status: "Active",
+      status: "active",
     },
   });
 
   useEffect(() => {
     if (isEditing && jobState) {
       setValue("title", jobState.title);
+      setValue("description", jobState.description);
       setValue("department", jobState.department);
       setValue("location", jobState.location);
-      setValue("type", jobState.type);
-      setValue("status", jobState.status);
+      setValue("type", jobState.type as "Full-time" | "Part-time" | "Contract");
+      // API returns 'active' or 'closed'
+      setValue("status", jobState.status as "active" | "closed");
     }
   }, [isEditing, jobState, setValue]);
 
   const onSubmit = async (data: JobFormValues) => {
-    // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    console.log("Job Data:", data);
-    toast.success(
-      isEditing
-        ? t("dashboard.jobs.toast.updated")
-        : t("dashboard.jobs.toast.posted")
-    );
-    navigate("/dashboard/cms/jobs");
+    try {
+      if (isEditing && id) {
+        await updateJob.mutateAsync({ id, data });
+        toast.success(t("dashboard.jobs.toast.updated"));
+      } else {
+        // Create requires all required fields
+        const createData = {
+          title: data.title,
+          description: data.description,
+          type: data.type,
+          department: data.department,
+          location: data.location,
+          status: data.status,
+        };
+        await createJob.mutateAsync(createData);
+        toast.success(t("dashboard.jobs.toast.posted"));
+      }
+      navigate("/dashboard/cms/jobs");
+    } catch (error) {
+      toast.error(
+        isEditing
+          ? "Failed to update job. Please try again."
+          : "Failed to create job. Please try again."
+      );
+      console.error("Job submission error:", error);
+    }
   };
+
+  const isSubmitting = createJob.isPending || updateJob.isPending;
 
   const containerVariants = {
     hidden: { opacity: 0, y: 20 },
@@ -152,6 +180,22 @@ export const JobForm: React.FC = () => {
           </div>
 
           <div className="space-y-2">
+            <Label htmlFor="description" className="dark:text-coffee-100">
+              Job Description
+            </Label>
+            <Textarea
+              id="description"
+              {...register("description")}
+              placeholder="Enter the job description, responsibilities, and requirements..."
+              rows={6}
+              className="bg-white dark:bg-coffee-800 border-coffee-200 dark:border-coffee-700 text-coffee-900 dark:text-white"
+            />
+            {errors.description && (
+              <p className="text-xs text-error">{errors.description.message}</p>
+            )}
+          </div>
+
+          <div className="space-y-2">
             <Label htmlFor="location" className="dark:text-coffee-100">
               {t("dashboard.jobs.dialog.labels.location")}
             </Label>
@@ -212,8 +256,8 @@ export const JobForm: React.FC = () => {
                       />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="Active">Active</SelectItem>
-                      <SelectItem value="Closed">Closed</SelectItem>
+                      <SelectItem value="active">Active</SelectItem>
+                      <SelectItem value="closed">Closed</SelectItem>
                     </SelectContent>
                   </Select>
                 )}

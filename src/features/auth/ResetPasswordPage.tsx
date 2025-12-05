@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { AuthLayout } from "./components/AuthLayout";
 import { Button } from "../../components/common/Button";
-import { useNavigate } from "react-router-dom";
-import { useAuthStore } from "./store";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import { useResetPassword, getAuthError } from "@/api";
 import { Eye, EyeOff, Lock, AlertCircle } from "lucide-react";
 import { Input } from "../../components/ui/input";
 import { Label } from "../../components/ui/label";
@@ -15,9 +15,12 @@ import { useLanguage } from "../../contexts/LanguageContext";
 
 export const ResetPasswordPage: React.FC = () => {
   const navigate = useNavigate();
-  const { resetPassword, isLoading, resetEmail } = useAuthStore();
+  const [searchParams] = useSearchParams();
+  const resetPasswordMutation = useResetPassword();
   const [showPassword, setShowPassword] = useState(false);
   const { t } = useLanguage();
+
+  const token = searchParams.get("token");
 
   const resetSchema = z
     .object({
@@ -44,17 +47,29 @@ export const ResetPasswordPage: React.FC = () => {
   });
 
   // Protect route
-  if (!resetEmail) {
-    navigate("/forgot-password");
-    return null;
-  }
+  useEffect(() => {
+    if (!token) {
+      navigate("/forgot-password");
+    }
+  }, [token, navigate]);
 
   const onSubmit = async (data: FormValues) => {
-    await resetPassword(data.password);
-    toast.success(t("auth.resetPassword.success.title"), {
-      description: t("auth.resetPassword.success.desc"),
-    });
-    navigate("/login");
+    if (!token) return;
+
+    resetPasswordMutation.mutate(
+      { token, newPassword: data.password },
+      {
+        onSuccess: () => {
+          toast.success(t("auth.resetPassword.success.title"), {
+            description: t("auth.resetPassword.success.desc"),
+          });
+          navigate("/login");
+        },
+        onError: (error) => {
+          toast.error(getAuthError(error) || "Failed to reset password");
+        },
+      }
+    );
   };
 
   return (
@@ -127,10 +142,10 @@ export const ResetPasswordPage: React.FC = () => {
           fullWidth
           size="lg"
           type="submit"
-          disabled={isLoading}
+          disabled={resetPasswordMutation.isPending}
           className="!rounded-xl h-12 mt-4 font-bold"
         >
-          {isLoading
+          {resetPasswordMutation.isPending
             ? t("auth.resetPassword.submitting")
             : t("auth.resetPassword.submit")}
         </Button>

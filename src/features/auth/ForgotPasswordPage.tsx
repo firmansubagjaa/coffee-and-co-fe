@@ -2,7 +2,7 @@ import React from "react";
 import { AuthLayout } from "./components/AuthLayout";
 import { Button } from "../../components/common/Button";
 import { Link, useNavigate } from "react-router-dom";
-import { useAuthStore } from "./store";
+import { useForgotPassword, getAuthError } from "@/api";
 import { ArrowLeft, Mail, AlertCircle } from "lucide-react";
 import { Input } from "../../components/ui/input";
 import { Label } from "../../components/ui/label";
@@ -15,8 +15,7 @@ import { useLanguage } from "../../contexts/LanguageContext";
 
 export const ForgotPasswordPage: React.FC = () => {
   const navigate = useNavigate();
-  const requestReset = useAuthStore((state) => state.requestPasswordReset);
-  const isLoading = useAuthStore((state) => state.isLoading);
+  const forgotPasswordMutation = useForgotPassword();
   const { t } = useLanguage();
 
   const forgotPasswordSchema = z.object({
@@ -37,17 +36,19 @@ export const ForgotPasswordPage: React.FC = () => {
   });
 
   const onSubmit = async (data: FormValues) => {
-    try {
-      await requestReset(data.email);
-      // UX Best Practice: Always show success even if email doesn't exist to prevent enumeration
-      toast.success(t("auth.forgotPassword.success.title"), {
-        description: t("auth.forgotPassword.success.desc"),
-      });
-      // Navigate to ForgotPasswordOtp with email and type
-      navigate(`/forgot-password-otp?email=${encodeURIComponent(data.email)}`);
-    } catch (error) {
-      toast.error(t("auth.forgotPassword.error"));
-    }
+    forgotPasswordMutation.mutate(data.email, {
+      onSuccess: () => {
+        // UX Best Practice: Always show success even if email doesn't exist to prevent enumeration
+        toast.success(t("auth.forgotPassword.success.title"), {
+          description: t("auth.forgotPassword.success.desc"),
+        });
+        // Navigate to ForgotPasswordOtp with email and type
+        navigate(`/forgot-password-otp?email=${encodeURIComponent(data.email)}`);
+      },
+      onError: (error) => {
+        toast.error(getAuthError(error) || t("auth.forgotPassword.error"));
+      },
+    });
   };
 
   return (
@@ -86,10 +87,10 @@ export const ForgotPasswordPage: React.FC = () => {
           fullWidth
           size="lg"
           type="submit"
-          disabled={isLoading}
+          disabled={forgotPasswordMutation.isPending}
           className="!rounded-xl h-12 mt-4 font-bold"
         >
-          {isLoading
+          {forgotPasswordMutation.isPending
             ? t("auth.forgotPassword.submitting")
             : t("auth.forgotPassword.submit")}
         </Button>

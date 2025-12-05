@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { AuthLayout } from "./components/AuthLayout";
 import { Button } from "../../components/common/Button";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import { useAuthStore } from "./store";
+import { useLogin, getAuthError } from "@/api";
 import {
   Eye,
   EyeOff,
@@ -16,44 +16,52 @@ import { Label } from "../../components/ui/label";
 import { useForm } from "react-hook-form";
 import { Alert, AlertDescription, AlertTitle } from "../../components/ui/alert";
 import { useLanguage } from "../../contexts/LanguageContext";
-
 import { SEO } from "@/components/common/SEO";
+
+interface LoginFormData {
+  email: string;
+  password: string;
+}
 
 export const LoginPage: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const login = useAuthStore((state) => state.login);
+  const loginMutation = useLogin();
 
   // Get the intended destination from ProtectedRoute or default to home
   const from = location.state?.from?.pathname || "/";
-  const isLoading = useAuthStore((state) => state.isLoading);
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const { t } = useLanguage();
 
   // Form Hooks
-  const { register, handleSubmit } = useForm({
+  const { register, handleSubmit } = useForm<LoginFormData>({
     defaultValues: {
       email: "",
       password: "",
     },
   });
 
-  const onSubmit = async (data: any) => {
+  const onSubmit = async (data: LoginFormData) => {
     // Manual validation for Alert
     if (!data.email || !data.password) {
       setError(t("auth.login.error.missingFields"));
-      return; // Prevent login
+      return;
     }
     setError(null);
 
-    try {
-      await login(data.email);
-      navigate(from, { replace: true });
-    } catch (error) {
-      console.error("Login failed", error);
-      setError(t("auth.login.error.generic"));
-    }
+    loginMutation.mutate(
+      { email: data.email, password: data.password },
+      {
+        onSuccess: () => {
+          navigate(from, { replace: true });
+        },
+        onError: (error) => {
+          console.error("Login failed", error);
+          setError(getAuthError(error) || t("auth.login.error.generic"));
+        },
+      }
+    );
   };
 
   return (
@@ -126,10 +134,10 @@ export const LoginPage: React.FC = () => {
           fullWidth
           size="lg"
           type="submit"
-          disabled={isLoading}
+          disabled={loginMutation.isPending}
           className="!rounded-xl h-12 mt-4 font-bold"
         >
-          {isLoading ? t("auth.login.submitting") : t("auth.login.submit")}
+          {loginMutation.isPending ? t("auth.login.submitting") : t("auth.login.submit")}
         </Button>
 
         {/* Divider */}

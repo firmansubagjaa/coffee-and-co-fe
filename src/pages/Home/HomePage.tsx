@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { SEO } from "@/components/common/SEO";
 import { Hero } from "./Hero";
 import { ProductCard } from "../../features/products/ProductCard";
+import { EmptyProducts } from "@/components/common/EmptyState";
 import { useQuery } from "@tanstack/react-query";
 import { fetchProducts } from "../../services/api";
 import { Button } from "../../components/common/Button";
@@ -142,27 +143,33 @@ export const HomePage: React.FC = () => {
             onMouseEnter={() => setIsPaused(true)}
             onMouseLeave={() => setIsPaused(false)}
           >
-            <div
-              ref={scrollRef}
-              className="flex gap-8 overflow-x-auto snap-x snap-mandatory pb-16 pt-8 px-1 scrollbar-none [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none']"
-            >
-              {featured.map((product) => (
-                <motion.div
-                  key={product.id}
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true, margin: "-50px" }}
-                  transition={{ duration: 0.5 }}
-                  className="snap-center shrink-0 w-[85vw] sm:w-[45vw] md:w-[calc(50%-16px)] lg:w-[calc(33.333%-22px)]"
+            {featured.length > 0 ? (
+              <>
+                <div
+                  ref={scrollRef}
+                  className="flex gap-8 overflow-x-auto snap-x snap-mandatory pb-16 pt-8 px-1 scrollbar-none [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none']"
                 >
-                  <ProductCard product={product} />
-                </motion.div>
-              ))}
-            </div>
+                  {featured.map((product) => (
+                    <motion.div
+                      key={product.id}
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      whileInView={{ opacity: 1, scale: 1 }}
+                      viewport={{ once: true, margin: "-50px" }}
+                      transition={{ duration: 0.5 }}
+                      className="snap-center shrink-0 w-[85vw] sm:w-[45vw] md:w-[calc(50%-16px)] lg:w-[calc(33.333%-22px)]"
+                    >
+                      <ProductCard product={product} />
+                    </motion.div>
+                  ))}
+                </div>
 
-            {/* Fade Gradients for visual cue */}
-            <div className="absolute top-0 bottom-16 left-0 w-12 md:w-24 bg-gradient-to-r from-white dark:from-coffee-950 to-transparent pointer-events-none z-10"></div>
-            <div className="absolute top-0 bottom-16 right-0 w-12 md:w-24 bg-gradient-to-l from-white dark:from-coffee-950 to-transparent pointer-events-none z-10"></div>
+                {/* Fade Gradients for visual cue */}
+                <div className="absolute top-0 bottom-16 left-0 w-12 md:w-24 bg-gradient-to-r from-white dark:from-coffee-950 to-transparent pointer-events-none z-10"></div>
+                <div className="absolute top-0 bottom-16 right-0 w-12 md:w-24 bg-gradient-to-l from-white dark:from-coffee-950 to-transparent pointer-events-none z-10"></div>
+              </>
+            ) : (
+              <EmptyProducts size="sm" className="min-h-[300px]" />
+            )}
           </div>
 
           <div className="mt-8 text-center sm:hidden">

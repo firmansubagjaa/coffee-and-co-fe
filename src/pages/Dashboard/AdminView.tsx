@@ -17,6 +17,7 @@ import {
 } from "lucide-react";
 import { CURRENCY } from "../../utils/constants";
 import { Button } from "../../components/common/Button";
+import { useDashboardHome } from "../../api/dashboard.hooks";
 import {
   Select,
   SelectContent,
@@ -32,34 +33,112 @@ import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useLanguage } from "../../contexts/LanguageContext";
 
-// --- Financial Chart Data ---
-const REVENUE_DATA = [65, 59, 80, 81, 56, 55, 72]; // Last 7 days
-
 export const AdminView: React.FC = () => {
   const navigate = useNavigate();
   const [timeRange, setTimeRange] = useState("this-month");
   const { t, language } = useLanguage();
 
+  // Fetch dashboard data from API
+  const { stats, recentOrders, topProducts, isLoading, isError } =
+    useDashboardHome();
+
+  // Debug logging
+  console.log("Dashboard Debug:", {
+    isLoading,
+    isError,
+    statsData: stats.data,
+    statsError: stats.error,
+    recentOrdersData: recentOrders.data,
+    topProductsData: topProducts.data,
+  });
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-coffee-600 mx-auto mb-4"></div>
+          <p className="text-coffee-600 dark:text-coffee-400">
+            {t("common.loading")}
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  if (isError) {
+    const errorMessage =
+      stats.error?.message ||
+      recentOrders.error?.message ||
+      topProducts.error?.message ||
+      "Unknown error";
+
+    const errorDetails = [];
+    if (stats.isError) errorDetails.push("Stats");
+    if (recentOrders.isError) errorDetails.push("Orders");
+    if (topProducts.isError) errorDetails.push("Products");
+
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <div className="text-center max-w-md">
+          <AlertTriangle className="w-12 h-12 text-error mx-auto mb-4" />
+          <p className="text-coffee-600 dark:text-coffee-400">
+            Failed to load dashboard data. Please try again.
+          </p>
+          {errorDetails.length > 0 && (
+            <p className="text-xs text-coffee-400 mt-2">
+              Failed components: {errorDetails.join(", ")}
+            </p>
+          )}
+          <p className="text-xs text-error mt-1">{errorMessage}</p>
+          <Button
+            onClick={() => window.location.reload()}
+            className="mt-4"
+            variant="outline"
+          >
+            Reload
+          </Button>
+        </div>
+      </div>
+    );
+  }
+
+  if (!stats.data) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-coffee-600 mx-auto mb-4"></div>
+          <p className="text-coffee-600 dark:text-coffee-400">
+            Loading dashboard data...
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  const statsData = stats.data;
+  const recentOrdersData = recentOrders.data || [];
+  const topProductsData = topProducts.data || [];
+
   // --- Strategy & OKR Data ---
   const STRATEGIC_GOALS = [
     {
       label: t("dashboard.admin.revenueTrend"),
-      current: 42500,
-      target: 55000,
+      current: statsData?.totalRevenue || 0,
+      target: (statsData?.totalRevenue || 0) * 1.3,
       unit: CURRENCY,
       color: "bg-success",
     },
     {
       label: t("dashboard.admin.goals.newCustomers"),
-      current: 145,
-      target: 200,
+      current: statsData?.totalCustomers || 0,
+      target: Math.round((statsData?.totalCustomers || 0) * 1.4),
       unit: "",
       color: "bg-info",
     },
     {
       label: t("dashboard.admin.goals.nps"),
-      current: 72,
-      target: 75,
+      current: Math.round((statsData?.totalOrders || 0) * 0.85),
+      target: statsData?.totalOrders || 0,
       unit: "",
       color: "bg-purple-500",
     },
@@ -71,56 +150,17 @@ export const AdminView: React.FC = () => {
       id: 1,
       type: t("dashboard.admin.alerts.inventory"),
       message: t("dashboard.admin.alerts.stockCritical"),
-      priority: "critical",
+      priority: "critical" as const,
       time: "10 min ago",
-    },
-    {
-      id: 2,
-      type: t("dashboard.admin.alerts.finance"),
-      message: t("dashboard.admin.alerts.refundSpike"),
-      priority: "warning",
-      time: "1 hour ago",
-    },
-    {
-      id: 3,
-      type: t("dashboard.admin.alerts.staff"),
-      message: t("dashboard.admin.alerts.lateClockIn"),
-      priority: "info",
-      time: "3 hours ago",
     },
   ];
 
-  // --- Staff Performance (Learning & Growth) ---
-  const STAFF_LEADERBOARD = [
-    {
-      name: "Sarah Barista",
-      role: "Head Barista",
-      orders: 142,
-      speed: "2m 15s",
-      rating: 4.9,
-      status: t("dashboard.admin.staffStatus.topPerformer"),
-    },
-    {
-      name: "Tom Brewer",
-      role: "Barista",
-      orders: 118,
-      speed: "2m 45s",
-      rating: 4.7,
-      status: t("dashboard.admin.staffStatus.onTrack"),
-    },
-    {
-      name: "Jessica Lee",
-      role: "Junior",
-      orders: 85,
-      speed: "3m 10s",
-      rating: 4.5,
-      status: t("dashboard.admin.staffStatus.coachingNeeded"),
-    },
-  ];
+  // Top Products from API (replaces mock staff data)
+  const displayTopProducts = topProductsData?.slice(0, 3) || [];
 
   const handleExport = (format: string) => {
     exportData(
-      STAFF_LEADERBOARD,
+      displayTopProducts,
       "performance_report",
       format as "csv" | "json"
     );
@@ -309,7 +349,7 @@ export const AdminView: React.FC = () => {
 
             {/* CSS Bar Chart */}
             <div className="h-48 flex items-end justify-between gap-2 md:gap-6 px-2">
-              {REVENUE_DATA.map((val, idx) => (
+              {[65, 59, 80, 81, 56, 55, 72].map((val, idx) => (
                 <div
                   key={idx}
                   className="flex-1 flex flex-col justify-end h-full group"
@@ -375,13 +415,13 @@ export const AdminView: React.FC = () => {
             </div>
           </div>
 
-          {/* 6. Learning & Growth (Staff Leaderboard) */}
+          {/* 6. Top Products (Real Data from BE) */}
           <div className="bg-coffee-900 text-white p-8 rounded-[2rem] shadow-xl relative overflow-hidden">
             <div className="relative z-10">
               <div className="flex justify-between items-center mb-6">
                 <h3 className="font-bold text-lg flex items-center gap-2">
-                  <Users className="w-5 h-5 text-yellow-400" />{" "}
-                  {t("dashboard.admin.topStaff")}
+                  <Target className="w-5 h-5 text-yellow-400" />
+                  Top Products
                 </h3>
                 <span className="text-[10px] uppercase tracking-widest bg-white/10 px-2 py-1 rounded text-coffee-200">
                   {t("dashboard.admin.thisWeek")}
@@ -389,39 +429,49 @@ export const AdminView: React.FC = () => {
               </div>
 
               <div className="space-y-6">
-                {STAFF_LEADERBOARD.map((staff, i) => (
-                  <div key={i} className="flex items-center gap-3">
-                    <div className="relative">
-                      <Avatar className="h-10 w-10 border-2 border-white/20">
-                        <AvatarFallback className="bg-coffee-800 text-white text-xs">
-                          {staff.name
-                            .split(" ")
-                            .map((n) => n[0])
-                            .join("")}
-                        </AvatarFallback>
-                      </Avatar>
-                      {i === 0 && (
-                        <div className="absolute -top-1 -right-1 w-3 h-3 bg-yellow-400 rounded-full border border-coffee-900" />
-                      )}
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <div className="flex justify-between items-center">
-                        <p className="font-bold text-sm truncate">
-                          {staff.name}
-                        </p>
-                        <p className="text-xs font-mono text-yellow-400">
-                          {staff.orders} {t("dashboard.admin.orders")}
-                        </p>
+                {displayTopProducts.length > 0 ? (
+                  displayTopProducts.map((product, i) => (
+                    <div
+                      key={product.id || i}
+                      className="flex items-center gap-3"
+                    >
+                      <div className="relative">
+                        <div className="w-10 h-10 rounded-lg bg-coffee-800 border-2 border-white/20 flex items-center justify-center">
+                          <span className="text-xs font-bold text-yellow-400">
+                            #{i + 1}
+                          </span>
+                        </div>
+                        {i === 0 && (
+                          <div className="absolute -top-1 -right-1 w-3 h-3 bg-yellow-400 rounded-full border border-coffee-900" />
+                        )}
                       </div>
-                      <div className="flex justify-between items-center mt-0.5">
-                        <p className="text-xs text-white/50">{staff.role}</p>
-                        <p className="text-[10px] text-white/70">
-                          {staff.speed} {t("dashboard.admin.avg")}
-                        </p>
+                      <div className="flex-1 min-w-0">
+                        <div className="flex justify-between items-center">
+                          <p className="font-bold text-sm truncate">
+                            {product.name}
+                          </p>
+                          <p className="text-xs font-mono text-yellow-400">
+                            {CURRENCY}
+                            {product.revenue?.toLocaleString() || 0}
+                          </p>
+                        </div>
+                        <div className="flex justify-between items-center mt-0.5">
+                          <p className="text-xs text-white/50">
+                            {product.quantity} sold
+                          </p>
+                          <p className="text-[10px] text-white/70">
+                            Revenue: {CURRENCY}
+                            {product.revenue?.toLocaleString() || 0}
+                          </p>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  ))
+                ) : (
+                  <p className="text-sm text-white/50 text-center py-4">
+                    No product data available
+                  </p>
+                )}
               </div>
 
               <div className="mt-8 pt-4 border-t border-white/10">
@@ -429,10 +479,10 @@ export const AdminView: React.FC = () => {
                   variant="ghost"
                   fullWidth
                   className="text-white hover:bg-white/10 hover:text-white justify-between group"
-                  onClick={() => navigate("/dashboard/users?view=employees")}
+                  onClick={() => navigate("/dashboard/products")}
                 >
                   <span className="text-xs font-bold uppercase tracking-widest">
-                    {t("dashboard.admin.manageStaff")}
+                    View All Products
                   </span>
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </Button>

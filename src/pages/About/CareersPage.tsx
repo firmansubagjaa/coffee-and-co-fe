@@ -1,48 +1,28 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Coffee, Heart, Zap, ChevronDown, MapPin, Clock } from "lucide-react";
+import {
+  Coffee,
+  Heart,
+  Zap,
+  ChevronDown,
+  MapPin,
+  Clock,
+  AlertTriangle,
+} from "lucide-react";
 import { Button } from "../../components/common/Button";
 import { useNavigate } from "react-router-dom";
 import { useLanguage } from "../../contexts/LanguageContext";
+import { useActiveJobs } from "../../api/cms.hooks";
 
 interface JobPosition {
   id: string;
-  titleKey: string;
-  descKey: string;
+  title: string;
+  description: string;
   location: string;
-  typeKey: string;
+  type: string;
+  department?: string;
+  requirements?: string[];
 }
-
-const JOBS: JobPosition[] = [
-  {
-    id: "1",
-    titleKey: "about.careers.jobs.barista.title",
-    descKey: "about.careers.jobs.barista.desc",
-    location: "Jakarta, Senopati",
-    typeKey: "about.careers.types.fullTime",
-  },
-  {
-    id: "2",
-    titleKey: "about.careers.jobs.manager.title",
-    descKey: "about.careers.jobs.manager.desc",
-    location: "Bali, Canggu",
-    typeKey: "about.careers.types.fullTime",
-  },
-  {
-    id: "3",
-    titleKey: "about.careers.jobs.roaster.title",
-    descKey: "about.careers.jobs.roaster.desc",
-    location: "Bandung, Braga",
-    typeKey: "about.careers.types.fullTime",
-  },
-  {
-    id: "4",
-    titleKey: "about.careers.jobs.marketing.title",
-    descKey: "about.careers.jobs.marketing.desc",
-    location: "Remote / Jakarta",
-    typeKey: "about.careers.types.partTime",
-  },
-];
 
 const JobAccordion: React.FC<{ job: JobPosition }> = ({ job }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -53,7 +33,7 @@ const JobAccordion: React.FC<{ job: JobPosition }> = ({ job }) => {
     navigate(`/about/careers/${job.id}/apply`, {
       state: {
         jobId: job.id,
-        jobTitle: t(job.titleKey as any),
+        jobTitle: job.title,
       },
     });
   };
@@ -66,14 +46,14 @@ const JobAccordion: React.FC<{ job: JobPosition }> = ({ job }) => {
       >
         <div>
           <h3 className="text-2xl font-bold text-coffee-900 dark:text-white mb-2 group-hover:text-coffee-700 dark:group-hover:text-coffee-300 transition-colors">
-            {t(job.titleKey as any)}
+            {job.title}
           </h3>
           <div className="flex gap-4 text-sm font-medium text-coffee-500 dark:text-coffee-400">
             <span className="flex items-center gap-1.5 bg-coffee-50 dark:bg-coffee-800 px-3 py-1 rounded-full">
               <MapPin className="w-3.5 h-3.5" /> {job.location}
             </span>
             <span className="flex items-center gap-1.5 bg-coffee-50 dark:bg-coffee-800 px-3 py-1 rounded-full">
-              <Clock className="w-3.5 h-3.5" /> {t(job.typeKey as any)}
+              <Clock className="w-3.5 h-3.5" /> {job.type}
             </span>
           </div>
         </div>
@@ -95,10 +75,12 @@ const JobAccordion: React.FC<{ job: JobPosition }> = ({ job }) => {
             exit={{ height: 0, opacity: 0 }}
           >
             <div className="px-8 pb-8 pt-6 text-coffee-600 dark:text-coffee-300 border-t border-coffee-100 dark:border-coffee-800 mt-2">
-              <p className="mb-8 leading-relaxed text-lg">
-                {t(job.descKey as any)}
-              </p>
-              <Button size="lg" className="shadow-lg hover:shadow-xl" onClick={handleApply}>
+              <p className="mb-8 leading-relaxed text-lg">{job.description}</p>
+              <Button
+                size="lg"
+                className="shadow-lg hover:shadow-xl"
+                onClick={handleApply}
+              >
                 {t("about.careers.openings.apply")}
               </Button>
             </div>
@@ -113,6 +95,10 @@ import { SEO } from "@/components/common/SEO";
 
 export const CareersPage: React.FC = () => {
   const { t } = useLanguage();
+
+  // Fetch active jobs from API
+  const { data: jobsData, isLoading, error } = useActiveJobs();
+  const jobs = jobsData || [];
 
   return (
     <div className="min-h-screen bg-cream-50 dark:bg-coffee-950 pt-6">
@@ -202,7 +188,7 @@ export const CareersPage: React.FC = () => {
 
       {/* Open Positions */}
       <section className="py-20 container mx-auto px-4 md:px-8 max-w-4xl">
-        <div className="mb-12">
+        <div className="mb-12 text-center">
           <h2 className="text-3xl md:text-4xl font-serif font-bold text-coffee-900 dark:text-white mb-4">
             {t("about.careers.openings.title")}
           </h2>
@@ -212,9 +198,29 @@ export const CareersPage: React.FC = () => {
         </div>
 
         <div className="space-y-4">
-          {JOBS.map((job) => (
-            <JobAccordion key={job.id} job={job} />
-          ))}
+          {isLoading ? (
+            <div className="text-center py-12">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-coffee-600 mx-auto mb-4"></div>
+              <p className="text-coffee-600 dark:text-coffee-400">
+                {t("common.loading")}
+              </p>
+            </div>
+          ) : error ? (
+            <div className="text-center py-12">
+              <AlertTriangle className="w-12 h-12 text-error mx-auto mb-4" />
+              <p className="text-coffee-600 dark:text-coffee-400">
+                {t("common.error.loadFailed")}
+              </p>
+            </div>
+          ) : jobs.length > 0 ? (
+            jobs.map((job) => <JobAccordion key={job.id} job={job} />)
+          ) : (
+            <div className="text-center py-12">
+              <p className="text-coffee-600 dark:text-coffee-400 text-lg">
+                No job openings at the moment. Please check back later!
+              </p>
+            </div>
+          )}
         </div>
 
         <div className="mt-12 text-center p-8 bg-coffee-50 dark:bg-coffee-900 rounded-3xl border border-coffee-100 dark:border-coffee-800">

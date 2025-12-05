@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useCartStore } from "../../../features/cart/store";
+import { useProfile } from "@/api";
 import { Button } from "../../../components/common/Button";
 import { Input } from "../../../components/ui/input";
 import { Label } from "../../../components/ui/label";
@@ -18,6 +19,7 @@ interface DetailsStepProps {
 export const DetailsStep: React.FC<DetailsStepProps> = ({ onNext, onBack }) => {
   const { t } = useLanguage();
   const { setCheckoutDetails, checkoutDetails } = useCartStore();
+  const { data: userProfile, isLoading: isLoadingProfile } = useProfile();
 
   const checkoutSchema = z.object({
     fullName: z.string().min(2, t("checkout.validation.nameShort")),
@@ -30,17 +32,31 @@ export const DetailsStep: React.FC<DetailsStepProps> = ({ onNext, onBack }) => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<CheckoutDetails>({
     resolver: zodResolver(checkoutSchema),
     defaultValues: checkoutDetails || {
-      fullName: "Anna Kitchg",
-      mobile: "+49 301234567",
-      email: "annakitch@gmail.com",
-      address: "Berlin, Lindenstrabe 27, 39112",
+      fullName: "",
+      mobile: "",
+      email: "",
+      address: "",
       deliveryNote: "",
     },
   });
+
+  // Auto-fill form with user profile data when loaded
+  useEffect(() => {
+    if (userProfile && !checkoutDetails) {
+      reset({
+        fullName: userProfile.name || "", // User.name -> CheckoutDetails.fullName
+        mobile: userProfile.mobile || "",
+        email: userProfile.email || "",
+        address: userProfile.address || "", // Auto-fill from user profile
+        deliveryNote: "",
+      });
+    }
+  }, [userProfile, checkoutDetails]); // Remove reset from dependencies
 
   const onSubmit = (data: CheckoutDetails) => {
     setCheckoutDetails(data);

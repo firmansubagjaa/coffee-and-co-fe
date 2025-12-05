@@ -13,51 +13,20 @@ import { toast } from "sonner";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useProductReviews, useCreateReview, useUpdateReview, useDeleteReview } from '@/api';
+import { Pencil, Trash2, ChevronLeft, ChevronRight } from "lucide-react";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "../../components/ui/alert-dialog";
 
-// Types
-interface Review {
-  id: string;
-  userId: string;
-  userName: string;
-  avatarColor?: string;
-  rating: number;
-  comment: string;
-  date: string;
-  likes: number;
-}
-
-const MOCK_REVIEWS: Review[] = [
-  {
-    id: "1",
-    userId: "u1",
-    userName: "Alice Johnson",
-    avatarColor: "795548",
-    rating: 5,
-    comment: "Absolutely delicious! The roast is perfect.",
-    date: "2 days ago",
-    likes: 12,
-  },
-  {
-    id: "2",
-    userId: "u2",
-    userName: "Mark D.",
-    avatarColor: "1e40af",
-    rating: 4,
-    comment: "Great taste, but took a bit long to arrive.",
-    date: "1 week ago",
-    likes: 3,
-  },
-  {
-    id: "3",
-    userId: "u3",
-    userName: "Sarah Lee",
-    avatarColor: "166534",
-    rating: 5,
-    comment: "My daily driver. Can't start the morning without it.",
-    date: "2 weeks ago",
-    likes: 8,
-  },
-];
+// Types - using global Review from types.ts
 
 const reviewSchema = z.object({
   comment: z.string().min(3, "Review must be at least 3 characters"),
@@ -66,10 +35,25 @@ const reviewSchema = z.object({
 
 type ReviewFormValues = z.infer<typeof reviewSchema>;
 
-export const ReviewSection: React.FC = () => {
+interface ReviewSectionProps {
+  productId: string;  // ✅ Need productId from parent
+}
+
+export const ReviewSection: React.FC<ReviewSectionProps> = ({ productId }) => {
   const { user, isAuthenticated } = useAuthStore();
-  const [reviews, setReviews] = useState<Review[]>(MOCK_REVIEWS);
   const [isWriting, setIsWriting] = useState(false);
+  const [deletingReviewId, setDeletingReviewId] = useState<string | null>(null);
+  
+  // ✅ Backend integration
+  const [page, setPage] = useState(1);
+  const LIMIT = 5;
+  const [editingReviewId, setEditingReviewId] = useState<string | null>(null);
+  
+  // ✅ Backend integration with pagination
+  const { data: reviews = [], isLoading, isPlaceholderData } = useProductReviews(productId, page, LIMIT);
+  const createReviewMutation = useCreateReview();
+  const updateReviewMutation = useUpdateReview();
+  const deleteReviewMutation = useDeleteReview();
 
   // Form Hook
   const {
@@ -86,24 +70,60 @@ export const ReviewSection: React.FC = () => {
 
   const currentRating = watch("rating");
 
-  const onSubmit = (data: ReviewFormValues) => {
+  const onSubmit = async (data: ReviewFormValues) => {
     if (!user) return;
 
-    const newReview: Review = {
-      id: Math.random().toString(36).substr(2, 9),
-      userId: user.id,
-      userName: user.name,
-      avatarColor: user.avatarColor,
-      rating: data.rating,
-      comment: data.comment,
-      date: "Just now",
-      likes: 0,
-    };
+    try {
+      if (editingReviewId) {
+        await updateReviewMutation.mutateAsync({
+          reviewId: editingReviewId,
+          data: {
+            rating: data.rating,
+            comment: data.comment || '',
+          },
+        });
+        toast.success("Review updated!");
+        setEditingReviewId(null);
+      } else {
+        await createReviewMutation.mutateAsync({
+          productId,
+          rating: data.rating,
+          comment: data.comment || '',
+        });
+        toast.success("Review posted!");
+      }
+      
+      setIsWriting(false);
+      reset();
+    } catch (error) {
+      console.error("Submit review error:", error);
+      toast.error("Failed to save review. Please try again.");
+    }
+  };
 
-    setReviews([newReview, ...reviews]);
-    setIsWriting(false);
-    reset();
-    toast.success("Review posted!");
+  const handleDeleteClick = (reviewId: string) => {
+    setDeletingReviewId(reviewId);
+  };
+
+  const handleConfirmDelete = async () => {
+    if (!deletingReviewId) return;
+    
+    try {
+      await deleteReviewMutation.mutateAsync(deletingReviewId);
+      setDeletingReviewId(null);
+    } catch (error) {
+      console.error("Delete review error:", error);
+      toast.error("Failed to delete review");
+    }
+  };
+
+  const handleEdit = (review: any) => {
+    setEditingReviewId(review.id);
+    setValue("rating", review.rating);
+    setValue("comment", review.comment);
+    setIsWriting(true);
+    // Scroll to form
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handleWriteClick = () => {
@@ -157,7 +177,7 @@ export const ReviewSection: React.FC = () => {
             onClick={handleWriteClick}
             variant={isWriting ? "ghost" : "primary"}
           >
-            {isWriting ? "Cancel Review" : "Write a Review"}
+            {isWriting ? "Cancel" : "Write a Review"}
           </Button>
         </div>
       </div>
@@ -215,8 +235,8 @@ export const ReviewSection: React.FC = () => {
               </div>
 
               <div className="flex justify-end">
-                <Button type="submit" className="gap-2">
-                  Post Review <Send className="w-4 h-4" />
+                <Button type="submit" className="gap-2" disabled={createReviewMutation.isPending || updateReviewMutation.isPending}>
+                  {editingReviewId ? "Update Review" : "Post Review"} <Send className="w-4 h-4" />
                 </Button>
               </div>
             </div>
@@ -244,7 +264,9 @@ export const ReviewSection: React.FC = () => {
                 <h4 className="font-bold text-coffee-900 dark:text-white">
                   {review.userName}
                 </h4>
-                <span className="text-xs text-coffee-400">{review.date}</span>
+                <span className="text-xs text-coffee-400">
+                  {new Date(review.createdAt).toLocaleDateString()}
+                </span>
               </div>
               <div className="flex gap-0.5 mb-2 text-yellow-500">
                 {[1, 2, 3, 4, 5].map((star) => (
@@ -259,15 +281,74 @@ export const ReviewSection: React.FC = () => {
               <p className="text-coffee-600 dark:text-coffee-300 text-sm leading-relaxed mb-3">
                 {review.comment}
               </p>
-              <div className="flex gap-4">
+              <div className="flex gap-4 items-center">
                 <button className="text-xs font-medium text-coffee-400 hover:text-coffee-700 flex items-center gap-1 transition-colors">
-                  <ThumbsUp className="w-3 h-3" /> Helpful ({review.likes})
+                  <ThumbsUp className="w-3 h-3" /> Helpful ({review.likes || 0})
                 </button>
+                
+                {/* Edit/Delete for Owner */}
+                {user?.id === review.userId && (
+                  <div className="flex gap-2 ml-auto">
+                    <button 
+                      onClick={() => handleEdit(review)}
+                      className="text-xs font-medium text-coffee-600 hover:text-coffee-900 flex items-center gap-1 transition-colors"
+                    >
+                      <Pencil className="w-3 h-3" /> Edit
+                    </button>
+                    <button 
+                      onClick={() => handleDeleteClick(review.id)}
+                      className="text-xs font-medium text-error/70 hover:text-error flex items-center gap-1 transition-colors"
+                    >
+                      <Trash2 className="w-3 h-3" /> Delete
+                    </button>
+                  </div>
+                )}
               </div>
             </div>
           </div>
         ))}
       </div>
+
+      {/* Pagination */}
+      <div className="flex justify-center items-center gap-4 mt-8">
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={() => setPage((p) => Math.max(1, p - 1))}
+          disabled={page === 1 || isLoading}
+        >
+          <ChevronLeft className="w-4 h-4 mr-1" /> Previous
+        </Button>
+        <span className="text-coffee-600 dark:text-coffee-400 font-medium">
+          Page {page}
+        </span>
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={() => setPage((p) => p + 1)}
+          disabled={reviews.length < LIMIT || isPlaceholderData || isLoading}
+        >
+          Next <ChevronRight className="w-4 h-4 ml-1" />
+        </Button>
+      </div>
+
+      {/* Delete Confirmation Dialog */}
+      <AlertDialog open={!!deletingReviewId} onOpenChange={(open) => !open && setDeletingReviewId(null)}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+            <AlertDialogDescription>
+              This action cannot be undone. This will permanently delete your review.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogAction onClick={handleConfirmDelete} className="bg-error hover:bg-error/90">
+              Delete
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 };

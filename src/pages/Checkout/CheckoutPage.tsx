@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCartStore } from "../../features/cart/store";
-import { useOrderStore } from "../../features/orders/store";
+import { useCart, useClearCart, useCreateOrder } from "@/api";
 import { CartStep } from "./steps/CartStep";
 import { DetailsStep } from "./steps/DetailsStep";
 import { PaymentStep } from "./steps/PaymentStep";
@@ -31,8 +31,13 @@ const STEPS = [
 export const CheckoutPage: React.FC = () => {
   const navigate = useNavigate();
   const { t } = useLanguage();
-  const { items, checkoutDetails, total, clearCart } = useCartStore();
-  const { addOrder } = useOrderStore();
+  const { checkoutDetails } = useCartStore();
+  const { data: cart, isLoading } = useCart();
+  const clearCartMutation = useClearCart();
+  const createOrderMutation = useCreateOrder();
+  
+  const items = cart || [];
+  const total = items.reduce((sum, item) => sum + (item.price * item.quantity), 0);
 
   const [currentStep, setCurrentStep] = useState(0);
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod | null>(
@@ -40,13 +45,13 @@ export const CheckoutPage: React.FC = () => {
   );
   const [isProcessing, setIsProcessing] = useState(false);
 
-  // Guard: Redirect to menu if cart is empty
+  // Guard: Redirect to menu if cart is empty (but not while loading)
   useEffect(() => {
-    if (items.length === 0 && currentStep === 0) {
-      toast.error(t("checkout.cartEmpty") || "Your cart is empty");
+    if (!isLoading && items.length === 0 && currentStep === 0) {
+      toast.error("Your cart is empty");
       navigate("/menu");
     }
-  }, [items.length, currentStep, navigate, t]);
+  }, [items.length, currentStep, navigate, isLoading]);
 
   const handleNext = () => {
     setCurrentStep((prev) => Math.min(prev + 1, STEPS.length - 1));
@@ -64,52 +69,47 @@ export const CheckoutPage: React.FC = () => {
   };
 
   const handlePlaceOrder = async () => {
+    if (!checkoutDetails || !paymentMethod) {
+      toast.error("Please complete all checkout steps");
+      return;
+    }
+
     setIsProcessing(true);
 
-    // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-
-    const amount = total();
-    const shippingCost = amount > 30 ? 0 : 5;
-    const grandTotal = amount + shippingCost;
-
-    const newOrder: Order = {
-      id: `#ORD-${Math.floor(Math.random() * 1000000)}`,
-      userId: "1", // Mock User ID
-      items: [...items],
-      total: grandTotal,
-      status: "In process",
-      date: new Date().toISOString(),
-      location: checkoutDetails ? `${checkoutDetails.address}` : "Store Pickup",
-      timeline: [
-        {
-          label: "Order Placed",
-          date: new Date().toLocaleDateString(),
-          status: "completed",
+    try {
+      // Create order via backend API
+      const order = await createOrderMutation.mutateAsync({
+        cartItems: items,
+        details: {
+          paymentMethod,
+          deliveryAddress: checkoutDetails.address,
+          deliveryNote: checkoutDetails.deliveryNote,
         },
-        {
-          label: "Payment Verified",
-          date: new Date().toLocaleDateString(),
-          status: "completed",
+      });
+
+      // Clear cart after successful order
+      clearCartMutation.mutate();
+
+      // Navigate to thank you page with order details
+      navigate("/thank-you", {
+        state: {
+          order: {
+            id: order.id,
+            total: order.total,
+            items: order.items,
+            date: order.date,
+            location: order.location,
+          },
         },
-        { label: "Processing", date: "Expected tomorrow", status: "current" },
-      ],
-    };
+      });
 
-    addOrder(newOrder);
-
-    // Create a summary for the thank you page before clearing cart
-    const orderSummary = {
-      id: newOrder.id,
-      total: grandTotal,
-      items: [...items],
-      date: newOrder.date,
-      location: newOrder.location,
-    };
-
-    clearCart();
-    setIsProcessing(false);
-    navigate("/thank-you", { state: { order: orderSummary } });
+      toast.success("Order placed successfully!");
+    } catch (error: any) {
+      console.error("Order creation failed:", error);
+      toast.error(error.message || "Failed to place order. Please try again.");
+    } finally {
+      setIsProcessing(false);
+    }
   };
 
   const renderStep = () => {

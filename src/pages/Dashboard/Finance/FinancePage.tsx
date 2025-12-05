@@ -9,9 +9,11 @@ import {
   History,
   AlertCircle,
   Download,
+  AlertTriangle,
 } from "lucide-react";
 import { Button } from "../../../components/common/Button";
 import { CURRENCY } from "../../../utils/constants";
+import { useFinanceData } from "../../../api/dashboard.hooks";
 import { Badge } from "../../../components/ui/badge";
 import {
   Select,
@@ -117,13 +119,44 @@ export const FinancePage: React.FC = () => {
   const [activeTab, setActiveTab] = useState<"pnl" | "valuation" | "audit">(
     "pnl"
   );
-  const [multiplier, setMultiplier] = useState<number>(3.0); // SDE Multiplier
+  const [multiplier, setMultiplier] = useState<number>(3.0);
+
+  // Fetch finance data from API
+  const { data: financeData, isLoading, error } = useFinanceData();
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-coffee-600 mx-auto mb-4"></div>
+          <p className="text-coffee-600 dark:text-coffee-400">
+            {t("common.loading")}
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error || !financeData) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <div className="text-center">
+          <AlertTriangle className="w-12 h-12 text-error mx-auto mb-4" />
+          <p className="text-coffee-600 dark:text-coffee-400">
+            {t("common.error.loadFailed")}
+          </p>
+        </div>
+      </div>
+    );
+  }
 
   // --- P&L Calculations ---
-  const totalIncome = MOCK_PNL.filter((i) => i.type === "income").reduce(
-    (sum, i) => sum + i.amount,
-    0
-  );
+  const totalIncome =
+    financeData?.revenue?.total ||
+    MOCK_PNL.filter((i) => i.type === "income").reduce(
+      (sum, i) => sum + i.amount,
+      0
+    );
   const totalCOGS = MOCK_PNL.filter((i) => i.type === "cogs").reduce(
     (sum, i) => sum + i.amount,
     0

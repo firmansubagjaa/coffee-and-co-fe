@@ -1,7 +1,7 @@
 import React, { memo, useCallback } from "react";
 import { Product } from "@/types";
 import { Button } from "../../components/common/Button";
-import { useCartStore } from "../../features/cart/store";
+import { useAddToCart } from "@/api";  // ✅ Backend hook
 import { useFavoritesStore } from "../../features/favorites/store";
 import { useWishlistStore } from "../../features/wishlist/store";
 import { useAuthStore } from "../../features/auth/store";
@@ -26,7 +26,7 @@ interface ProductCardProps {
 export const ProductCard: React.FC<ProductCardProps> = memo(({ product }) => {
   const { t } = useLanguage();
   const navigate = useNavigate();
-  const addToCart = useCartStore((state) => state.addToCart);
+  const addToCartMutation = useAddToCart();  // ✅ Backend mutation
   const { isFavorite, toggleFavorite } = useFavoritesStore();
   const { isInWishlist, toggleWishlist } = useWishlistStore();
   const { isAuthenticated } = useAuthStore();
@@ -51,12 +51,25 @@ export const ProductCard: React.FC<ProductCardProps> = memo(({ product }) => {
         return;
       }
 
-      addToCart(product);
-      toast.success("Added to cart", {
-        description: `${product.name} has been added to your order.`,
-      });
+      // ✅ Use backend mutation
+      addToCartMutation.mutate(
+        {
+          productId: product.id,
+          quantity: 1,
+        },
+        {
+          onSuccess: () => {
+            toast.success(t("product.addedToCart"));
+          },
+          onError: (error: any) => {
+            toast.error(t("common.error"), {
+              description: error.message || "Failed to add item to cart",
+            });
+          },
+        }
+      );
     },
-    [isAuthenticated, navigate, addToCart, product]
+    [addToCartMutation, isAuthenticated, navigate, product.id, t]
   );
 
   const handleToggleFavorite = useCallback(
@@ -113,6 +126,8 @@ export const ProductCard: React.FC<ProductCardProps> = memo(({ product }) => {
     [isAuthenticated, navigate, toggleWishlist, product, inWishlist]
   );
 
+  const isPending = addToCartMutation.isPending;
+
   return (
     <motion.article
       initial={{ opacity: 0, y: 20 }}
@@ -143,8 +158,13 @@ export const ProductCard: React.FC<ProductCardProps> = memo(({ product }) => {
                 size="sm"
                 onClick={handleAddToCart}
                 className="pointer-events-auto shadow-lg bg-white/90 dark:bg-white/90 backdrop-blur-md hover:bg-coffee-900 hover:text-white dark:hover:bg-white dark:hover:text-coffee-900 text-coffee-900 border-none rounded-full px-6 font-bold"
+                disabled={isPending}
               >
-                <Plus className="h-4 w-4 mr-2" aria-hidden="true" />{" "}
+                {isPending ? (
+                  <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                ) : (
+                  <Plus className="h-4 w-4 mr-2" aria-hidden="true" />
+                )}
                 {t("product.addToOrder")}
               </Button>
             </div>
@@ -231,8 +251,13 @@ export const ProductCard: React.FC<ProductCardProps> = memo(({ product }) => {
               onClick={handleAddToCart}
               className="md:hidden p-3 bg-coffee-100 dark:bg-white/10 rounded-full text-coffee-900 dark:text-white active:scale-95 transition-transform hover:bg-coffee-200 dark:hover:bg-white/20"
               aria-label={`Add ${product.name} to cart`}
+              disabled={isPending}
             >
-              <Plus className="h-5 w-5" aria-hidden="true" />
+              {isPending ? (
+                <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+              ) : (
+                <Plus className="h-5 w-5" aria-hidden="true" />
+              )}
             </button>
           </div>
         </Link>

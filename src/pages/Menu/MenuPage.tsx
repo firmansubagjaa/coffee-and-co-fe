@@ -4,6 +4,7 @@ import { SEO } from "@/components/common/SEO";
 import { fetchProducts } from "../../services/api";
 import { ProductCard } from "../../features/products/ProductCard";
 import { ProductCardSkeleton } from "../../features/products/ProductCardSkeleton";
+import { EmptyProducts, NoFilterMatch } from "@/components/common/EmptyState";
 import {
   ChevronDown,
   ChevronUp,
@@ -495,32 +496,18 @@ export const MenuPage: React.FC = () => {
                 ))}
               </div>
             ) : filteredProducts.length === 0 ? (
-              <div className="text-center py-32 bg-white dark:bg-coffee-900 rounded-[2.5rem] border border-coffee-100 dark:border-coffee-800 shadow-sm">
-                <div className="w-24 h-24 bg-coffee-50 dark:bg-coffee-800 rounded-full flex items-center justify-center mx-auto mb-6">
-                  <Coffee
-                    className="w-10 h-10 text-coffee-300 dark:text-coffee-500"
-                    aria-hidden="true"
-                  />
-                </div>
-                <h3 className="text-2xl font-serif font-bold text-coffee-900 dark:text-white mb-2">
-                  {t("menu.empty")}
-                </h3>
-                <p className="text-coffee-500 dark:text-coffee-400 mb-8 max-w-md mx-auto">
-                  We couldn't find any items matching your filters. Try
-                  adjusting your search or clearing filters.
-                </p>
-                <Button
-                  variant="outline"
-                  onClick={() => {
+              // Determine if filters are active
+              selectedCategories.length > 0 || priceRange.length > 0 || searchQuery ? (
+                <NoFilterMatch
+                  onClearFilters={() => {
                     setSelectedCategories([]);
                     setPriceRange([]);
                     setSearchQuery("");
                   }}
-                  className="min-w-[150px]"
-                >
-                  {t("menu.clearFilters")}
-                </Button>
-              </div>
+                />
+              ) : (
+                <EmptyProducts size="lg" />
+              )
             ) : (
               <>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6 mb-12">

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Button } from '../../../components/common/Button';
 import { useLanguage } from '../../../contexts/LanguageContext';
 import { useCartStore } from '../../../features/cart/store';
+import { useCart } from '@/api/cart.hooks';
 import { PaymentMethod } from '@/types';
 import { MapPin, Phone, Mail, CreditCard, ShoppingBag, AlertTriangle, Loader2 } from 'lucide-react';
 import { CURRENCY } from '../../../utils/constants';
@@ -15,9 +16,12 @@ interface ReviewStepProps {
 
 export const ReviewStep: React.FC<ReviewStepProps> = ({ paymentMethod, onBack, onConfirm, isProcessing }) => {
   const { t } = useLanguage();
-  const { items, checkoutDetails, total } = useCartStore();
+
+  const { checkoutDetails } = useCartStore();
+  const { data: cart } = useCart();
   
-  const subtotal = total();
+  const items = cart || [];
+  const subtotal = items.reduce((sum, item) => sum + (item.price * item.quantity), 0);
   const shipping = subtotal > 30 ? 0 : 5;
   const grandTotal = subtotal + shipping;
 

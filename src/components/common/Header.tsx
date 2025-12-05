@@ -19,6 +19,7 @@ import {
   ChevronDown,
 } from "lucide-react";
 import { useCartStore } from "../../features/cart/store";
+import { useCart } from "@/api";  // ✅ Backend cart hook
 import { useAuthStore } from "../../features/auth/store";
 import { useFavoritesStore } from "../../features/favorites/store";
 import { useLanguage } from "../../contexts/LanguageContext";
@@ -60,11 +61,12 @@ export const Header: React.FC = () => {
     null
   );
   const [isLanguageDialogOpen, setIsLanguageDialogOpen] = useState(false);
-  const { items, toggleCart } = useCartStore();
+  const { toggleCart } = useCartStore();  // Only UI state (toggle)
+  const { data: cartItems = [] } = useCart();  // ✅ Backend/local items
   const { user, isAuthenticated, logout } = useAuthStore();
   const { t } = useLanguage();
   const { items: favoriteItems } = useFavoritesStore();
-  const itemCount = items.reduce((acc, item) => acc + item.quantity, 0);
+  const itemCount = cartItems.reduce((acc, item) => acc + item.quantity, 0);  // ✅ From backend
   const favoriteCount = favoriteItems.length;
   const location = useLocation();
   const navigate = useNavigate();
