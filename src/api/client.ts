@@ -1,7 +1,8 @@
-import axios, { AxiosError, InternalAxiosRequestConfig } from 'axios';
+import axios, { AxiosError, InternalAxiosRequestConfig } from "axios";
 
 // API Base URL from environment
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000/api/v1';
+const API_BASE_URL =
+  import.meta.env.VITE_API_URL || "http://localhost:3000/api/v1";
 
 // Vercel bypass token (only needed if backend has Deployment Protection enabled)
 const VERCEL_BYPASS_TOKEN = import.meta.env.VITE_VERCEL_BYPASS_TOKEN;
@@ -10,7 +11,7 @@ const VERCEL_BYPASS_TOKEN = import.meta.env.VITE_VERCEL_BYPASS_TOKEN;
 export const apiClient = axios.create({
   baseURL: API_BASE_URL,
   headers: {
-    'Content-Type': 'application/json',
+    "Content-Type": "application/json",
   },
   withCredentials: true, // Important for HTTP-only cookies (refresh token)
 });
@@ -30,15 +31,15 @@ apiClient.interceptors.request.use(
     if (accessToken && config.headers) {
       config.headers.Authorization = `Bearer ${accessToken}`;
     }
-    
+
     // Add Vercel bypass token to all requests if available
     if (VERCEL_BYPASS_TOKEN) {
       config.params = {
         ...config.params,
-        'x-vercel-protection-bypass': VERCEL_BYPASS_TOKEN,
+        "x-vercel-protection-bypass": VERCEL_BYPASS_TOKEN,
       };
     }
-    
+
     return config;
   },
   (error) => Promise.reject(error)
@@ -51,7 +52,9 @@ let refreshTokenPromise: Promise<string | null> | null = null;
 apiClient.interceptors.response.use(
   (response) => response,
   async (error: AxiosError) => {
-    const originalRequest = error.config as InternalAxiosRequestConfig & { _retry?: boolean };
+    const originalRequest = error.config as InternalAxiosRequestConfig & {
+      _retry?: boolean;
+    };
 
     // If 401 and not already retrying, try to refresh token
     if (error.response?.status === 401 && !originalRequest._retry) {
@@ -72,22 +75,23 @@ apiClient.interceptors.response.use(
               const newToken = response.data?.data?.accessToken;
               if (newToken) {
                 setAccessToken(newToken);
-                
+
                 // Sync with Zustand store if needed
                 // Import dynamically to avoid circular dependency
                 try {
-                  const { useAuthStore } = await import('../features/auth/store');
+                  const { useAuthStore } =
+                    await import("../features/auth/store");
                   const user = response.data?.data?.user;
                   if (user) {
                     // Transform backend user to frontend user format
-                    const { transformUser } = await import('./transformers');
+                    const { transformUser } = await import("./transformers");
                     const transformedUser = transformUser(user);
                     useAuthStore.getState().updateUser(transformedUser);
                   }
                 } catch (e) {
-                  console.warn('Could not sync user with store:', e);
+                  console.warn("Could not sync user with store:", e);
                 }
-                
+
                 return newToken;
               }
               return null;
@@ -98,7 +102,7 @@ apiClient.interceptors.response.use(
         }
 
         const newToken = await refreshTokenPromise;
-        
+
         if (newToken && originalRequest.headers) {
           originalRequest.headers.Authorization = `Bearer ${newToken}`;
           return apiClient(originalRequest);
@@ -107,10 +111,10 @@ apiClient.interceptors.response.use(
         // Refresh failed - clear token and redirect to login
         setAccessToken(null);
         refreshTokenPromise = null;
-        
+
         // Only redirect if not already on login page
-        if (!window.location.pathname.includes('/auth/login')) {
-          window.location.href = '/auth/login';
+        if (!window.location.pathname.includes("/auth/login")) {
+          window.location.href = "/auth/login";
         }
         return Promise.reject(refreshError);
       }
@@ -154,7 +158,7 @@ export const handleApiError = (error: AxiosError<ApiError>): string => {
   if (error.message) {
     return error.message;
   }
-  return 'An unexpected error occurred';
+  return "An unexpected error occurred";
 };
 
 export default apiClient;
