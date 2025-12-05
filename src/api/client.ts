@@ -3,6 +3,9 @@ import axios, { AxiosError, InternalAxiosRequestConfig } from 'axios';
 // API Base URL from environment
 const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000/api/v1';
 
+// Vercel bypass token (only needed if backend has Deployment Protection enabled)
+const VERCEL_BYPASS_TOKEN = import.meta.env.VITE_VERCEL_BYPASS_TOKEN;
+
 // Create axios instance
 export const apiClient = axios.create({
   baseURL: API_BASE_URL,
@@ -21,12 +24,21 @@ export const setAccessToken = (token: string | null) => {
 
 export const getAccessToken = () => accessToken;
 
-// Request interceptor - attach access token
+// Request interceptor - attach access token and Vercel bypass token
 apiClient.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
     if (accessToken && config.headers) {
       config.headers.Authorization = `Bearer ${accessToken}`;
     }
+    
+    // Add Vercel bypass token to all requests if available
+    if (VERCEL_BYPASS_TOKEN) {
+      config.params = {
+        ...config.params,
+        'x-vercel-protection-bypass': VERCEL_BYPASS_TOKEN,
+      };
+    }
+    
     return config;
   },
   (error) => Promise.reject(error)
