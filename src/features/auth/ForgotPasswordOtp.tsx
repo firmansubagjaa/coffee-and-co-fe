@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { AuthLayout } from "./components/AuthLayout";
 import { Button } from "../../components/common/Button";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
-import { useVerifyResetOtp, getAuthError } from "@/api";
+import { useVerifyResetOtp, useResendOtp, getAuthError } from "@/api";
 import { ArrowLeft, AlertCircle } from "lucide-react";
 import { Label } from "../../components/ui/label";
 import { useForm, Controller } from "react-hook-form";
@@ -19,6 +19,7 @@ export const ForgotPasswordOtp: React.FC = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const verifyResetOtpMutation = useVerifyResetOtp();
+  const resendOtpMutation = useResendOtp();
   const { t } = useLanguage();
   const [resetToken, setResetToken] = useState<string | null>(null);
 
@@ -58,6 +59,22 @@ export const ForgotPasswordOtp: React.FC = () => {
             message: t("auth.verifyOtp.validation.invalid"),
           });
           toast.error(getAuthError(error) || t("auth.verifyOtp.error"));
+        },
+      }
+    );
+  };
+
+  const handleResend = async () => {
+    if (!email) return;
+
+    resendOtpMutation.mutate(
+      { email, type: "password_reset" },
+      {
+        onSuccess: () => {
+          toast.success(t("auth.verifyOtp.resent"));
+        },
+        onError: (error) => {
+          toast.error(getAuthError(error) || "Failed to resend code");
         },
       }
     );
@@ -112,8 +129,7 @@ export const ForgotPasswordOtp: React.FC = () => {
           )}
 
           <p className="text-xs text-coffee-500 dark:text-coffee-400">
-            {t("auth.verifyOtp.tip")}{" "}
-            <strong className="text-coffee-900 dark:text-white">123456</strong>
+            {t("auth.verifyOtp.checkEmail")}
           </p>
         </div>
 
@@ -135,7 +151,9 @@ export const ForgotPasswordOtp: React.FC = () => {
             {t("auth.verifyOtp.resendText")}{" "}
             <button
               type="button"
-              className="font-bold text-coffee-900 dark:text-white underline hover:no-underline"
+              onClick={handleResend}
+              disabled={resendOtpMutation.isPending}
+              className="font-bold text-coffee-900 dark:text-white underline hover:no-underline disabled:opacity-50"
             >
               {t("auth.verifyOtp.resendLink")}
             </button>

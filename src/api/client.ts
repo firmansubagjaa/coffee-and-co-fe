@@ -56,6 +56,14 @@ apiClient.interceptors.response.use(
       _retry?: boolean;
     };
 
+    // Don't intercept 401 errors from login/register endpoints - let pages handle them
+    if (
+      originalRequest.url?.includes("/auth/login") ||
+      originalRequest.url?.includes("/auth/register")
+    ) {
+      return Promise.reject(error);
+    }
+
     // If 401 and not already retrying, try to refresh token
     if (error.response?.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
@@ -109,12 +117,28 @@ apiClient.interceptors.response.use(
         }
       } catch (refreshError) {
         // Refresh failed - clear token and redirect to login
+        console.warn("🔄 Token refresh failed:", refreshError);
+        console.log("📍 Current path:", window.location.pathname);
+
         setAccessToken(null);
         refreshTokenPromise = null;
 
-        // Only redirect if not already on login page
-        if (!window.location.pathname.includes("/auth/login")) {
-          window.location.href = "/auth/login";
+        // Clear auth store
+        try {
+          const { useAuthStore } = await import("../features/auth/store");
+          useAuthStore.getState().logout();
+        } catch (e) {
+          console.warn("Could not clear auth store:", e);
+        }
+
+        // Only redirect if not already on login/auth pages
+        const isAuthPage =
+          window.location.pathname.includes("/login") ||
+          window.location.pathname.includes("/register") ||
+          window.location.pathname.includes("/verify");
+        if (!isAuthPage) {
+          console.log("🚪 Redirecting to login...");
+          window.location.href = "/login";
         }
         return Promise.reject(refreshError);
       }

@@ -56,8 +56,31 @@ export const LoginPage: React.FC = () => {
         onSuccess: () => {
           navigate(from, { replace: true });
         },
-        onError: (error) => {
+        onError: (error: any) => {
           console.error("Login failed", error);
+
+          // Check if error is about unverified email
+          const errorMessage =
+            error?.response?.data?.message || error?.message || "";
+
+          console.log("🔍 DEBUG - Error message:", errorMessage);
+          console.log(
+            "🔍 DEBUG - Full error:",
+            JSON.stringify(error?.response?.data, null, 2)
+          );
+
+          if (errorMessage.toLowerCase().includes("verify your email")) {
+            console.log(
+              "✅ Redirecting to /verify-otp-login with email:",
+              data.email
+            );
+            // Redirect to login verify page (will redirect to home after success)
+            navigate(
+              `/verify-otp-login?email=${encodeURIComponent(data.email)}`
+            );
+            return;
+          }
+
           setError(getAuthError(error) || t("auth.login.error.generic"));
         },
       }
@@ -137,7 +160,9 @@ export const LoginPage: React.FC = () => {
           disabled={loginMutation.isPending}
           className="!rounded-xl h-12 mt-4 font-bold"
         >
-          {loginMutation.isPending ? t("auth.login.submitting") : t("auth.login.submit")}
+          {loginMutation.isPending
+            ? t("auth.login.submitting")
+            : t("auth.login.submit")}
         </Button>
 
         {/* Divider */}

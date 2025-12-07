@@ -346,7 +346,8 @@ export const id = {
           phonePlaceholder: "+62 812 3456 7890",
           cv: "Unggah CV (PDF)",
           coverLetter: "Surat Lamaran (Opsional)",
-          coverLetterPlaceholder: "Ceritakan mengapa Anda cocok untuk posisi ini...",
+          coverLetterPlaceholder:
+            "Ceritakan mengapa Anda cocok untuk posisi ini...",
         },
         validation: {
           nameRequired: "Nama wajib diisi",
@@ -361,7 +362,8 @@ export const id = {
         submit: "Kirim Lamaran",
         submitting: "Mengirim...",
         success: "Lamaran berhasil dikirim!",
-        successDesc: "Kami akan meninjau lamaran Anda dan segera menghubungi Anda.",
+        successDesc:
+          "Kami akan meninjau lamaran Anda dan segera menghubungi Anda.",
         error: "Gagal mengirim lamaran",
         backToCareers: "Kembali ke Karir",
       },
@@ -501,13 +503,15 @@ export const id = {
       backToLogin: "Kembali ke Masuk",
       backToRegister: "Kembali ke Pendaftaran",
       tip: "Tips: Untuk demo ini, gunakan kode",
+      checkEmail: "Cek email Anda untuk kode verifikasi",
       success: "Email terverifikasi",
       redirecting: "Mengalihkan ke login...",
       error: "Kode verifikasi tidak valid",
       validation: {
         required: "Kode wajib diisi",
         length: "Kode harus 6 digit",
-        invalid: 'Kode tidak valid. Coba "123456"',
+        invalid:
+          "Kode tidak valid atau sudah kadaluarsa. Silakan cek email atau minta kode baru",
       },
     },
     resetPassword: {

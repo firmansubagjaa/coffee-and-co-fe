@@ -20,13 +20,13 @@ import {
 } from "../../components/ui/input-otp";
 import { useLanguage } from "../../contexts/LanguageContext";
 
-export const AccountVerifyOtp: React.FC = () => {
+export const LoginVerifyOtp: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [searchParams] = useSearchParams();
   const { t } = useLanguage();
 
-  // Get email from query params (register flow) or location state (login redirect flow)
+  // Get email from query params or location state (login redirect flow)
   const email = searchParams.get("email") || location.state?.email;
   const verifyOtpMutation = useVerifyOtp();
   const resendOtpMutation = useResendOtp();
@@ -43,7 +43,7 @@ export const AccountVerifyOtp: React.FC = () => {
   // Redirect if no email
   useEffect(() => {
     if (!email) {
-      navigate("/register");
+      navigate("/login");
     }
   }, [email, navigate]);
 
@@ -55,10 +55,11 @@ export const AccountVerifyOtp: React.FC = () => {
       {
         onSuccess: () => {
           toast.success(t("auth.verifyOtp.success"), {
-            description: t("auth.verifyOtp.redirecting"),
+            description: "Redirecting to home...",
           });
           setTimeout(() => {
-            navigate("/login");
+            // After verify from login flow, go to home page (user is now authenticated)
+            navigate("/", { replace: true });
           }, 1500);
         },
         onError: (error) => {
@@ -167,11 +168,10 @@ export const AccountVerifyOtp: React.FC = () => {
             </button>
           </p>
           <Link
-            to="/register"
+            to="/login"
             className="inline-flex items-center justify-center gap-2 text-sm font-bold text-coffee-600 dark:text-coffee-400 hover:text-coffee-900 dark:hover:text-white transition-colors"
           >
-            <ArrowLeft className="w-4 h-4" />{" "}
-            {t("auth.verifyOtp.backToRegister")}
+            <ArrowLeft className="w-4 h-4" /> {t("auth.verifyOtp.backToLogin")}
           </Link>
         </div>
       </form>

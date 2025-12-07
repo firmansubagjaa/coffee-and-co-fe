@@ -3,6 +3,7 @@ import { createBrowserRouter, Navigate } from "react-router-dom";
 import { RootLayout } from "@/layouts/RootLayout";
 import { PageTransition } from "@/components/common/PageTransition";
 import { ProtectedRoute } from "@/components/auth/ProtectedRoute";
+import { PublicRoute } from "@/components/auth/PublicRoute";
 import { LoadingScreen } from "@/components/common/LoadingScreen";
 
 // Critical path - keep synchronous for fast initial load
@@ -227,6 +228,11 @@ const ResetPasswordPage = lazy(() =>
 const AccountVerifyOtp = lazy(() =>
   import("@/features/auth/AccountVerifyOtp").then((module) => ({
     default: module.AccountVerifyOtp,
+  }))
+);
+const LoginVerifyOtp = lazy(() =>
+  import("@/features/auth/LoginVerifyOtp").then((module) => ({
+    default: module.LoginVerifyOtp,
   }))
 );
 
@@ -626,45 +632,65 @@ export const router = createBrowserRouter([
       },
     ],
   },
-  // Auth Routes - No Navbar/Footer
+  // Auth Routes - No Navbar/Footer, Protected from logged-in users
   {
     path: "/login",
     element: (
-      <LazyPage>
-        <LoginPage />
-      </LazyPage>
+      <PublicRoute>
+        <LazyPage>
+          <LoginPage />
+        </LazyPage>
+      </PublicRoute>
     ),
   },
   {
     path: "/register",
     element: (
-      <LazyPage>
-        <RegisterPage />
-      </LazyPage>
+      <PublicRoute>
+        <LazyPage>
+          <RegisterPage />
+        </LazyPage>
+      </PublicRoute>
     ),
   },
   {
     path: "/forgot-password",
     element: (
-      <LazyPage>
-        <ForgotPasswordPage />
-      </LazyPage>
+      <PublicRoute>
+        <LazyPage>
+          <ForgotPasswordPage />
+        </LazyPage>
+      </PublicRoute>
     ),
   },
   {
     path: "/forgot-password-otp",
     element: (
-      <LazyPage>
-        <ForgotPasswordOtp />
-      </LazyPage>
+      <PublicRoute>
+        <LazyPage>
+          <ForgotPasswordOtp />
+        </LazyPage>
+      </PublicRoute>
     ),
   },
   {
     path: "/verify-otp",
     element: (
-      <LazyPage>
-        <AccountVerifyOtp />
-      </LazyPage>
+      <PublicRoute>
+        <LazyPage>
+          <AccountVerifyOtp />
+        </LazyPage>
+      </PublicRoute>
+    ),
+  },
+  {
+    path: "/verify-otp-login",
+    element: (
+      <PublicRoute>
+        <LazyPage>
+          <LoginVerifyOtp />
+        </LazyPage>
+      </PublicRoute>
     ),
   },
   {

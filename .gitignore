@@ -31,3 +31,6 @@ postman_guide.md
 .env.local
 .env.example
 INTEGRATION_COMPLETED.md
+
+.vercel
+.env.*

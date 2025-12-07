@@ -500,13 +500,15 @@ export const en = {
       backToLogin: "Back to Login",
       backToRegister: "Back to Register",
       tip: "Tip: For this demo, use code",
+      checkEmail: "Check your email for the verification code",
       success: "Email verified",
       redirecting: "Redirecting to login...",
       error: "Invalid verification code",
       validation: {
         required: "Code is required",
         length: "Code must be 6 digits",
-        invalid: 'Invalid code. Try "123456"',
+        invalid:
+          "Invalid or expired code. Please check your email or request a new one",
       },
     },
     resetPassword: {
