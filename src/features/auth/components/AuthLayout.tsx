@@ -71,7 +71,7 @@ export const AuthLayout: React.FC<AuthLayoutProps> = ({ children, title, subtitl
       </motion.div>
 
       {/* Right Side - Form - Full Width on Mobile/Tablet */}
-      <div className="w-full lg:w-[55%] flex items-center justify-center p-6 md:p-12 lg:p-20 bg-white dark:bg-coffee-950 relative">
+      <div className="w-full lg:w-[55%] flex items-center justify-center p-6 md:p-12 lg:p-20 pb-20 md:pb-12 lg:pb-20 bg-white dark:bg-coffee-950 relative">
         
         {/* Mobile/Tablet Logo Header (Visible only when sidebar is hidden) */}
         <div className="absolute top-6 left-6 lg:hidden">

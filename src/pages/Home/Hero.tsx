@@ -13,10 +13,11 @@ export const Hero: React.FC = () => {
 
   return (
     <section
-      className="px-3 md:px-6 w-full mb-12"
+      className="px-3 md:px-6 w-full mb-8 md:mb-12"
       aria-label="Welcome to Coffee and Co"
     >
-      <div className="relative h-[90vh] min-h-[700px] w-full rounded-[2.5rem] overflow-hidden flex items-center shadow-2xl shadow-coffee-900/20 group">
+      {/* Mobile: 60vh, Desktop: 90vh */}
+      <div className="relative h-[60vh] md:h-[90vh] min-h-[400px] md:min-h-[700px] w-full rounded-[1.5rem] md:rounded-[2.5rem] overflow-hidden flex items-center shadow-xl md:shadow-2xl shadow-coffee-900/20 group">
         {/* Background Image with Parallax */}
         <motion.div style={{ y }} className="absolute inset-0 z-0">
           <img
@@ -43,30 +44,33 @@ export const Hero: React.FC = () => {
             variants={VARIANTS.staggerContainer}
             initial="initial"
             animate="animate"
-            className="max-w-2xl text-white pl-4 md:pl-8"
+            className="max-w-2xl text-white pl-2 md:pl-8"
           >
             <motion.div
               variants={VARIANTS.fadeInUp}
               transition={TRANSITIONS.spring}
             >
-              <div className="inline-flex items-center gap-2 px-4 py-2 mb-8 rounded-full border border-white/20 bg-white/10 backdrop-blur-md text-xs font-bold tracking-[0.2em] uppercase shadow-lg hover:bg-white/20 transition-colors cursor-default">
-                <span className="w-2 h-2 rounded-full bg-success animate-pulse"></span>
+              {/* Smaller badge on mobile */}
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 md:px-4 md:py-2 mb-4 md:mb-8 rounded-full border border-white/20 bg-white/10 backdrop-blur-md text-[10px] md:text-xs font-bold tracking-[0.15em] md:tracking-[0.2em] uppercase shadow-lg hover:bg-white/20 transition-colors cursor-default">
+                <span className="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-success animate-pulse"></span>
                 {t("home.hero.badge")}
               </div>
             </motion.div>
 
+            {/* Mobile: 4xl, Desktop: 8xl */}
             <motion.h1
               variants={VARIANTS.fadeInUp}
               transition={TRANSITIONS.spring}
-              className="text-6xl md:text-8xl font-serif font-bold mb-8 leading-[1.1] drop-shadow-lg whitespace-pre-line tracking-tight"
+              className="text-4xl md:text-8xl font-serif font-bold mb-4 md:mb-8 leading-[1.1] drop-shadow-lg whitespace-pre-line tracking-tight"
             >
               {t("home.hero.title")}
             </motion.h1>
 
+            {/* Mobile: base, Desktop: 2xl */}
             <motion.p
               variants={VARIANTS.fadeInUp}
               transition={TRANSITIONS.spring}
-              className="text-lg md:text-2xl text-coffee-100 mb-10 font-light leading-relaxed drop-shadow-md max-w-lg opacity-90"
+              className="text-base md:text-2xl text-coffee-100 mb-6 md:mb-10 font-light leading-relaxed drop-shadow-md max-w-lg opacity-90"
             >
               {t("home.hero.subtitle")}
             </motion.p>
@@ -74,13 +78,14 @@ export const Hero: React.FC = () => {
             <motion.div
               variants={VARIANTS.fadeInUp}
               transition={TRANSITIONS.spring}
-              className="flex flex-col sm:flex-row gap-5"
+              className="flex flex-col sm:flex-row gap-3 md:gap-5"
             >
+              {/* Smaller buttons on mobile */}
               <Button
                 size="lg"
                 variant="primary"
                 onClick={() => navigate("/menu")}
-                className="h-14 px-8 text-lg shadow-xl hover:shadow-2xl hover:-translate-y-1 active:scale-95 transition-all duration-300 border-none"
+                className="h-12 md:h-14 px-6 md:px-8 text-base md:text-lg shadow-xl hover:shadow-2xl hover:-translate-y-1 active:scale-95 transition-all duration-300 border-none"
               >
                 {t("home.hero.cta")}
               </Button>
@@ -88,7 +93,7 @@ export const Hero: React.FC = () => {
                 size="lg"
                 variant="outline"
                 onClick={() => navigate("/about")}
-                className="h-14 px-8 text-lg !border-white !text-white bg-white/10 hover:!bg-white/20 hover:!border-white shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 backdrop-blur-sm"
+                className="h-12 md:h-14 px-6 md:px-8 text-base md:text-lg !border-white !text-white bg-white/10 hover:!bg-white/20 hover:!border-white shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 backdrop-blur-sm"
               >
                 {t("home.hero.storyCta")}
               </Button>

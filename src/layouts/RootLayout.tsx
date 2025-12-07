@@ -3,6 +3,7 @@ import { Outlet, useLocation } from "react-router-dom";
 import { Header } from "@/components/common/Header";
 import { Footer } from "@/components/common/Footer";
 import { CartDrawer } from "@/components/common/CartDrawer";
+import { MobileBottomNav } from "@/components/common/MobileBottomNav";
 
 import { LoadingScreen } from "@/components/common/LoadingScreen";
 
@@ -21,6 +22,9 @@ export const RootLayout: React.FC = () => {
   const isResetPassword = location.pathname.startsWith("/reset-password");
   const isVerifyOtp = location.pathname.startsWith("/verify-otp");
   const isForgotPassword = location.pathname.startsWith("/forgot-password");
+  
+  // Determine if we should show the mobile bottom nav (hide only on dashboard)
+  const showMobileNav = !isDashboard;
 
   // Scroll to top on route change
   useScrollToTop();
@@ -36,17 +40,15 @@ export const RootLayout: React.FC = () => {
       <NetworkStatusIndicator />
       <SEO />
       <Header />
-      <main id="main-content" className="flex-1" role="main">
+      {/* Add bottom padding on mobile to prevent content from being hidden behind bottom nav */}
+      <main id="main-content" className={`flex-1 ${showMobileNav ? 'pb-20 md:pb-0' : ''}`} role="main">
         <Suspense fallback={<LoadingScreen />}>
           <Outlet />
         </Suspense>
       </main>
       <CartDrawer />
-      {!isDashboard &&
-        !isAuth &&
-        !isResetPassword &&
-        !isVerifyOtp &&
-        !isForgotPassword && <Footer />}
+      {showMobileNav && <MobileBottomNav />}
+      {showMobileNav && <Footer />}
     </div>
   );
 };

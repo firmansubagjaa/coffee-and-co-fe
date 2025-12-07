@@ -41,6 +41,7 @@ export const id = {
       inactive: "Tidak Aktif",
       suspended: "Ditangguhkan",
     },
+    pleaseLogin: "Silakan masuk",
     categories: {
       coffee: "Kopi",
       pastry: "Kue",
@@ -1304,6 +1305,7 @@ export const id = {
     checkoutBtn: "Checkout",
     closeCart: "Tutup Keranjang",
     removeItem: "Hapus Item",
+    loginRequired: "Anda harus masuk untuk melihat keranjang Anda.",
   },
   languageDialog: {
     title: "Pilih Bahasa",
@@ -1401,6 +1403,7 @@ export const id = {
     startBrowsing: "Mulai Menjelajah",
     noMatchTitle: "Tidak ada favorit yang cocok dengan filter",
     noMatchDesc: "Coba sesuaikan filter Anda untuk melihat item yang disimpan.",
+    loginRequired: "Anda harus masuk untuk melihat favorit.",
   },
   orders: {
     title: "Detail Pesanan",

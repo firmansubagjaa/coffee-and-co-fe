@@ -17,6 +17,7 @@ import {
   Settings,
   Globe,
   ChevronDown,
+  Search,
 } from "lucide-react";
 import { useCartStore } from "../../features/cart/store";
 import { useCart } from "@/api";  // ✅ Backend cart hook
@@ -54,6 +55,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "../ui/alert-dialog";
+import { Dialog, DialogTrigger } from "../ui/dialog";
 
 export const Header: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
@@ -61,6 +63,7 @@ export const Header: React.FC = () => {
     null
   );
   const [isLanguageDialogOpen, setIsLanguageDialogOpen] = useState(false);
+  const [open, setOpen] = useState(false); // Mobile search dialog state
   const { toggleCart } = useCartStore();  // Only UI state (toggle)
   const { data: cartItems = [] } = useCart();  // ✅ Backend/local items
   const { user, isAuthenticated, logout } = useAuthStore();
@@ -106,35 +109,69 @@ export const Header: React.FC = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // Hide header on auth pages, forgot password flow, AND dashboard pages
-  if (
-    [
-      "/login",
-      "/register",
-      "/forgot-password",
-      "/verify-otp",
-      "/reset-password",
-    ].includes(location.pathname) ||
-    location.pathname.startsWith("/dashboard")
-  ) {
+  // Hide header only on dashboard pages
+  if (location.pathname.startsWith("/dashboard")) {
     return null;
   }
 
   return (
     <>
-      <header className="sticky top-4 z-[50] w-full px-4 md:px-6 mt-2 mb-4">
+      {/* Mobile & Desktop Header */}
+      <header className="sticky top-0 md:top-4 z-[50] w-full px-0 md:px-4 md:px-6 md:mt-2 mb-4 md:mb-4">
         <motion.div
           layout
           className={`
             mx-auto max-w-7xl
             bg-white/80 dark:bg-black/90 backdrop-blur-md
-            border border-coffee-200/50 dark:border-white/10 shadow-sm dark:shadow-black/40
+            border-x-0 md:border-x border-y md:border-y border-coffee-200/50 dark:border-white/10 shadow-sm dark:shadow-black/40
             md:overflow-visible overflow-hidden
-            ${isMobileMenuOpen ? "rounded-[2rem]" : "rounded-full"}
+            rounded-none md:rounded-full
           `}
           transition={TRANSITIONS.softSpring}
         >
-          <div className="px-4 md:px-6 h-[72px] flex items-center justify-between relative">
+          {/* Mobile Header - Full Search Bar + Cart */}
+          <div className="md:hidden px-3 h-[60px] flex items-center gap-2">
+            {/* Mobile Search Bar - Uses SearchDialog but styled as full bar */}
+            <div className="flex-1">
+              <SearchDialog />
+            </div>
+            
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <button
+                  onClick={handleCartClick}
+                  className="relative p-2.5 text-coffee-700 dark:text-coffee-200 hover:bg-coffee-100 dark:hover:bg-white/10 rounded-full transition-all group shrink-0"
+                  aria-label={`Shopping cart${
+                    itemCount > 0 ? `, ${itemCount} items` : ""
+                  }`}
+                >
+                  <ShoppingBag
+                    className="h-5 w-5 transition-transform group-hover:rotate-12"
+                    strokeWidth={2}
+                    aria-hidden="true"
+                  />
+                  <AnimatePresence>
+                    {isAuthenticated && itemCount > 0 && (
+                      <motion.span
+                        initial={{ scale: 0 }}
+                        animate={{ scale: 1 }}
+                        exit={{ scale: 0 }}
+                        className="absolute top-0.5 right-0.5 h-4 w-4 bg-yellow-500 text-coffee-900 text-[10px] flex items-center justify-center rounded-full font-bold shadow-sm"
+                      >
+                        {itemCount}
+                      </motion.span>
+                    )}
+                  </AnimatePresence>
+                </button>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>{t("cart.label")}</p>
+              </TooltipContent>
+            </Tooltip>
+          </div>
+
+          {/* Desktop Header - Full Navigation */}
+          <div className="hidden md:flex px-4 md:px-6 h-[72px] items-center justify-between relative">
             {/* Logo */}
             <NavLink
               to="/"

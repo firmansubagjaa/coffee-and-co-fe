@@ -134,13 +134,14 @@ export const ProductCard: React.FC<ProductCardProps> = memo(({ product }) => {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
       transition={TRANSITIONS.spring}
-      className="group bg-white dark:bg-[#3C2A21] rounded-[2rem] shadow-sm hover:shadow-2xl hover:-translate-y-1 transition-all duration-500 overflow-hidden border border-coffee-50 dark:border-none flex flex-col h-full relative"
+      className="group bg-white dark:bg-[#3C2A21] rounded-[1.25rem] md:rounded-[2rem] shadow-sm hover:shadow-2xl hover:-translate-y-1 transition-all duration-500 overflow-hidden border border-coffee-50 dark:border-none flex flex-col h-full relative"
       aria-label={`${product.name}, ${CURRENCY}${product.price.toFixed(
         2
       )}, Rating ${product.rating} out of 5`}
     >
-      <div className="p-4">
-        <div className="relative aspect-square overflow-hidden rounded-[1.5rem] bg-coffee-50 dark:bg-transparent shadow-inner">
+      {/* Smaller padding on mobile */}
+      <div className="p-2.5 md:p-4">
+        <div className="relative aspect-square overflow-hidden rounded-[1rem] md:rounded-[1.5rem] bg-coffee-50 dark:bg-transparent shadow-inner">
           {/* Link wrapper */}
           <Link
             to={`/product/${product.id}`}
@@ -170,15 +171,15 @@ export const ProductCard: React.FC<ProductCardProps> = memo(({ product }) => {
             </div>
           </Link>
 
-          {/* Top Left Actions */}
-          <div className="absolute top-3 left-3 z-20 flex gap-2">
+          {/* Top Left Actions - smaller on mobile */}
+          <div className="absolute top-2 left-2 md:top-3 md:left-3 z-20 flex gap-2">
             <Tooltip>
               <TooltipTrigger asChild>
                 <motion.button
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
                   onClick={handleToggleFavorite}
-                  className="p-2.5 rounded-full bg-white/80 dark:bg-[#2C1A11]/60 backdrop-blur-md shadow-sm border border-white/20 dark:border-none hover:bg-white dark:hover:bg-[#2C1A11]/80 transition-colors"
+                  className="p-2 md:p-2.5 rounded-full bg-white/80 dark:bg-[#2C1A11]/60 backdrop-blur-md shadow-sm border border-white/20 dark:border-none hover:bg-white dark:hover:bg-[#2C1A11]/80 transition-colors"
                   aria-label={
                     favorite ? "Remove from favorites" : "Add to favorites"
                   }
@@ -189,7 +190,7 @@ export const ProductCard: React.FC<ProductCardProps> = memo(({ product }) => {
                     transition={{ duration: 0.3 }}
                   >
                     <Heart
-                      className={`h-4 w-4 transition-colors ${
+                      className={`h-3.5 w-3.5 md:h-4 md:w-4 transition-colors ${
                         favorite
                           ? "fill-error text-error"
                           : "text-coffee-900 dark:text-white"
@@ -205,14 +206,14 @@ export const ProductCard: React.FC<ProductCardProps> = memo(({ product }) => {
             </Tooltip>
           </div>
 
-          {/* Rating Badge */}
-          <div className="absolute top-3 right-3 bg-white/90 dark:bg-[#2C1A11]/60 backdrop-blur-md px-3 py-1.5 rounded-full flex items-center gap-1.5 z-20 pointer-events-none border border-white/20 dark:border-none shadow-sm">
+          {/* Rating Badge - smaller on mobile */}
+          <div className="absolute top-2 right-2 md:top-3 md:right-3 bg-white/90 dark:bg-[#2C1A11]/60 backdrop-blur-md px-2 py-1 md:px-3 md:py-1.5 rounded-full flex items-center gap-1 md:gap-1.5 z-20 pointer-events-none border border-white/20 dark:border-none shadow-sm">
             <Star
-              className="h-3.5 w-3.5 fill-yellow-400 text-yellow-400"
+              className="h-3 w-3 md:h-3.5 md:w-3.5 fill-yellow-400 text-yellow-400"
               aria-hidden="true"
             />
             <span
-              className="text-xs font-bold text-coffee-900 dark:text-white"
+              className="text-[10px] md:text-xs font-bold text-coffee-900 dark:text-white"
               aria-label={`Rating ${product.rating} out of 5`}
             >
               {product.rating}
@@ -221,42 +222,46 @@ export const ProductCard: React.FC<ProductCardProps> = memo(({ product }) => {
         </div>
       </div>
 
-      <div className="px-6 pb-6 pt-2 flex flex-col flex-1">
+      {/* Smaller padding on mobile */}
+      <div className="px-3 pb-3 pt-1 md:px-6 md:pb-6 md:pt-2 flex flex-col flex-1">
         <Link
           to={`/product/${product.id}`}
           className="block transition-colors flex-1 group-hover:text-coffee-700 dark:group-hover:text-coffee-300"
         >
-          <div className="mb-3">
-            <p className="text-[10px] text-coffee-500 dark:text-white/50 uppercase tracking-[0.2em] font-bold mb-2">
+          <div className="mb-2 md:mb-3">
+            <p className="text-[9px] md:text-[10px] text-coffee-500 dark:text-white/50 uppercase tracking-[0.15em] md:tracking-[0.2em] font-bold mb-1 md:mb-2">
               {product.category}
             </p>
-            <h3 className="font-serif text-xl font-bold text-coffee-900 dark:text-white leading-tight mb-2 line-clamp-1">
+            {/* Smaller title on mobile */}
+            <h3 className="font-serif text-base md:text-xl font-bold text-coffee-900 dark:text-white leading-tight mb-1 md:mb-2 line-clamp-1">
               {product.name}
             </h3>
           </div>
 
+          {/* Shorter description on mobile */}
           <div
-            className="text-sm text-coffee-600 dark:text-white/70 mb-6 h-10 line-clamp-2 leading-relaxed"
+            className="text-xs md:text-sm text-coffee-600 dark:text-white/70 mb-3 md:mb-6 h-8 md:h-10 line-clamp-2 leading-relaxed"
             dangerouslySetInnerHTML={{ __html: product.description }}
           />
 
           <div className="flex items-center justify-between mt-auto">
-            <span className="font-serif font-bold text-2xl text-coffee-900 dark:text-white">
+            {/* Smaller price on mobile */}
+            <span className="font-serif font-bold text-lg md:text-2xl text-coffee-900 dark:text-white">
               {CURRENCY}
               {product.price.toFixed(2)}
             </span>
 
-            {/* Mobile Add Button */}
+            {/* Mobile Add Button - slightly smaller */}
             <button
               onClick={handleAddToCart}
-              className="md:hidden p-3 bg-coffee-100 dark:bg-white/10 rounded-full text-coffee-900 dark:text-white active:scale-95 transition-transform hover:bg-coffee-200 dark:hover:bg-white/20"
+              className="md:hidden p-2.5 bg-coffee-100 dark:bg-white/10 rounded-full text-coffee-900 dark:text-white active:scale-95 transition-transform hover:bg-coffee-200 dark:hover:bg-white/20"
               aria-label={`Add ${product.name} to cart`}
               disabled={isPending}
             >
               {isPending ? (
-                <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
               ) : (
-                <Plus className="h-5 w-5" aria-hidden="true" />
+                <Plus className="h-4 w-4" aria-hidden="true" />
               )}
             </button>
           </div>

@@ -62,9 +62,10 @@ export const SearchDialog: React.FC = () => {
     <Dialog open={open} onOpenChange={setOpen}>
 
       <DialogTrigger asChild>
-        <button className="flex items-center gap-2 p-2 rounded-full text-coffee-700 dark:text-coffee-200 hover:bg-coffee-100 dark:hover:bg-white/10 transition-colors group">
-          <Search className="h-5 w-5" strokeWidth={2} />
-          <span className="sr-only md:not-sr-only md:inline-block md:text-sm md:text-coffee-600 dark:text-coffee-300 group-hover:text-coffee-900 dark:group-hover:text-white pr-2 font-medium">
+        {/* Mobile: Full search bar, Desktop: Icon with text */}
+        <button className="flex items-center gap-2 w-full md:w-auto px-3 md:px-2 py-2 md:py-2 rounded-full md:rounded-full text-coffee-700 dark:text-coffee-200 bg-coffee-50 dark:bg-coffee-800/50 md:bg-transparent hover:bg-coffee-100 md:hover:bg-coffee-100 dark:hover:bg-coffee-700 md:dark:hover:bg-white/10 transition-colors group border border-coffee-100 dark:border-coffee-700 md:border-0">
+          <Search className="h-4 w-4 md:h-5 md:w-5 shrink-0" strokeWidth={2} />
+          <span className="flex-1 md:flex-none text-left md:text-center text-sm md:text-sm text-coffee-400 md:text-coffee-600 dark:text-coffee-500 dark:md:text-coffee-300 md:group-hover:text-coffee-900 dark:md:group-hover:text-white md:pr-2 font-normal md:font-medium">
             {t('common.search')} <kbd className="hidden lg:inline-flex h-5 select-none items-center gap-1 rounded border border-coffee-200 dark:border-white/10 bg-white/50 dark:bg-white/5 px-1.5 font-mono text-[10px] font-medium text-coffee-500 dark:text-coffee-400 opacity-100"><span className="text-xs">⌘</span>K</kbd>
           </span>
         </button>

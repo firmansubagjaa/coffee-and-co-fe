@@ -73,16 +73,16 @@ export const HomePage: React.FC = () => {
         {/* Featured Section */}
         {/* Featured Section */}
         <section
-          className="py-32 container mx-auto px-4 md:px-6 overflow-hidden"
+          className="py-12 md:py-32 container mx-auto px-4 md:px-6 overflow-hidden"
           aria-labelledby="featured-heading"
         >
-          <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-8 md:mb-16 gap-4 md:gap-8">
             <div className="flex-1 max-w-2xl">
               <motion.span
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                className="inline-block text-coffee-600 dark:text-coffee-400 font-bold tracking-widest uppercase text-sm mb-4"
+                className="inline-block text-coffee-600 dark:text-coffee-400 font-bold tracking-widest uppercase text-xs md:text-sm mb-2 md:mb-4"
               >
                 Curated Selection
               </motion.span>
@@ -92,7 +92,7 @@ export const HomePage: React.FC = () => {
                 viewport={{ once: true }}
                 transition={{ delay: 0.1 }}
                 id="featured-heading"
-                className="text-4xl md:text-6xl font-serif font-bold text-coffee-900 dark:text-white mb-6 leading-tight"
+                className="text-2xl md:text-6xl font-serif font-bold text-coffee-900 dark:text-white mb-3 md:mb-6 leading-tight"
               >
                 {t("home.featured.title")}
               </motion.h2>
@@ -101,7 +101,7 @@ export const HomePage: React.FC = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.2 }}
-                className="text-xl text-coffee-600 dark:text-coffee-300 leading-relaxed"
+                className="text-sm md:text-xl text-coffee-600 dark:text-coffee-300 leading-relaxed"
               >
                 {t("home.featured.subtitle")}
               </motion.p>

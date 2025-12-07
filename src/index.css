@@ -363,4 +363,59 @@
   .focus-glow:focus-visible {
     box-shadow: 0 0 0 3px rgba(121, 85, 72, 0.3);
   }
+
+  /* ========================================
+     MOBILE-SPECIFIC UTILITIES
+     ======================================== */
+
+  /* Safe area padding for notched devices (iPhone X+, etc.) */
+  .pb-safe {
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+
+  .pt-safe {
+    padding-top: env(safe-area-inset-top, 0px);
+  }
+
+  /* Bottom sheet slide-up animation */
+  .animate-slide-up {
+    animation: slide-up 0.3s ease-out;
+  }
+
+  .animate-slide-down {
+    animation: slide-down 0.2s ease-in;
+  }
+
+  /* Mobile touch feedback */
+  .touch-feedback {
+    @apply active:scale-[0.97] transition-transform duration-100;
+  }
+
+  /* Mobile card style */
+  .mobile-card {
+    @apply bg-white dark:bg-coffee-900 rounded-2xl shadow-sm border border-coffee-100 dark:border-coffee-800;
+  }
+}
+
+/* Bottom sheet animations (outside @layer for keyframes) */
+@keyframes slide-up {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slide-down {
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(100%);
+    opacity: 0;
+  }
 }

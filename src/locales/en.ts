@@ -46,6 +46,7 @@ export const en = {
     },
     dashboard: "Dashboard",
     favorites: "Favorites",
+    pleaseLogin: "Please log in",
 
     categories: {
       coffee: "Coffee",
@@ -1328,6 +1329,7 @@ export const en = {
     browseMenu: "Browse Menu",
     closeCart: "Close Cart",
     removeItem: "Remove Item",
+    loginRequired: "You need to be logged in to view your cart.",
   },
   languageDialog: {
     title: "Select Language",
@@ -1435,6 +1437,7 @@ export const en = {
     startBrowsing: "Start Browsing",
     noMatchTitle: "No favorites match filters",
     noMatchDesc: "Try adjusting your filters to see your saved items.",
+    loginRequired: "You need to be logged in to view favorites.",
   },
 
   history: {

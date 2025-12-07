@@ -282,9 +282,9 @@ export const MenuPage: React.FC = () => {
         </div>
 
         {/* Header - Increased z-index to 40 to ensure dropdown sits above cards */}
-        {/* Adjusted top offset to 120px to sit below floating nav */}
+        {/* Adjusted top offset to sit below mobile header (60px height + 16px margin) */}
         {/* Mobile Header & Controls (Sticky) */}
-        <div className="md:hidden sticky top-[100px] z-30 bg-white/95 dark:bg-coffee-950/95 backdrop-blur-md -mx-4 px-4 py-3 mb-6 shadow-sm transition-all">
+        <div className="md:hidden sticky top-[76px] z-30 bg-white/95 dark:bg-coffee-950/95 backdrop-blur-md -mx-4 px-4 py-3 mb-6 shadow-sm transition-all">
           <div className="flex items-center justify-between mb-3">
             <h1 className="text-2xl font-serif font-bold text-coffee-900 dark:text-white">
               {t("nav.menu")}{" "}

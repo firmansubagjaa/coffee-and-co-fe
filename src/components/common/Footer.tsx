@@ -14,8 +14,9 @@ export const Footer: React.FC = () => {
   const { t } = useLanguage();
 
   return (
+    // Footer hidden on mobile - bottom nav provides navigation
     <footer
-      className="bg-coffee-900 dark:bg-[#3C2A21] text-white pt-20 pb-10 transition-colors duration-300"
+      className="hidden md:block bg-coffee-900 dark:bg-[#3C2A21] text-white pt-20 pb-10 transition-colors duration-300"
       role="contentinfo"
     >
       <div className="container mx-auto px-4 md:px-8">
